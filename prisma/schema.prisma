@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model BookingConfig {
+  id               String @id @default("default")
+  timezone         String @default("Asia/Karachi")
+  slotDurationMin  Int    @default(15)
+  startHour        Int    @default(15)
+  endHour          Int    @default(1)
+  workingDays      Int[]  @default([1, 2, 3, 4, 5])
+  minNoticeHours   Int    @default(3)
+  instantBookStart Int?
+  instantBookEnd   Int?
+  bufferMinutes    Int    @default(0)
+}
+
+model Booking {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  company     String?
+  date        DateTime @db.Date
+  startTime   DateTime @db.Timestamptz
+  endTime     DateTime @db.Timestamptz
+  gcalEventId String?
+  createdAt   DateTime @default(now())
+
+  @@index([date])
+  @@index([email])
+}
+
+model BlockedPeriod {
+  id        String   @id @default(uuid())
+  startTime DateTime @db.Timestamptz
+  endTime   DateTime @db.Timestamptz
+  reason    String?
+  source    String   @default("manual")
+  gcalId    String?
+  createdAt DateTime @default(now())
+
+  @@index([startTime, endTime])
+}
+
+model AdminToken {
+  id           String   @id @default("google_calendar")
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  updatedAt    DateTime @updatedAt
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String?
+  passwordHash String?
+  googleId     String?  @unique
+  avatarUrl    String?
+  plan         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

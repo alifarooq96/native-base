@@ -10,13 +10,17 @@ function getSecret() {
   return new TextEncoder().encode(secret);
 }
 
-async function getSession(request: NextRequest): Promise<{ userId: string; role: string } | null> {
+async function getSession(request: NextRequest): Promise<{ userId: string; role: string; subscriptionStatus?: string } | null> {
   const token = request.cookies.get(COOKIE_NAME)?.value;
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, getSecret());
     if (!payload.sub) return null;
-    return { userId: payload.sub, role: (payload.role as string) || 'client' };
+    return {
+      userId: payload.sub,
+      role: (payload.role as string) || 'client',
+      subscriptionStatus: (payload.subscriptionStatus as string) || undefined,
+    };
   } catch {
     return null;
   }
@@ -47,6 +51,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname.startsWith('/book')) {
+    if (!loggedIn) {
+      const response = NextResponse.redirect(new URL('/signup', request.url));
+      response.cookies.delete(COOKIE_NAME);
+      return response;
+    }
+    return NextResponse.next();
+  }
+
   if (pathname.startsWith('/admin')) {
     if (!loggedIn) {
       const response = NextResponse.redirect(new URL('/login', request.url));
@@ -63,5 +76,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/signup', '/login', '/board/:path*', '/admin/:path*'],
+  matcher: ['/', '/signup', '/login', '/board/:path*', '/book/:path*', '/admin/:path*'],
 };

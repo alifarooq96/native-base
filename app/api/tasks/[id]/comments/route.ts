@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getSessionUser } from '@/lib/auth';
+import { requireActiveSubscription } from '@/lib/requireSubscription';
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getSessionUser();
+  const { error: subError, session } = await requireActiveSubscription();
+  if (subError) return subError;
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

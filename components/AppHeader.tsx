@@ -144,9 +144,17 @@ export function AppHeader({ userName, homeHref = '/board' }: { userName: string;
                 zIndex: 100,
               }}
             >
-              <Link
-                href="/board/billing"
-                onClick={() => setOpen(false)}
+              <button
+                onClick={async () => {
+                  setOpen(false);
+                  try {
+                    const res = await fetch('/api/stripe/portal', { method: 'POST' });
+                    const data = await res.json();
+                    if (data.url) window.location.href = data.url;
+                  } catch {
+                    // ignore
+                  }
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -155,6 +163,11 @@ export function AppHeader({ userName, homeHref = '/board' }: { userName: string;
                   fontSize: '0.875rem',
                   color: 'var(--text)',
                   transition: 'background-color 0.15s',
+                  background: 'none',
+                  border: 'none',
+                  width: '100%',
+                  textAlign: 'left',
+                  cursor: 'pointer',
                 }}
                 onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-alt)')}
                 onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
@@ -163,8 +176,8 @@ export function AppHeader({ userName, homeHref = '/board' }: { userName: string;
                   <rect x="2" y="5" width="20" height="14" rx="2" />
                   <line x1="2" y1="10" x2="22" y2="10" />
                 </svg>
-                Usage &amp; Billing
-              </Link>
+                Manage subscription
+              </button>
               <Link
                 href="/board/profile"
                 onClick={() => setOpen(false)}

@@ -10,15 +10,21 @@ type Slot = {
 
 type BookingStep = 'date' | 'time' | 'form' | 'success';
 
-export function SlotPicker() {
+export function SlotPicker({
+  prefillName,
+  prefillEmail,
+}: {
+  prefillName?: string;
+  prefillEmail?: string;
+} = {}) {
   const [step, setStep] = useState<BookingStep>('date');
   const [slots, setSlots] = useState<Slot[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState(prefillName || '');
+  const [email, setEmail] = useState(prefillEmail || '');
   const [company, setCompany] = useState('');
   const [submitting, setSubmitting] = useState(false);
 

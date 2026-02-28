@@ -9,8 +9,12 @@ function getSecret() {
   return new TextEncoder().encode(secret);
 }
 
-export async function createSessionToken(userId: string, role = 'client'): Promise<string> {
-  return new SignJWT({ sub: userId, role })
+export async function createSessionToken(
+  userId: string,
+  role = 'client',
+  subscriptionStatus?: string | null
+): Promise<string> {
+  return new SignJWT({ sub: userId, role, subscriptionStatus: subscriptionStatus ?? undefined })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('30d')
@@ -19,11 +23,15 @@ export async function createSessionToken(userId: string, role = 'client'): Promi
 
 export async function verifySessionToken(
   token: string
-): Promise<{ userId: string; role: string } | null> {
+): Promise<{ userId: string; role: string; subscriptionStatus?: string } | null> {
   try {
     const { payload } = await jwtVerify(token, getSecret());
     if (!payload.sub) return null;
-    return { userId: payload.sub, role: (payload.role as string) || 'client' };
+    return {
+      userId: payload.sub,
+      role: (payload.role as string) || 'client',
+      subscriptionStatus: (payload.subscriptionStatus as string) || undefined,
+    };
   } catch {
     return null;
   }
@@ -41,7 +49,7 @@ export function sessionCookie(token: string) {
   };
 }
 
-export async function getSessionUser(): Promise<{ userId: string; role: string } | null> {
+export async function getSessionUser(): Promise<{ userId: string; role: string; subscriptionStatus?: string } | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return null;

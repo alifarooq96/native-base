@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
-import { getSessionUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { requireActiveSubscription } from '@/lib/requireSubscription';
 
 export async function PUT(req: NextRequest) {
-  const session = await getSessionUser();
+  const { error: subError, session } = await requireActiveSubscription();
+  if (subError) return subError;
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

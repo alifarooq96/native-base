@@ -52,7 +52,7 @@ export async function GET(request: Request) {
       },
     });
 
-    const token = await createSessionToken(user.id, user.role);
+    const token = await createSessionToken(user.id, user.role, user.subscriptionStatus);
     const cookie = sessionCookie(token);
 
     const redirect = user.role === 'admin' ? `${base}/admin` : `${base}/board`;

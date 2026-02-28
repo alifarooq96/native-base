@@ -7,7 +7,8 @@ interface Client {
   id: string;
   email: string;
   name: string | null;
-  plan: string | null;
+  currentPlan: string | null;
+  subscriptionStatus: string | null;
   createdAt: string;
   _count: { tasks: number };
 }
@@ -98,19 +99,19 @@ export function AdminClientList() {
               <td style={{ ...tdStyle, color: 'var(--text-muted)' }}>{client.email}</td>
               <td style={{ ...tdStyle, textAlign: 'center' }}>{client._count.tasks}</td>
               <td style={{ ...tdStyle, textAlign: 'center' }}>
-                {client.plan ? (
+                {client.currentPlan ? (
                   <span
                     style={{
                       fontSize: '0.75rem',
                       fontWeight: 600,
                       padding: '0.15rem 0.5rem',
                       borderRadius: 9999,
-                      background: 'var(--bg-alt)',
-                      color: 'var(--text-muted)',
+                      background: client.subscriptionStatus === 'active' ? '#dcfce7' : 'var(--bg-alt)',
+                      color: client.subscriptionStatus === 'active' ? '#16a34a' : 'var(--text-muted)',
                       textTransform: 'capitalize',
                     }}
                   >
-                    {client.plan}
+                    {client.currentPlan}
                   </span>
                 ) : (
                   <span style={{ color: 'var(--text-muted-soft)', fontSize: '0.8125rem' }}>—</span>

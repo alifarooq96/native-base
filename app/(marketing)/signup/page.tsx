@@ -1,10 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default function SignUp() {
+export default function SignUpPage() {
+  return (
+    <Suspense>
+      <SignUp />
+    </Suspense>
+  );
+}
+
+function SignUp() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [name, setName] = useState('');

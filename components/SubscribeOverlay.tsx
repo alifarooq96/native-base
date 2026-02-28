@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 const CHECK = (
@@ -72,7 +72,6 @@ function formatBookingTime(isoStr: string): string {
 
 export function SubscribeOverlay() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [error, setError] = useState('');
   const [activating, setActivating] = useState(false);
@@ -80,21 +79,38 @@ export function SubscribeOverlay() {
 
   const isSuccess = searchParams.get('subscription') === 'success';
 
-  const refreshAndReload = useCallback(async () => {
-    setActivating(true);
-    try {
-      await fetch('/api/auth/refresh-session', { method: 'POST' });
-    } catch {
-      // ignore
-    }
-    router.refresh();
-  }, [router]);
-
   useEffect(() => {
-    if (isSuccess) {
-      refreshAndReload();
+    if (!isSuccess) return;
+    setActivating(true);
+
+    let cancelled = false;
+    let attempts = 0;
+    const maxAttempts = 15;
+    const interval = 2000;
+
+    async function poll() {
+      if (cancelled) return;
+      attempts++;
+      try {
+        const res = await fetch('/api/stripe/verify', { method: 'POST' });
+        const data = await res.json();
+        if (data.subscriptionStatus === 'active') {
+          window.location.href = '/board';
+          return;
+        }
+      } catch {
+        // ignore
+      }
+      if (attempts < maxAttempts && !cancelled) {
+        setTimeout(poll, interval);
+      } else if (!cancelled) {
+        window.location.href = '/board';
+      }
     }
-  }, [isSuccess, refreshAndReload]);
+
+    const timer = setTimeout(poll, 1500);
+    return () => { cancelled = true; clearTimeout(timer); };
+  }, [isSuccess]);
 
   useEffect(() => {
     fetch('/api/bookings/mine')

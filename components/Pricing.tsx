@@ -22,6 +22,7 @@ const PLANS = [
       '10 credits per month',
       '1 concurrent request at a time',
       '48-hour average delivery',
+      'Real-time task board to track progress',
       'Dedicated Slack channel',
       'Pause or cancel anytime',
       'Unused credits roll over (up to 20)',
@@ -40,6 +41,7 @@ const PLANS = [
       '25 credits per month',
       '2 concurrent requests at a time',
       '48-hour average delivery',
+      'Real-time task board to track progress',
       'Priority on-call support 12/5',
       'Dedicated Slack channel',
       'Pause or cancel anytime',
@@ -58,6 +60,7 @@ const PLANS = [
     features: [
       'Custom credit allocation',
       'Unlimited concurrent requests',
+      'Real-time task board to track progress',
       'Dedicated account manager',
       'Custom SLAs and turnaround',
       'Priority on-call support 24/7',

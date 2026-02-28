@@ -52,10 +52,11 @@ export async function GET(request: Request) {
       },
     });
 
-    const token = await createSessionToken(user.id);
+    const token = await createSessionToken(user.id, user.role);
     const cookie = sessionCookie(token);
 
-    const res = NextResponse.redirect(`${base}/board`);
+    const redirect = user.role === 'admin' ? `${base}/admin` : `${base}/board`;
+    const res = NextResponse.redirect(redirect);
     res.cookies.set(cookie.name, cookie.value, {
       httpOnly: cookie.httpOnly,
       secure: cookie.secure,

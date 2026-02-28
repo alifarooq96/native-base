@@ -9,8 +9,8 @@ function getSecret() {
   return new TextEncoder().encode(secret);
 }
 
-export async function createSessionToken(userId: string): Promise<string> {
-  return new SignJWT({ sub: userId })
+export async function createSessionToken(userId: string, role = 'client'): Promise<string> {
+  return new SignJWT({ sub: userId, role })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('30d')
@@ -19,11 +19,11 @@ export async function createSessionToken(userId: string): Promise<string> {
 
 export async function verifySessionToken(
   token: string
-): Promise<{ userId: string } | null> {
+): Promise<{ userId: string; role: string } | null> {
   try {
     const { payload } = await jwtVerify(token, getSecret());
     if (!payload.sub) return null;
-    return { userId: payload.sub };
+    return { userId: payload.sub, role: (payload.role as string) || 'client' };
   } catch {
     return null;
   }
@@ -41,7 +41,7 @@ export function sessionCookie(token: string) {
   };
 }
 
-export async function getSessionUser(): Promise<{ userId: string } | null> {
+export async function getSessionUser(): Promise<{ userId: string; role: string } | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return null;

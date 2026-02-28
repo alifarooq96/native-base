@@ -30,7 +30,7 @@ export default function Login() {
         return;
       }
 
-      router.push('/board');
+      router.push(data.role === 'admin' ? '/admin' : '/board');
     } catch {
       setError('Network error. Please try again.');
     } finally {

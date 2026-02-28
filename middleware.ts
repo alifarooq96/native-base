@@ -10,24 +10,27 @@ function getSecret() {
   return new TextEncoder().encode(secret);
 }
 
-async function hasValidSession(request: NextRequest): Promise<boolean> {
+async function getSession(request: NextRequest): Promise<{ userId: string; role: string } | null> {
   const token = request.cookies.get(COOKIE_NAME)?.value;
-  if (!token) return false;
+  if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, getSecret());
-    return !!payload.sub;
+    if (!payload.sub) return null;
+    return { userId: payload.sub, role: (payload.role as string) || 'client' };
   } catch {
-    return false;
+    return null;
   }
 }
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const loggedIn = await hasValidSession(request);
+  const session = await getSession(request);
+  const loggedIn = !!session;
+  const isAdmin = session?.role === 'admin';
 
   if (pathname === '/' || pathname === '/signup' || pathname === '/login') {
     if (loggedIn) {
-      return NextResponse.redirect(new URL('/board', request.url));
+      return NextResponse.redirect(new URL(isAdmin ? '/admin' : '/board', request.url));
     }
     return NextResponse.next();
   }
@@ -38,6 +41,21 @@ export async function middleware(request: NextRequest) {
       response.cookies.delete(COOKIE_NAME);
       return response;
     }
+    if (isAdmin) {
+      return NextResponse.redirect(new URL('/admin', request.url));
+    }
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith('/admin')) {
+    if (!loggedIn) {
+      const response = NextResponse.redirect(new URL('/login', request.url));
+      response.cookies.delete(COOKIE_NAME);
+      return response;
+    }
+    if (!isAdmin) {
+      return NextResponse.redirect(new URL('/board', request.url));
+    }
     return NextResponse.next();
   }
 
@@ -45,5 +63,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/signup', '/login', '/board/:path*'],
+  matcher: ['/', '/signup', '/login', '/board/:path*', '/admin/:path*'],
 };

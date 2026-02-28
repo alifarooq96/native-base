@@ -33,10 +33,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const token = await createSessionToken(user.id);
+    const token = await createSessionToken(user.id, user.role);
     const cookie = sessionCookie(token);
 
-    const res = NextResponse.json({ ok: true });
+    const res = NextResponse.json({ ok: true, role: user.role });
     res.cookies.set(cookie.name, cookie.value, {
       httpOnly: cookie.httpOnly,
       secure: cookie.secure,

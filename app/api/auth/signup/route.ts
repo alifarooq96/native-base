@@ -43,11 +43,11 @@ export async function POST(request: Request) {
       },
     });
 
-    const token = await createSessionToken(user.id);
+    const token = await createSessionToken(user.id, user.role);
     const cookie = sessionCookie(token);
 
     const res = NextResponse.json(
-      { id: user.id, email: user.email, name: user.name },
+      { id: user.id, email: user.email, name: user.name, role: user.role },
       { status: 201 }
     );
     res.cookies.set(cookie.name, cookie.value, {

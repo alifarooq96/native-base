@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export function AppHeader({ userName }: { userName: string }) {
+export function AppHeader({ userName, homeHref = '/board' }: { userName: string; homeHref?: string }) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -53,7 +53,7 @@ export function AppHeader({ userName }: { userName: string }) {
         }}
       >
         <Link
-          href="/board"
+          href={homeHref}
           style={{
             fontSize: '1.25rem',
             fontWeight: 700,

@@ -32,17 +32,25 @@ const PRIORITY_COLORS: Record<string, { bg: string; text: string }> = {
 interface TaskBoardProps {
   initialTaskId?: string | null;
   userName?: string;
+  isAdmin?: boolean;
+  forUserId?: string;
+  clientName?: string;
 }
 
-export function TaskBoard({ initialTaskId, userName }: TaskBoardProps = {}) {
+export function TaskBoard({ initialTaskId, userName, isAdmin, forUserId, clientName }: TaskBoardProps = {}) {
   const [columns, setColumns] = useState<Columns | null>(null);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(initialTaskId ?? null);
 
+  const basePath = isAdmin && forUserId ? `/admin/${forUserId}` : '/board';
+
   const fetchTasks = useCallback(async () => {
+    const url = isAdmin && forUserId
+      ? `/api/admin/clients/${forUserId}/tasks`
+      : '/api/tasks';
     try {
-      const res = await fetch('/api/tasks');
+      const res = await fetch(url);
       if (res.ok) {
         const data = await res.json();
         setColumns(data);
@@ -50,7 +58,7 @@ export function TaskBoard({ initialTaskId, userName }: TaskBoardProps = {}) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isAdmin, forUserId]);
 
   useEffect(() => {
     fetchTasks();
@@ -58,18 +66,21 @@ export function TaskBoard({ initialTaskId, userName }: TaskBoardProps = {}) {
 
   const selectTask = useCallback((id: string | null) => {
     setSelectedTaskId(id);
-    const url = id ? `/board/${id}` : '/board';
+    const url = id ? `${basePath}/${id}` : basePath;
     window.history.pushState({}, '', url);
-  }, []);
+  }, [basePath]);
 
   useEffect(() => {
     const onPopState = () => {
-      const match = window.location.pathname.match(/^\/board\/(.+)$/);
+      const pattern = isAdmin && forUserId
+        ? new RegExp(`^/admin/${forUserId}/(.+)$`)
+        : /^\/board\/(.+)$/;
+      const match = window.location.pathname.match(pattern);
       setSelectedTaskId(match ? match[1] : null);
     };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
-  }, []);
+  }, [isAdmin, forUserId]);
 
   const selectedTaskSummary = selectedTaskId && columns
     ? Object.values(columns).flat().find((t) => t.id === selectedTaskId) ?? null
@@ -103,77 +114,104 @@ export function TaskBoard({ initialTaskId, userName }: TaskBoardProps = {}) {
 
   return (
     <>
-      {/* How it works banner */}
-      <div
-        style={{
-          background: 'var(--bg)',
-          border: '1px solid var(--border)',
-          borderRadius: 12,
-          padding: '1.25rem 1.5rem',
-          marginBottom: '1.5rem',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1.5rem',
-        }}
-        className="board-how-it-works"
-      >
-        {[
-          {
-            icon: (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
-                <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
-              </svg>
-            ),
-            title: 'Describe what you need',
-            desc: 'Create a task describing the workflow you want automated. Screenshots, screen recordings, and examples help us move faster.',
-          },
-          {
-            icon: (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M9 21V9" />
-              </svg>
-            ),
-            title: 'We break it down',
-            desc: 'Native Base reviews your request, breaks it into bite-sized subtasks, and allocates credits. You approve before we start.',
-          },
-          {
-            icon: (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
-            ),
-            title: 'Fast turnaround',
-            desc: 'We work ticket by ticket with an average turnaround of 48 hours — often much faster. Track progress right here.',
-          },
-        ].map((step, i) => (
-          <div key={i} style={{ display: 'flex', gap: '0.75rem' }}>
-            <div
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: 8,
-                background: 'rgba(13, 148, 136, 0.08)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-              }}
-            >
-              {step.icon}
-            </div>
-            <div>
-              <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text)', marginBottom: '0.2rem' }}>
-                {step.title}
-              </p>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                {step.desc}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Admin breadcrumb */}
+      {isAdmin && clientName && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+          <a
+            href="/admin"
+            style={{
+              fontSize: '0.875rem',
+              color: 'var(--text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Clients
+          </a>
+          <span style={{ color: 'var(--text-muted-soft)', fontSize: '0.875rem' }}>/</span>
+          <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text)' }}>
+            {clientName}
+          </span>
+        </div>
+      )}
 
-      {/* Task count + new task */}
+      {/* How it works banner — only for clients */}
+      {!isAdmin && (
+        <div
+          style={{
+            background: 'var(--bg)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: '1.25rem 1.5rem',
+            marginBottom: '1.5rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '1.5rem',
+          }}
+          className="board-how-it-works"
+        >
+          {[
+            {
+              icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
+                  <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+                </svg>
+              ),
+              title: 'Describe what you need',
+              desc: 'Create a task describing the workflow you want automated. Screenshots, screen recordings, and examples help us move faster.',
+            },
+            {
+              icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M9 21V9" />
+                </svg>
+              ),
+              title: 'We break it down',
+              desc: 'Native Base reviews your request, breaks it into bite-sized subtasks, and allocates credits. You approve before we start.',
+            },
+            {
+              icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
+              ),
+              title: 'Fast turnaround',
+              desc: 'We work ticket by ticket with an average turnaround of 48 hours — often much faster. Track progress right here.',
+            },
+          ].map((step, i) => (
+            <div key={i} style={{ display: 'flex', gap: '0.75rem' }}>
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 8,
+                  background: 'rgba(13, 148, 136, 0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                {step.icon}
+              </div>
+              <div>
+                <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text)', marginBottom: '0.2rem' }}>
+                  {step.title}
+                </p>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                  {step.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Task count + new task (new task only for clients) */}
       <div
         style={{
           display: 'flex',
@@ -185,13 +223,15 @@ export function TaskBoard({ initialTaskId, userName }: TaskBoardProps = {}) {
         <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
           {totalTasks} task{totalTasks !== 1 ? 's' : ''}
         </p>
-        <button
-          onClick={() => setShowCreate(true)}
-          className="cta-button"
-          style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem' }}
-        >
-          + New task
-        </button>
+        {!isAdmin && (
+          <button
+            onClick={() => setShowCreate(true)}
+            className="cta-button"
+            style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem' }}
+          >
+            + New task
+          </button>
+        )}
       </div>
 
       {/* Board columns */}
@@ -262,7 +302,7 @@ export function TaskBoard({ initialTaskId, userName }: TaskBoardProps = {}) {
               >
                 {tasks.length === 0 && (
                   <div style={{ textAlign: 'center', padding: '2rem 0.75rem' }}>
-                    {key === 'backlog' && totalTasks === 0 ? (
+                    {key === 'backlog' && totalTasks === 0 && !isAdmin ? (
                       <>
                         <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                           Tell us what you want to automate
@@ -381,6 +421,9 @@ export function TaskBoard({ initialTaskId, userName }: TaskBoardProps = {}) {
             taskId={selectedTaskId}
             onClose={() => selectTask(null)}
             userName={userName}
+            isAdmin={isAdmin}
+            forUserId={forUserId}
+            onTaskUpdated={fetchTasks}
             summary={selectedTaskSummary ? {
               title: selectedTaskSummary.title,
               status: selectedTaskSummary.status,

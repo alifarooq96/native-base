@@ -20,7 +20,15 @@ export async function GET(
         orderBy: { createdAt: 'asc' },
         include: { user: { select: { id: true, name: true, avatarUrl: true } } },
       },
-      subtasks: { orderBy: { createdAt: 'asc' } },
+      subtasks: {
+        orderBy: { createdAt: 'asc' },
+        include: {
+          comments: {
+            orderBy: { createdAt: 'asc' },
+            include: { user: { select: { id: true, name: true, avatarUrl: true } } },
+          },
+        },
+      },
     },
   });
 

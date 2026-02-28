@@ -55,7 +55,7 @@ export async function GET(request: Request) {
     const token = await createSessionToken(user.id);
     const cookie = sessionCookie(token);
 
-    const res = NextResponse.redirect(`${base}/dashboard`);
+    const res = NextResponse.redirect(`${base}/board`);
     res.cookies.set(cookie.name, cookie.value, {
       httpOnly: cookie.httpOnly,
       secure: cookie.secure,

@@ -1,8 +1,15 @@
 import { redirect } from 'next/navigation';
 import { getSessionUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { TaskBoard } from '@/components/TaskBoard';
 
-export default async function Dashboard() {
+export default async function TaskDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
   const session = await getSessionUser();
   if (!session) redirect('/signup');
 
@@ -18,23 +25,23 @@ export default async function Dashboard() {
   return (
     <div
       style={{
-        minHeight: 'calc(100vh - 60px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        maxWidth: 1200,
+        margin: '0 auto',
         padding: '2rem 1.5rem',
-        backgroundColor: 'var(--bg)',
       }}
     >
       <h1
         style={{
-          fontSize: '2rem',
+          fontSize: '1.5rem',
           fontWeight: 700,
           color: 'var(--text)',
+          marginBottom: '1.5rem',
         }}
       >
-        Welcome{firstName ? `, ${firstName}` : ''}
+        Welcome back{firstName ? `, ${firstName}` : ''}
       </h1>
+
+      <TaskBoard initialTaskId={id} userName={user.name || 'User'} />
     </div>
   );
 }

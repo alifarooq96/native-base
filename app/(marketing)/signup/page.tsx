@@ -37,7 +37,7 @@ export default function SignUp() {
         return;
       }
 
-      router.push('/dashboard');
+      router.push('/board');
     } catch {
       setError('Network error. Please try again.');
     } finally {

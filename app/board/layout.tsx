@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
 import { getSessionUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { DashboardHeader } from '@/components/DashboardHeader';
+import { AppHeader } from '@/components/AppHeader';
 
-export default async function DashboardLayout({
+export default async function BoardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ export default async function DashboardLayout({
 
   return (
     <>
-      <DashboardHeader userName={user.name || 'User'} />
+      <AppHeader userName={user.name || 'User'} />
       <main>{children}</main>
     </>
   );

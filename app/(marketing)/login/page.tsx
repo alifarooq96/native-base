@@ -30,7 +30,7 @@ export default function Login() {
         return;
       }
 
-      router.push('/dashboard');
+      router.push('/board');
     } catch {
       setError('Network error. Please try again.');
     } finally {

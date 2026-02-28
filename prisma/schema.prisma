@@ -56,13 +56,73 @@ model AdminToken {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
+  id           String    @id @default(uuid())
+  email        String    @unique
   name         String?
   passwordHash String?
-  googleId     String?  @unique
+  googleId     String?   @unique
   avatarUrl    String?
   plan         String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  tasks        Task[]
+  comments     Comment[]
+  attachments  Attachment[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  status      String    @default("backlog")
+  priority    String?
+  order       Int       @default(0)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  comments    Comment[]
+  subtasks    SubTask[]
+  attachments Attachment[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId, status])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@index([taskId])
+}
+
+model SubTask {
+  id        String   @id @default(uuid())
+  title     String
+  status    String   @default("pending")
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([taskId])
+}
+
+model Attachment {
+  id        String   @id @default(uuid())
+  url       String
+  filename  String
+  size      Int
+  mimeType  String
+  taskId    String?
+  task      Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@index([taskId])
 }

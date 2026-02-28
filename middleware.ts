@@ -27,12 +27,12 @@ export async function middleware(request: NextRequest) {
 
   if (pathname === '/' || pathname === '/signup' || pathname === '/login') {
     if (loggedIn) {
-      return NextResponse.redirect(new URL('/dashboard', request.url));
+      return NextResponse.redirect(new URL('/board', request.url));
     }
     return NextResponse.next();
   }
 
-  if (pathname.startsWith('/dashboard')) {
+  if (pathname.startsWith('/board')) {
     if (!loggedIn) {
       const response = NextResponse.redirect(new URL('/signup', request.url));
       response.cookies.delete(COOKIE_NAME);
@@ -45,5 +45,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/signup', '/login', '/dashboard/:path*'],
+  matcher: ['/', '/signup', '/login', '/board/:path*'],
 };

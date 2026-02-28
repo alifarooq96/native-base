@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export function DashboardHeader({ userName }: { userName: string }) {
+export function AppHeader({ userName }: { userName: string }) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -44,7 +44,7 @@ export function DashboardHeader({ userName }: { userName: string }) {
     >
       <div
         style={{
-          maxWidth: 960,
+          maxWidth: 1200,
           margin: '0 auto',
           padding: '0.75rem 1.5rem',
           display: 'flex',
@@ -53,7 +53,7 @@ export function DashboardHeader({ userName }: { userName: string }) {
         }}
       >
         <Link
-          href="/dashboard"
+          href="/board"
           style={{
             fontSize: '1.25rem',
             fontWeight: 700,
@@ -97,7 +97,7 @@ export function DashboardHeader({ userName }: { userName: string }) {
               {initials || '?'}
             </span>
             <span
-              className="dash-header-name"
+              className="app-header-name"
               style={{
                 fontSize: '0.875rem',
                 fontWeight: 500,
@@ -145,7 +145,7 @@ export function DashboardHeader({ userName }: { userName: string }) {
               }}
             >
               <Link
-                href="/dashboard/billing"
+                href="/board/billing"
                 onClick={() => setOpen(false)}
                 style={{
                   display: 'flex',
@@ -166,7 +166,7 @@ export function DashboardHeader({ userName }: { userName: string }) {
                 Usage &amp; Billing
               </Link>
               <Link
-                href="/dashboard/profile"
+                href="/board/profile"
                 onClick={() => setOpen(false)}
                 style={{
                   display: 'flex',
@@ -220,7 +220,7 @@ export function DashboardHeader({ userName }: { userName: string }) {
 
       <style jsx global>{`
         @media (max-width: 480px) {
-          .dash-header-name { display: none !important; }
+          .app-header-name { display: none !important; }
         }
       `}</style>
     </header>

@@ -122,7 +122,7 @@ export function TaskDetail({
         prev ? { ...prev, comments: prev.comments.filter((c) => c.id !== tempId) } : prev
       );
     }
-  }, [taskId]);
+  }, [taskId, userName]);
 
   const descriptionContent: JSONContent | undefined = useMemo(() => {
     if (!task) return undefined;

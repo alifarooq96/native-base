@@ -265,7 +265,7 @@ export default function CreditsPage() {
         }}
       >
         <strong style={{ color: 'var(--text)' }}>Not sure how many credits you need?</strong>{' '}
-        <Link href="/#contact" style={{ color: 'var(--accent)', fontWeight: 600 }}>Book a free intro call</Link> and we'll help you estimate based on your workflows.
+        <Link href="/#contact" style={{ color: 'var(--accent)', fontWeight: 600 }}>Book a free intro call</Link> and we&apos;ll help you estimate based on your workflows.
       </div>
     </div>
   );

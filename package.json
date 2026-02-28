@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "generate-icons": "node scripts/generate-icons.mjs",
     "generate-social-posts": "tsx scripts/generate-social-posts.tsx",
     "start": "next start",

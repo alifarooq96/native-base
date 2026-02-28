@@ -9,6 +9,9 @@ out
 build
 dist
 
+# generated social post images (local only, not deployed)
+generated-posts
+
 # prisma generated client
 generated/prisma
 

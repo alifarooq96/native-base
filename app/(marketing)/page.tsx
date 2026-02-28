@@ -221,7 +221,7 @@ export default function Home() {
           >
             Book a free intro call. We&apos;ll discuss how to automate your workflows.
           </p>
-          <SlotPicker />
+          <SlotPicker source="landing" />
         </div>
       </section>
     </div>

@@ -13,9 +13,11 @@ type BookingStep = 'date' | 'time' | 'form' | 'success';
 export function SlotPicker({
   prefillName,
   prefillEmail,
+  source,
 }: {
   prefillName?: string;
   prefillEmail?: string;
+  source?: 'landing' | 'book';
 } = {}) {
   const [step, setStep] = useState<BookingStep>('date');
   const [slots, setSlots] = useState<Slot[]>([]);
@@ -100,6 +102,16 @@ export function SlotPicker({
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || 'Booking failed');
+      }
+
+      if (typeof window !== 'undefined' && source) {
+        const { mixpanel } = await import('@/lib/mixpanel');
+        mixpanel.track('Booking Confirmed', {
+          date: selectedSlot.date,
+          start_time: selectedSlot.startTime,
+          source,
+          has_company: !!company?.trim(),
+        });
       }
 
       setStep('success');
@@ -229,6 +241,14 @@ export function SlotPicker({
                   key={dateStr}
                   onClick={() => {
                     if (!available) return;
+                    if (typeof window !== 'undefined' && source) {
+                      import('@/lib/mixpanel').then(({ mixpanel }) => {
+                        mixpanel.track('Booking Date Selected', {
+                          date: dateStr,
+                          source,
+                        });
+                      });
+                    }
                     setSelectedDate(dateStr);
                     setSelectedSlot(null);
                     setStep('time');
@@ -313,6 +333,15 @@ export function SlotPicker({
                   <button
                     key={slot.startTime}
                     onClick={() => {
+                      if (typeof window !== 'undefined' && source) {
+                        import('@/lib/mixpanel').then(({ mixpanel }) => {
+                          mixpanel.track('Booking Time Selected', {
+                            date: selectedDate,
+                            start_time: slot.startTime,
+                            source,
+                          });
+                        });
+                      }
                       setSelectedSlot(slot);
                       setStep('form');
                     }}

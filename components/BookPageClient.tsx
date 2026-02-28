@@ -183,7 +183,7 @@ export function BookPageClient({
       )}
 
       {!loading && (!booking || showPicker) && (
-        <SlotPicker prefillName={userName} prefillEmail={userEmail} />
+        <SlotPicker prefillName={userName} prefillEmail={userEmail} source="book" />
       )}
     </div>
   );

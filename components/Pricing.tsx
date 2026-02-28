@@ -195,6 +195,16 @@ export function Pricing() {
 
           <Link
             href={plan.ctaHref}
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                import('@/lib/mixpanel').then(({ mixpanel }) => {
+                  mixpanel.track('Pricing Plan Clicked', {
+                    plan: plan.name,
+                    cta: plan.cta,
+                  });
+                });
+              }
+            }}
             className={plan.highlighted ? 'cta-button' : 'cta-button-outline'}
             style={{
               display: 'block',

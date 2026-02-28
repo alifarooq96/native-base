@@ -13,6 +13,18 @@ Conversion,event,Conversion Type,Type of conversion (e.g. subscription)
 Page View,event,(automatic),Fired by Mixpanel when track_pageview is true; includes page URL and title
 User profile,user,$name,User display name (set on signup and login)
 User profile,user,$email,User email (set on signup and login)
+Intro Call CTA Clicked,event,source,Where the CTA was clicked (landing or pathname)
+Pricing Plan Clicked,event,plan,Plan name (Starter Pro Enterprise)
+Pricing Plan Clicked,event,cta,Button label (Get started or Let's talk)
+Booking Date Selected,event,date,Selected date (YYYY-MM-DD)
+Booking Date Selected,event,source,landing or book
+Booking Time Selected,event,date,Selected date (YYYY-MM-DD)
+Booking Time Selected,event,start_time,Selected slot start time (ISO)
+Booking Time Selected,event,source,landing or book
+Booking Confirmed,event,date,Booked date (YYYY-MM-DD)
+Booking Confirmed,event,start_time,Booked slot start time (ISO)
+Booking Confirmed,event,source,landing or book
+Booking Confirmed,event,has_company,Whether user entered a company name
 NOT TRACKED,event,Sign Up (Google),Google OAuth signup – no track or identify in callback
 NOT TRACKED,event,Sign In (Google),Google OAuth login – no track or identify in callback
 NOT TRACKED,event,Search,User search actions – no search UI instrumented

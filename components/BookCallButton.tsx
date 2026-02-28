@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 const DEFAULT_AVATAR = '/founder-zoomed.jpg';
@@ -7,9 +9,20 @@ type BookCallButtonProps = {
 };
 
 export function BookCallButton({ avatarSrc = DEFAULT_AVATAR }: BookCallButtonProps) {
+  function handleClick() {
+    if (typeof window !== 'undefined') {
+      import('@/lib/mixpanel').then(({ mixpanel }) => {
+        mixpanel.track('Intro Call CTA Clicked', {
+          source: window.location.pathname === '/' ? 'landing' : window.location.pathname,
+        });
+      });
+    }
+  }
+
   return (
     <Link
       href="/#contact"
+      onClick={handleClick}
       style={{
         display: 'inline-flex',
         alignItems: 'center',

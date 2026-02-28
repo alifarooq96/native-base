@@ -9,9 +9,65 @@ const plusJakarta = Plus_Jakarta_Sans({
   display: 'swap',
 });
 
+const siteName = 'Native Base';
+const tagline = 'Transform your business to be AI native. Subscription-based workflow automation in under 2 days.';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nativebase.io';
+
 export const metadata: Metadata = {
-  title: 'Native Base',
-  description: 'Transform your business to be AI native. Subscription-based workflow automation in under 2 days.',
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`,
+  },
+  description: tagline,
+  keywords: ['workflow automation', 'AI native', 'subscription', 'business automation', 'productivity'],
+  authors: [{ name: 'Native Base', url: baseUrl }],
+  creator: 'Native Base',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: baseUrl,
+    siteName,
+    title: siteName,
+    description: tagline,
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: `${siteName} – ${tagline}`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteName,
+    description: tagline,
+    images: ['/opengraph-image'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/icon-32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon-48.png', type: 'image/png', sizes: '48x48' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/manifest.json',
+  alternates: { canonical: baseUrl },
 };
 
 export default function RootLayout({

@@ -61,7 +61,7 @@ export function AppHeader({ userName, homeHref = '/board' }: { userName: string;
             color: 'var(--text)',
           }}
         >
-          Native Base
+          NativeBase.AI
         </Link>
 
         <div ref={menuRef} style={{ position: 'relative' }}>

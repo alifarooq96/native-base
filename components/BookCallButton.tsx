@@ -77,7 +77,7 @@ export function BookCallButton({ avatarSrc = DEFAULT_AVATAR }: BookCallButtonPro
             lineHeight: 1.3,
           }}
         >
-          Let&apos;s discuss your internal tool
+          Let&apos;s discuss your automation
         </div>
       </div>
       <span

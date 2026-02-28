@@ -35,7 +35,7 @@ export function Header() {
             color: 'var(--text)',
           }}
         >
-          Native Base
+          NativeBase.AI
         </Link>
 
         {/* Desktop nav */}

@@ -107,7 +107,7 @@ export default function Home() {
               lineHeight: 1.3,
             }}
           >
-            It&apos;s not magic, but it <em>feels like it</em>
+            Simple process. Serious automation.
           </h2>
         </div>
         <HowItWorksTimeline />

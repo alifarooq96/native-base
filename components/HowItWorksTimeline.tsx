@@ -6,7 +6,7 @@ const STEPS = [
   {
     number: '01',
     title: 'Subscribe',
-    body: 'Pick a plan and get instant access to your dedicated AI Slack channel. No onboarding calls—start posting right away.',
+    body: 'Pick a plan and get instant access to your dedicated AI project board. No onboarding calls—start posting right away.',
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -17,7 +17,7 @@ const STEPS = [
   {
     number: '02',
     title: 'Request',
-    body: 'Drop workflows into Slack in plain language. We break them into byte-sized tickets, assign credits, and start building.',
+    body: 'Drop workflows into your project board in plain language. We break them into byte-sized tickets, assign credits, and start building.',
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />

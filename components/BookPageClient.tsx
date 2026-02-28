@@ -77,7 +77,7 @@ export function BookPageClient({
           Book a consultation
         </h1>
         <p style={{ fontSize: '0.9375rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-          Schedule a free 15-minute call to discuss what works best for your needs.
+          Schedule a free 15-minute call to explore automation for your workflows.
         </p>
       </div>
 

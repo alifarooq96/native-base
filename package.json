@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
+    "generate-icons": "node scripts/generate-icons.mjs",
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "npx prisma migrate dev",
@@ -47,6 +48,8 @@
     "@types/react-dom": "^18.2.0",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.2.0",
+    "sharp": "^0.33.5",
+    "to-ico": "^1.1.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^5.0.0"

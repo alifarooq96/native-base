@@ -27,7 +27,24 @@ export default function Login() {
 
       if (!res.ok) {
         setError(data.error || 'Something went wrong.');
+        if (typeof window !== 'undefined') {
+          const { mixpanel } = await import('@/lib/mixpanel');
+          mixpanel.track('Sign In', { login_method: 'email', success: false });
+        }
         return;
+      }
+
+      if (typeof window !== 'undefined') {
+        const { mixpanel } = await import('@/lib/mixpanel');
+        mixpanel.track('Sign In', {
+          login_method: 'email',
+          success: true,
+        });
+        mixpanel.identify(data.id);
+        mixpanel.people.set({
+          $name: data.name ?? undefined,
+          $email: data.email,
+        });
       }
 
       router.push(data.role === 'admin' ? '/admin' : '/board');

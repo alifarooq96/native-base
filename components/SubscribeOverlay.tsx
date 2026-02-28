@@ -95,6 +95,16 @@ export function SubscribeOverlay() {
         const res = await fetch('/api/stripe/verify', { method: 'POST' });
         const data = await res.json();
         if (data.subscriptionStatus === 'active') {
+          if (typeof window !== 'undefined') {
+            const { mixpanel } = await import('@/lib/mixpanel');
+            mixpanel.track('Purchase', {
+              user_id: data.userId,
+              currency: 'USD',
+            });
+            mixpanel.track('Conversion', {
+              'Conversion Type': 'subscription',
+            });
+          }
           window.location.href = '/board';
           return;
         }

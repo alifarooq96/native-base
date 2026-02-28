@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     const user = await prisma.user.findUnique({
       where: { email: email.trim().toLowerCase() },
-      select: { id: true, passwordHash: true, role: true, subscriptionStatus: true },
+      select: { id: true, email: true, name: true, passwordHash: true, role: true, subscriptionStatus: true },
     });
 
     if (!user || !user.passwordHash) {
@@ -37,7 +37,14 @@ export async function POST(request: Request) {
     const token = await createSessionToken(user.id, user.role, user.subscriptionStatus);
     const cookie = sessionCookie(token);
 
-    const res = NextResponse.json({ ok: true, role: user.role, subscriptionStatus: user.subscriptionStatus });
+    const res = NextResponse.json({
+      ok: true,
+      role: user.role,
+      subscriptionStatus: user.subscriptionStatus,
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    });
     res.cookies.set(cookie.name, cookie.value, {
       httpOnly: cookie.httpOnly,
       secure: cookie.secure,

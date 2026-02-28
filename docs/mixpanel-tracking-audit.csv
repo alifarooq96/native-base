@@ -1,0 +1,19 @@
+Event,Attribute Type,Attribute Name,Description
+Sign Up,event,user_id,Unique identifier for the new user
+Sign Up,event,email,User's email address
+Sign Up,event,signup_method,How they signed up (email or google)
+Sign Up,event,utm_source,Traffic source from URL
+Sign Up,event,utm_medium,Marketing medium from URL
+Sign Up,event,utm_campaign,Campaign name from URL
+Sign In,event,login_method,How they logged in (email or google)
+Sign In,event,success,Whether login succeeded or failed
+Purchase,event,user_id,Unique identifier for the buyer
+Purchase,event,currency,Currency code (e.g. USD)
+Conversion,event,Conversion Type,Type of conversion (e.g. subscription)
+Page View,event,(automatic),Fired by Mixpanel when track_pageview is true; includes page URL and title
+User profile,user,$name,User display name (set on signup and login)
+User profile,user,$email,User email (set on signup and login)
+NOT TRACKED,event,Sign Up (Google),Google OAuth signup – no track or identify in callback
+NOT TRACKED,event,Sign In (Google),Google OAuth login – no track or identify in callback
+NOT TRACKED,event,Search,User search actions – no search UI instrumented
+NOT TRACKED,event,Error,Application errors – no error tracking added yet

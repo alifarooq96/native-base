@@ -45,6 +45,23 @@ function SignUp() {
         return;
       }
 
+      if (typeof window !== 'undefined') {
+        const { mixpanel } = await import('@/lib/mixpanel');
+        mixpanel.track('Sign Up', {
+          user_id: data.id,
+          email: data.email,
+          signup_method: 'email',
+          utm_source: searchParams.get('utm_source') ?? undefined,
+          utm_medium: searchParams.get('utm_medium') ?? undefined,
+          utm_campaign: searchParams.get('utm_campaign') ?? undefined,
+        });
+        mixpanel.identify(data.id);
+        mixpanel.people.set({
+          $name: data.name ?? undefined,
+          $email: data.email,
+        });
+      }
+
       router.push(data.role === 'admin' ? '/admin' : '/board');
     } catch {
       setError('Network error. Please try again.');

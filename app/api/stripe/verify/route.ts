@@ -27,7 +27,7 @@ export async function POST() {
   if (user.subscriptionStatus === 'active') {
     const token = await createSessionToken(user.id, user.role, 'active');
     const cookie = sessionCookie(token);
-    const res = NextResponse.json({ subscriptionStatus: 'active' });
+    const res = NextResponse.json({ subscriptionStatus: 'active', userId: user.id });
     res.cookies.set(cookie.name, cookie.value, {
       httpOnly: cookie.httpOnly,
       secure: cookie.secure,
@@ -72,7 +72,7 @@ export async function POST() {
 
       const token = await createSessionToken(user.id, user.role, 'active');
       const cookie = sessionCookie(token);
-      const res = NextResponse.json({ subscriptionStatus: 'active' });
+      const res = NextResponse.json({ subscriptionStatus: 'active', userId: user.id });
       res.cookies.set(cookie.name, cookie.value, {
         httpOnly: cookie.httpOnly,
         secure: cookie.secure,

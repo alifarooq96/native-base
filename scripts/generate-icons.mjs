@@ -12,7 +12,8 @@ import { dirname, join } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const publicDir = join(root, 'public');
-const svgPath = join(root, 'app', 'icon.svg');
+const sourcePath = join(root, 'generated-posts', 'logo-symbol-only.png');
+const svgFallback = join(root, 'app', 'icon.svg');
 
 const sizes = [16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 384, 512];
 const icoSizes = [16, 32];
@@ -27,20 +28,21 @@ async function main() {
     process.exit(1);
   }
 
-  if (!existsSync(svgPath)) {
-    console.error('app/icon.svg not found');
+  const inputPath = existsSync(sourcePath) ? sourcePath : svgFallback;
+  if (!existsSync(inputPath)) {
+    console.error('No source image found (checked generated-posts/logo-symbol-only.png and app/icon.svg)');
     process.exit(1);
   }
 
   if (!existsSync(publicDir)) mkdirSync(publicDir, { recursive: true });
 
-  const svg = readFileSync(svgPath);
+  const source = readFileSync(inputPath);
 
-  console.log('Generating PNGs and ICO from app/icon.svg...');
+  console.log(`Generating PNGs and ICO from ${inputPath}...`);
 
   const pngBuffers = {};
   for (const size of sizes) {
-    const buf = await sharp(svg).resize(size, size).png().toBuffer();
+    const buf = await sharp(source).resize(size, size).png().toBuffer();
     pngBuffers[size] = buf;
     const name = size === 180 ? 'apple-touch-icon.png' : `icon-${size}.png`;
     writeFileSync(join(publicDir, name), buf);

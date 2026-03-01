@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { TypewriterHeading } from '@/components/TypewriterHeading';
 import { BookCallButton } from '@/components/BookCallButton';
@@ -5,6 +6,17 @@ import { HowItWorksTimeline } from '@/components/HowItWorksTimeline';
 import { WhatYouGet } from '@/components/WhatYouGet';
 import { Pricing } from '@/components/Pricing';
 import { SlotPicker } from '@/components/SlotPicker';
+
+export const metadata: Metadata = {
+  title: 'Native Base — AI-Native Workflow Automation',
+  description:
+    'Transform your business to be AI native. Subscription-based workflow automation delivered in under 2 days. Starting at $2,499/month.',
+  openGraph: {
+    title: 'Native Base — AI-Native Workflow Automation',
+    description:
+      'Subscription-based workflow automation delivered in under 2 days. No long-term commitment.',
+  },
+};
 
 export default function Home() {
   return (

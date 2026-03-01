@@ -23,7 +23,8 @@ In **Vercel** → your project → **Settings** → **Environment Variables**, a
 - `STRIPE_STARTER_PRICE_ID` — live price ID  
 - `STRIPE_PRO_PRICE_ID` — live price ID  
 - `BLOB_READ_WRITE_TOKEN` — Vercel Blob token (can reuse or create prod store)  
-- `NEXT_PUBLIC_MIXPANEL_TOKEN` — if you use a separate prod project
+- `NEXT_PUBLIC_MIXPANEL_TOKEN` — if you use a separate prod project  
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` — optional; GA4 Measurement ID (e.g. `G-XXXXXXXXXX`). Omit to disable Google Analytics.
 
 Redeploy after changing env vars so they are applied.
 

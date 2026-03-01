@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { MixpanelProvider } from '@/components/MixpanelProvider';
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -75,6 +76,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={plusJakarta.variable}>
       <body>
+        <GoogleAnalytics />
         <MixpanelProvider>{children}</MixpanelProvider>
       </body>
     </html>

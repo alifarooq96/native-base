@@ -9,6 +9,7 @@ interface TaskSummary {
   title: string;
   status: string;
   priority: string | null;
+  credits?: number | null;
   createdAt: string;
   _count: { comments: number; subtasks: number };
   subtasks: { status: string }[];
@@ -654,6 +655,21 @@ function TaskCard({
             }}
           >
             {task.priority}
+          </span>
+        )}
+
+        {task.credits != null && task.credits > 0 && (
+          <span
+            style={{
+              fontSize: '0.6875rem',
+              fontWeight: 600,
+              padding: '0.125rem 0.5rem',
+              borderRadius: 9999,
+              background: 'rgba(13,148,136,0.08)',
+              color: 'var(--accent)',
+            }}
+          >
+            {task.credits}cr
           </span>
         )}
 

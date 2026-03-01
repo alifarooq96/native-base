@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSessionUser, createSessionToken, sessionCookie } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { stripe } from '@/lib/stripe';
+import { issueInitialCredits } from '@/lib/credits';
 
 export async function POST() {
   const session = await getSessionUser();
@@ -25,6 +26,14 @@ export async function POST() {
 
   // If already active in DB, just refresh the token
   if (user.subscriptionStatus === 'active') {
+    const fullUser = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { lastCreditRefresh: true, currentPlan: true },
+    });
+    if (fullUser?.currentPlan && !fullUser.lastCreditRefresh) {
+      await issueInitialCredits(user.id, fullUser.currentPlan).catch(() => {});
+    }
+
     const token = await createSessionToken(user.id, user.role, 'active');
     const cookie = sessionCookie(token);
     const res = NextResponse.json({ subscriptionStatus: 'active', userId: user.id });
@@ -69,6 +78,10 @@ export async function POST() {
           subscriptionCurrentPeriodEnd: periodEnd ? new Date(periodEnd * 1000) : null,
         },
       });
+
+      if (plan) {
+        await issueInitialCredits(user.id, plan).catch(() => {});
+      }
 
       const token = await createSessionToken(user.id, user.role, 'active');
       const cookie = sessionCookie(token);

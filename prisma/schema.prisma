@@ -68,12 +68,31 @@ model User {
   subscriptionStatus          String?
   currentPlan                 String?
   subscriptionCurrentPeriodEnd DateTime?
+  creditBalance               Int       @default(0)
+  creditRollover              Int       @default(0)
+  lastCreditRefresh           DateTime?
   tasks                       Task[]
   comments                    Comment[]
   subTaskComments             SubTaskComment[]
   attachments                 Attachment[]
+  creditLedger                CreditLedger[]
   createdAt                   DateTime  @default(now())
   updatedAt                   DateTime  @updatedAt
+}
+
+model CreditLedger {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  amount      Int
+  type        String
+  description String
+  taskId      String?
+  balanceAfter Int
+  createdAt   DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([taskId])
 }
 
 model Task {
@@ -82,6 +101,7 @@ model Task {
   description String
   status      String    @default("backlog")
   priority    String?
+  credits     Int?
   order       Int       @default(0)
   userId      String
   user        User      @relation(fields: [userId], references: [id])

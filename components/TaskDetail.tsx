@@ -28,6 +28,7 @@ interface TaskData {
   description: string;
   status: string;
   priority: string | null;
+  credits?: number | null;
   createdAt: string;
   updatedAt: string;
   comments: CommentData[];
@@ -291,6 +292,25 @@ export function TaskDetail({
               {task.priority}
             </span>
           )}
+          {isAdmin ? (
+            <TaskCreditsEditor
+              credits={task.credits ?? null}
+              onSave={async (c) => {
+                await fetch(`${apiBase}/tasks/${taskId}`, {
+                  method: 'PATCH',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ credits: c }),
+                });
+                fetchTask();
+              }}
+            />
+          ) : (
+            task.credits != null && task.credits > 0 && (
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.625rem', borderRadius: 9999, background: 'rgba(13,148,136,0.08)', color: 'var(--accent)' }}>
+                {task.credits} credit{task.credits !== 1 ? 's' : ''}
+              </span>
+            )
+          )}
         </div>
 
         <h1 style={{ fontSize: '1.375rem', fontWeight: 700, lineHeight: 1.3, marginBottom: '0.5rem' }}>{task.title}</h1>
@@ -492,6 +512,81 @@ function AddSubtaskForm({ taskId, onAdded }: { taskId: string; onAdded: () => vo
         }}
       >
         Add
+      </button>
+    </form>
+  );
+}
+
+function TaskCreditsEditor({ credits, onSave }: { credits: number | null; onSave: (c: number | null) => Promise<void> }) {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(credits != null ? String(credits) : '');
+  const [saving, setSaving] = useState(false);
+
+  if (!editing) {
+    return (
+      <button
+        onClick={() => { setValue(credits != null ? String(credits) : ''); setEditing(true); }}
+        style={{
+          fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.625rem', borderRadius: 9999,
+          background: credits != null ? 'rgba(13,148,136,0.08)' : 'var(--bg-alt)',
+          color: credits != null ? 'var(--accent)' : 'var(--text-muted)',
+          border: '1px dashed var(--border)', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', gap: '0.25rem',
+        }}
+      >
+        {credits != null ? `${credits} credit${credits !== 1 ? 's' : ''}` : 'Set credits'}
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+        </svg>
+      </button>
+    );
+  }
+
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setSaving(true);
+        await onSave(value.trim() ? parseInt(value, 10) : null);
+        setSaving(false);
+        setEditing(false);
+      }}
+      style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+    >
+      <input
+        autoFocus
+        type="number"
+        min="0"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="0"
+        style={{
+          width: 56, padding: '0.2rem 0.375rem', fontSize: '0.75rem',
+          border: '1px solid var(--accent)', borderRadius: 6, outline: 'none',
+          background: 'var(--bg)', color: 'var(--text)', textAlign: 'center',
+        }}
+        onKeyDown={(e) => { if (e.key === 'Escape') setEditing(false); }}
+      />
+      <button
+        type="submit"
+        disabled={saving}
+        style={{
+          fontSize: '0.6875rem', fontWeight: 600, padding: '0.2rem 0.5rem', borderRadius: 6,
+          background: 'var(--accent)', color: '#fff', border: 'none', cursor: 'pointer',
+        }}
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        onClick={() => setEditing(false)}
+        style={{
+          fontSize: '0.6875rem', padding: '0.2rem 0.5rem', borderRadius: 6,
+          background: 'none', color: 'var(--text-muted)', border: '1px solid var(--border)', cursor: 'pointer',
+        }}
+      >
+        Cancel
       </button>
     </form>
   );

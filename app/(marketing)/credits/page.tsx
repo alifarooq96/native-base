@@ -1,14 +1,41 @@
 import Link from 'next/link';
 
 const EXAMPLES = [
-  { task: 'Simple Slack notification when a form is submitted', credits: 1 },
-  { task: 'Sync data between two apps (e.g. CRM → spreadsheet)', credits: 1 },
-  { task: 'Auto-categorise inbound emails and route to the right team', credits: 2 },
-  { task: 'Generate a weekly summary report from multiple data sources', credits: 2 },
-  { task: 'Build an AI agent that drafts replies to support tickets', credits: 3 },
-  { task: 'Multi-step approval workflow with conditional branching', credits: 3 },
-  { task: 'End-to-end onboarding flow: form → CRM → Slack → email sequence', credits: 4 },
-  { task: 'Custom internal dashboard pulling from 3+ APIs', credits: 5 },
+  { task: 'Send a Slack message when a Typeform submission comes in', credits: 1 },
+  { task: 'One-way sync of new HubSpot contacts to a Google Sheet', credits: 1 },
+  { task: 'Log new Shopify orders to a Google Sheet in real time', credits: 1 },
+  { task: 'Send a daily Slack digest of open support tickets from Zendesk', credits: 1 },
+  { task: 'Auto-fill insurance quote PDFs from client data in your CRM', credits: 2 },
+  { task: 'Enrich new leads in HubSpot with company data from Clearbit and update their profile', credits: 2 },
+  { task: 'Auto-generate and send a PDF invoice when a Stripe payment succeeds', credits: 2 },
+  { task: 'Extract invoice details from emails using AI and log them in Google Sheets', credits: 3 },
+  { task: 'Sync user accounts across 4 platforms to streamline onboarding and offboarding', credits: 3 },
+  { task: 'Typeform signup → create HubSpot contact → notify Slack → trigger Mailchimp welcome drip', credits: 3 },
+  { task: 'When a deal closes in Salesforce, create a project in Asana, assign tasks, and notify in Slack', credits: 3 },
+];
+
+const BREAKDOWNS = [
+  {
+    title: 'Auto-categorise inbound emails and route to the right team',
+    total: '2–3',
+    steps: [
+      { label: 'Integrate with email provider to read inbound emails', credits: 1 },
+      { label: 'AI classification to categorise emails by topic and intent', credits: 1 },
+      { label: 'Route to the right team channel or inbox based on category', credits: 1 },
+    ],
+    note: 'Step 3 may be bundled with step 2 depending on complexity, bringing the total to 2.',
+  },
+  {
+    title: 'AI support assistant that answers customer questions using your docs',
+    total: '6',
+    steps: [
+      { label: 'Connect to your helpdesk to receive incoming tickets', credits: 1 },
+      { label: 'Index your knowledge base and docs for RAG retrieval', credits: 2 },
+      { label: 'AI generates draft responses using your docs as context', credits: 1 },
+      { label: 'Auto-reply to common questions, escalate complex ones to Slack', credits: 1 },
+      { label: 'Log interactions and response quality metrics', credits: 1 },
+    ],
+  },
 ];
 
 export default function CreditsPage() {
@@ -77,7 +104,8 @@ export default function CreditsPage() {
         }}
       >
         {[
-          { label: '1 credit = 1 unit of work.', detail: 'Simple, single-step automations typically cost 1 credit. More complex workflows cost more.' },
+          { label: '1 credit = 1 bite-sized unit of work.', detail: 'Most tasks cost 1–3 credits. Larger requests are broken down into smaller tasks, each scoped and priced individually.' },
+          { label: 'Complexity drives the cost, not volume.', detail: 'Credit cost depends on the logic involved — conditional flows, preprocessing, number of integration points — not the amount of data.' },
           { label: 'Credits are assigned before work begins.', detail: 'When you post a request, we scope it and tell you the credit cost upfront. No surprises.' },
           { label: 'Unused credits roll over.', detail: 'Starter credits roll over up to 20. Pro credits roll over up to 50. They never expire while your subscription is active.' },
           { label: 'Revisions are free.', detail: "If an automation doesn't meet your requirements, revisions don't cost extra credits." },
@@ -200,6 +228,152 @@ export default function CreditsPage() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Breakdown section */}
+      <h2
+        style={{
+          fontSize: '1.25rem',
+          fontWeight: 700,
+          color: 'var(--text)',
+          marginBottom: '0.5rem',
+        }}
+      >
+        How bigger tasks get broken down
+      </h2>
+      <p
+        style={{
+          fontSize: '0.9375rem',
+          color: 'var(--text-muted)',
+          marginBottom: '1.5rem',
+          lineHeight: 1.6,
+        }}
+      >
+        Complex requests aren&apos;t one big credit charge. We break them into
+        bite-sized tasks so you can see exactly where each credit goes.
+      </p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2.5rem' }}>
+        {BREAKDOWNS.map((bd) => (
+          <div
+            key={bd.title}
+            style={{
+              borderRadius: 12,
+              border: '1px solid var(--border)',
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              style={{
+                padding: '1rem 1.25rem',
+                backgroundColor: 'var(--bg-alt)',
+                borderBottom: '1px solid var(--border)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '1rem',
+                flexWrap: 'wrap',
+              }}
+            >
+              <span style={{ fontWeight: 700, color: 'var(--text)', fontSize: '0.9375rem' }}>
+                {bd.title}
+              </span>
+              <span
+                style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  color: 'var(--accent)',
+                  backgroundColor: 'color-mix(in srgb, var(--accent) 12%, transparent)',
+                  padding: '0.25rem 0.625rem',
+                  borderRadius: 20,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {bd.total} credits total
+              </span>
+            </div>
+
+            <div style={{ padding: '0.5rem 0' }}>
+              {bd.steps.map((step, i) => (
+                <div
+                  key={step.label}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.75rem',
+                    padding: '0.75rem 1.25rem',
+                  }}
+                >
+                  <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--accent)',
+                        color: '#fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {i + 1}
+                    </div>
+                    {i < bd.steps.length - 1 && (
+                      <div
+                        style={{
+                          width: 2,
+                          height: 24,
+                          backgroundColor: 'var(--border)',
+                          position: 'absolute',
+                          top: 32,
+                        }}
+                      />
+                    )}
+                  </div>
+                  <div style={{ flex: 1, paddingTop: '0.2rem' }}>
+                    <span style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                      {step.label}
+                    </span>
+                  </div>
+                  <span
+                    style={{
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      color: 'var(--accent)',
+                      backgroundColor: 'color-mix(in srgb, var(--accent) 8%, transparent)',
+                      padding: '0.2rem 0.5rem',
+                      borderRadius: 12,
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                      marginTop: '0.1rem',
+                    }}
+                  >
+                    {step.credits} cr
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {bd.note && (
+              <div
+                style={{
+                  padding: '0.75rem 1.25rem',
+                  borderTop: '1px solid var(--border)',
+                  fontSize: '0.8125rem',
+                  color: 'var(--text-muted-soft)',
+                  fontStyle: 'italic',
+                  lineHeight: 1.5,
+                }}
+              >
+                {bd.note}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
 
       {/* Plan comparison */}

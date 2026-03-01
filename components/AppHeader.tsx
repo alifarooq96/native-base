@@ -179,6 +179,27 @@ export function AppHeader({ userName, homeHref = '/board' }: { userName: string;
                 Manage subscription
               </button>
               <Link
+                href="/board/usage"
+                onClick={() => setOpen(false)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.625rem',
+                  padding: '0.625rem 1rem',
+                  fontSize: '0.875rem',
+                  color: 'var(--text)',
+                  transition: 'background-color 0.15s',
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-alt)')}
+                onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                Usage &amp; billing
+              </Link>
+              <Link
                 href="/board/profile"
                 onClick={() => setOpen(false)}
                 style={{

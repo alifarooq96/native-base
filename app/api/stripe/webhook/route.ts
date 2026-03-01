@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { prisma } from '@/lib/prisma';
+import { issueInitialCredits, refreshCreditsForUser } from '@/lib/credits';
 import Stripe from 'stripe';
 
 export async function POST(request: Request) {
@@ -47,6 +48,9 @@ export async function POST(request: Request) {
 
         if (user) {
           await prisma.user.update({ where: { id: user.id }, data: updateData });
+          if (plan) {
+            await issueInitialCredits(user.id, plan);
+          }
           console.log(`[webhook] checkout.session.completed: activated user ${user.id}`);
         } else {
           console.error(`[webhook] checkout.session.completed: no user found for customer=${customerId} userId=${userId}`);
@@ -68,6 +72,9 @@ export async function POST(request: Request) {
               subscriptionCurrentPeriodEnd: periodEnd ? new Date(periodEnd * 1000) : null,
             },
           });
+          if (subscription.status === 'active') {
+            await refreshCreditsForUser(user.id);
+          }
           console.log(`[webhook] subscription.updated: user ${user.id} status=${subscription.status}`);
         } else {
           console.error(`[webhook] subscription.updated: no user found for customer=${customerId}`);

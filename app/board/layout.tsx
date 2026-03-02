@@ -23,7 +23,7 @@ export default async function BoardLayout({
 
   return (
     <>
-      <AppHeader userName={user.name || 'User'} />
+      <AppHeader userName={user.name || 'User'} hasSubscription={hasActiveSub} />
       <div style={{ position: 'relative', minHeight: 'calc(100vh - 60px)' }}>
         <div
           style={{

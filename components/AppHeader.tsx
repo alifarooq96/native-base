@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export function AppHeader({ userName, homeHref = '/board' }: { userName: string; homeHref?: string }) {
+export function AppHeader({ userName, homeHref = '/board', hasSubscription = false }: { userName: string; homeHref?: string; hasSubscription?: boolean }) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -144,61 +144,65 @@ export function AppHeader({ userName, homeHref = '/board' }: { userName: string;
                 zIndex: 100,
               }}
             >
-              <button
-                onClick={async () => {
-                  setOpen(false);
-                  try {
-                    const res = await fetch('/api/stripe/portal', { method: 'POST' });
-                    const data = await res.json();
-                    if (data.url) window.location.href = data.url;
-                  } catch {
-                    // ignore
-                  }
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.625rem',
-                  padding: '0.625rem 1rem',
-                  fontSize: '0.875rem',
-                  color: 'var(--text)',
-                  transition: 'background-color 0.15s',
-                  background: 'none',
-                  border: 'none',
-                  width: '100%',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                }}
-                onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-alt)')}
-                onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="5" width="20" height="14" rx="2" />
-                  <line x1="2" y1="10" x2="22" y2="10" />
-                </svg>
-                Manage subscription
-              </button>
-              <Link
-                href="/board/usage"
-                onClick={() => setOpen(false)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.625rem',
-                  padding: '0.625rem 1rem',
-                  fontSize: '0.875rem',
-                  color: 'var(--text)',
-                  transition: 'background-color 0.15s',
-                }}
-                onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-alt)')}
-                onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                Usage &amp; billing
-              </Link>
+              {hasSubscription && (
+                <>
+                  <button
+                    onClick={async () => {
+                      setOpen(false);
+                      try {
+                        const res = await fetch('/api/stripe/portal', { method: 'POST' });
+                        const data = await res.json();
+                        if (data.url) window.location.href = data.url;
+                      } catch {
+                        // ignore
+                      }
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.625rem',
+                      padding: '0.625rem 1rem',
+                      fontSize: '0.875rem',
+                      color: 'var(--text)',
+                      transition: 'background-color 0.15s',
+                      background: 'none',
+                      border: 'none',
+                      width: '100%',
+                      textAlign: 'left',
+                      cursor: 'pointer',
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-alt)')}
+                    onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <line x1="2" y1="10" x2="22" y2="10" />
+                    </svg>
+                    Manage subscription
+                  </button>
+                  <Link
+                    href="/board/usage"
+                    onClick={() => setOpen(false)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.625rem',
+                      padding: '0.625rem 1rem',
+                      fontSize: '0.875rem',
+                      color: 'var(--text)',
+                      transition: 'background-color 0.15s',
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-alt)')}
+                    onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    Usage &amp; billing
+                  </Link>
+                </>
+              )}
               <Link
                 href="/board/profile"
                 onClick={() => setOpen(false)}

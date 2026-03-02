@@ -22,7 +22,7 @@ export default async function BookLayout({
 
   return (
     <>
-      <AppHeader userName={user.name || 'User'} homeHref={homeHref} />
+      <AppHeader userName={user.name || 'User'} homeHref={homeHref} hasSubscription={user.subscriptionStatus === 'active'} />
       <main>{children}</main>
     </>
   );

@@ -20,7 +20,7 @@ export default async function AdminLayout({
 
   return (
     <>
-      <AppHeader userName={user.name || 'Admin'} homeHref="/admin" />
+      <AppHeader userName={user.name || 'Admin'} homeHref="/admin" hasSubscription />
       <main>{children}</main>
     </>
   );

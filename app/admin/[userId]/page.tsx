@@ -1,7 +1,22 @@
+import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getSessionUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { TaskBoard } from '@/components/TaskBoard';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}): Promise<Metadata> {
+  const { userId } = await params;
+  const client = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { name: true, email: true },
+  });
+  const label = client?.name || client?.email || 'Client';
+  return { title: `Admin — ${label}` };
+}
 
 export default async function AdminClientBoard({
   params,

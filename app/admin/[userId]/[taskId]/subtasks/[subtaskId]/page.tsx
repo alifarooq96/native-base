@@ -1,7 +1,23 @@
+import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getSessionUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { SubTaskDetailView } from '@/components/SubTaskDetailView';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ userId: string; taskId: string; subtaskId: string }>;
+}): Promise<Metadata> {
+  const { userId, subtaskId } = await params;
+  const [client, subtask] = await Promise.all([
+    prisma.user.findUnique({ where: { id: userId }, select: { name: true, email: true } }),
+    prisma.subTask.findUnique({ where: { id: subtaskId }, select: { title: true } }),
+  ]);
+  const clientLabel = client?.name || client?.email || 'Client';
+  const subtaskLabel = subtask?.title || 'Subtask';
+  return { title: `Admin — ${clientLabel} — ${subtaskLabel}` };
+}
 
 export default async function AdminSubtaskPage({
   params,

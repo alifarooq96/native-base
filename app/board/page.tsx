@@ -1,7 +1,10 @@
+import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getSessionUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { TaskBoard } from '@/components/TaskBoard';
+
+export const metadata: Metadata = { title: 'Task Board' };
 
 export default async function Board() {
   const session = await getSessionUser();

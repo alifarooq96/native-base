@@ -1,4 +1,7 @@
+import type { Metadata } from 'next';
 import { AdminClientList } from '@/components/AdminClientList';
+
+export const metadata: Metadata = { title: 'Admin — All Clients' };
 
 export default function AdminPage() {
   return (

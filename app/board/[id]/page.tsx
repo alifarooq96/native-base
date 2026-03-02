@@ -1,7 +1,21 @@
+import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getSessionUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { TaskBoard } from '@/components/TaskBoard';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const task = await prisma.task.findUnique({
+    where: { id },
+    select: { title: true },
+  });
+  return { title: task ? `Task — ${task.title}` : 'Task Details' };
+}
 
 export default async function TaskDetailPage({
   params,

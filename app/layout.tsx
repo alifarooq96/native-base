@@ -11,7 +11,8 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 const siteName = 'Native Base';
-const tagline = 'Transform your business to be AI native. Subscription-based workflow automation in under 2 days.';
+const tagline =
+  'Transform your business to be AI native. Subscription-based workflow automation delivered in under 2 days. No long-term commitment. Starting at $2,499/month.';
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     description: tagline,
     images: [
       {
-        url: '/opengraph-image',
+        url: `${baseUrl}/opengraph-image`,
         width: 1200,
         height: 630,
         alt: 'Native Base – Transform your business to be AI native. Subscription-based workflow automation.',
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteName,
     description: tagline,
-    images: ['/opengraph-image'],
+    images: [`${baseUrl}/opengraph-image`],
   },
   robots: {
     index: true,

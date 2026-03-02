@@ -7,6 +7,14 @@ import { WhatYouGet } from '@/components/WhatYouGet';
 import { Pricing } from '@/components/Pricing';
 import { SlotPicker } from '@/components/SlotPicker';
 
+const baseUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'https://native-base-pink.vercel.app');
+
 export const metadata: Metadata = {
   title: 'Native Base — AI-Native Workflow Automation',
   description:
@@ -14,7 +22,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Native Base — AI-Native Workflow Automation',
     description:
-      'Subscription-based workflow automation delivered in under 2 days. No long-term commitment.',
+      'Transform your business to be AI native. Subscription-based workflow automation delivered in under 2 days. No long-term commitment. Starting at $2,499/month.',
+    images: [
+      {
+        url: `${baseUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: 'Native Base – Transform your business to be AI native. Subscription-based workflow automation.',
+      },
+    ],
   },
 };
 

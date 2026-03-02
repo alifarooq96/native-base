@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'How Credits Work | Native Base',
     description:
-      'Credits are the unit of work at Native Base. See examples, rollover rules, and plan comparisons.',
+      'Credits are the unit of work at Native Base. Learn how monthly allowance, rollover rules, and example automation costs work. Transparent pricing.',
   },
 };
 

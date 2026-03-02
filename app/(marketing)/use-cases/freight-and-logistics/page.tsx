@@ -10,7 +10,7 @@ const baseUrl =
       : 'https://native-base-pink.vercel.app');
 
 export const metadata: Metadata = {
-  title: 'Carrier Portal Automation for Logistics | NativeBase.AI',
+  title: 'Freight & Logistics – Track & Trace Automation | NativeBase.AI',
   description:
     'Replace manual Track & Trace with autonomous AI agents. We build custom scrapers that log into carrier portals (Maersk, MSC, FedEx) and update your ERP 24/7. Starting at $2,499/month.',
   openGraph: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         url: `${baseUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: 'NativeBase.AI – Carrier Portal Automation for Logistics & Freight Forwarding',
+        alt: 'NativeBase.AI – Freight & Logistics: Track & Trace Automation',
       },
     ],
   },
@@ -51,7 +51,7 @@ const sectionH2: React.CSSProperties = {
 
 /* ── Page ── */
 
-export default function CarrierPortalsPage() {
+export default function FreightAndLogisticsPage() {
   return (
     <div>
       {/* ────────── 1. HERO ────────── */}
@@ -117,7 +117,7 @@ export default function CarrierPortalsPage() {
           </p>
 
           <Link
-            href="/book-call?source=carrier-portals"
+            href="/book-call?source=freight-and-logistics"
             className="cta-button"
             style={{
               fontSize: '1rem',
@@ -423,7 +423,7 @@ export default function CarrierPortalsPage() {
             We&apos;ll show you exactly how the AI agent replaces it&mdash;live, in 15 minutes.
           </p>
           <Link
-            href="/book-call?source=carrier-portals"
+            href="/book-call?source=freight-and-logistics"
             className="cta-button"
             style={{
               fontSize: '1rem',
@@ -517,4 +517,3 @@ function StepCard({
     </div>
   );
 }
-

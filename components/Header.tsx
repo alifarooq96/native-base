@@ -5,9 +5,9 @@ import { useState, useRef } from 'react';
 
 const USE_CASES = [
   {
-    title: 'Carrier Portals',
+    title: 'Freight & Logistics',
     hook: 'Automate Track & Trace across Maersk, MSC, FedEx and more',
-    href: '/use-cases/carrier-portals',
+    href: '/use-cases/freight-and-logistics',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />

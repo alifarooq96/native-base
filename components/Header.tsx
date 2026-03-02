@@ -1,27 +1,47 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 const USE_CASES = [
-  { label: 'Carrier Portals', href: '/use-cases/carrier-portals' },
+  {
+    title: 'Carrier Portals',
+    hook: 'Automate Track & Trace across Maersk, MSC, FedEx and more',
+    href: '/use-cases/carrier-portals',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
+  },
 ];
+
+const HOVER_LEAVE_DELAY_MS = 120;
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [ucOpen, setUcOpen] = useState(false);
   const [mobileUcOpen, setMobileUcOpen] = useState(false);
   const ucRef = useRef<HTMLDivElement>(null);
+  const hoverLeaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ucRef.current && !ucRef.current.contains(e.target as Node)) {
-        setUcOpen(false);
-      }
+  function clearHoverLeaveTimer() {
+    if (hoverLeaveTimerRef.current) {
+      clearTimeout(hoverLeaveTimerRef.current);
+      hoverLeaveTimerRef.current = null;
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }
+
+  function handleUcMouseEnter() {
+    clearHoverLeaveTimer();
+    setUcOpen(true);
+  }
+
+  function handleUcMouseLeave() {
+    hoverLeaveTimerRef.current = setTimeout(() => setUcOpen(false), HOVER_LEAVE_DELAY_MS);
+  }
 
   return (
     <header
@@ -69,21 +89,27 @@ export function Header() {
             How it works
           </Link>
 
-          {/* Use Cases dropdown */}
-          <div ref={ucRef} style={{ position: 'relative' }}>
-            <button
-              onClick={() => setUcOpen((p) => !p)}
+          {/* Use Cases dropdown (hover on desktop) */}
+          <div
+            ref={ucRef}
+            style={{ position: 'relative' }}
+            onMouseEnter={handleUcMouseEnter}
+            onMouseLeave={handleUcMouseLeave}
+          >
+            <span
+              className={`use-case-trigger${ucOpen ? ' is-open' : ''}`}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.3rem',
-                background: 'none',
-                border: 'none',
                 fontSize: '0.9375rem',
                 color: 'var(--text-muted)',
-                cursor: 'pointer',
+                cursor: 'default',
                 padding: 0,
+                transition: 'color 0.15s ease',
               }}
+              aria-haspopup="true"
+              aria-expanded={ucOpen}
             >
               Use Cases
               <svg
@@ -102,20 +128,20 @@ export function Header() {
               >
                 <polyline points="6 9 12 15 18 9" />
               </svg>
-            </button>
+            </span>
 
             {ucOpen && (
               <div
+                className="use-case-dropdown-panel"
                 style={{
                   position: 'absolute',
                   top: 'calc(100% + 0.5rem)',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  minWidth: 200,
+                  left: 0,
+                  minWidth: 300,
                   backgroundColor: 'var(--bg)',
                   border: '1px solid var(--border)',
-                  borderRadius: 10,
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+                  borderRadius: 12,
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
                   overflow: 'hidden',
                   zIndex: 100,
                 }}
@@ -125,25 +151,16 @@ export function Header() {
                     key={uc.href}
                     href={uc.href}
                     onClick={() => setUcOpen(false)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.625rem',
-                      padding: '0.625rem 1rem',
-                      fontSize: '0.875rem',
-                      color: 'var(--text)',
-                      transition: 'background-color 0.15s',
-                      whiteSpace: 'nowrap',
-                    }}
-                    onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-alt)')}
-                    onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                    className="use-case-dropdown-item"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                      <line x1="8" y1="21" x2="16" y2="21" />
-                      <line x1="12" y1="17" x2="12" y2="21" />
+                    <span className="use-case-dropdown-icon">{uc.icon}</span>
+                    <span className="use-case-dropdown-content">
+                      <span className="use-case-dropdown-title">{uc.title}</span>
+                      <span className="use-case-dropdown-hook">{uc.hook}</span>
+                    </span>
+                    <svg className="use-case-dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
                     </svg>
-                    {uc.label}
                   </Link>
                 ))}
               </div>
@@ -262,14 +279,38 @@ export function Header() {
                     href={uc.href}
                     onClick={() => { setOpen(false); setMobileUcOpen(false); }}
                     style={{
-                      display: 'block',
-                      padding: '0.75rem 1.5rem 0.75rem 2.5rem',
-                      fontSize: '0.875rem',
-                      color: 'var(--text)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      padding: '0.875rem 1.5rem 0.875rem 2.5rem',
                       borderTop: '1px solid var(--border)',
+                      textDecoration: 'none',
+                      color: 'inherit',
                     }}
                   >
-                    {uc.label}
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        width: 36,
+                        height: 36,
+                        borderRadius: 8,
+                        backgroundColor: 'rgba(13,148,136,0.1)',
+                        color: 'var(--accent)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {uc.icon}
+                    </span>
+                    <span style={{ minWidth: 0 }}>
+                      <span style={{ display: 'block', fontSize: '0.9375rem', fontWeight: 700, color: 'var(--text)' }}>
+                        {uc.title}
+                      </span>
+                      <span style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-muted)', lineHeight: 1.35 }}>
+                        {uc.hook}
+                      </span>
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -317,7 +358,78 @@ export function Header() {
       )}
 
       <style jsx global>{`
-        @media (max-width: 640px) {
+        .use-case-trigger.is-open {
+          color: var(--accent) !important;
+        }
+        .use-case-trigger.is-open svg {
+          stroke: var(--accent);
+        }
+        .use-case-dropdown-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.875rem 1rem;
+          color: inherit;
+          text-decoration: none;
+          transition: background-color 0.15s ease, color 0.15s ease;
+          border-bottom: 1px solid var(--border);
+        }
+        .use-case-dropdown-item:last-child {
+          border-bottom: none;
+        }
+        .use-case-dropdown-item:hover {
+          background-color: var(--bg-alt);
+        }
+        .use-case-dropdown-item:hover .use-case-dropdown-title,
+        .use-case-dropdown-item:hover .use-case-dropdown-icon {
+          color: var(--accent) !important;
+        }
+        .use-case-dropdown-item:hover .use-case-dropdown-icon {
+          opacity: 1;
+        }
+        .use-case-dropdown-icon {
+          flex-shrink: 0;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+          background: rgba(13, 148, 136, 0.08);
+          color: var(--accent);
+          transition: color 0.15s ease, background-color 0.15s ease;
+        }
+        .use-case-dropdown-item:hover .use-case-dropdown-icon {
+          background: rgba(13, 148, 136, 0.12);
+        }
+        .use-case-dropdown-content {
+          flex: 1;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.125rem;
+        }
+        .use-case-dropdown-title {
+          font-size: 0.9375rem;
+          font-weight: 700;
+          color: var(--text);
+          transition: color 0.15s ease;
+        }
+        .use-case-dropdown-hook {
+          font-size: 0.8125rem;
+          color: var(--text-muted);
+          line-height: 1.35;
+        }
+        .use-case-dropdown-chevron {
+          flex-shrink: 0;
+          color: var(--text-muted);
+          transition: color 0.15s ease, transform 0.15s ease;
+        }
+        .use-case-dropdown-item:hover .use-case-dropdown-chevron {
+          color: var(--accent);
+          transform: translateX(2px);
+        }
+        @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-toggle { display: block !important; }
           .nav-mobile { display: flex !important; }

@@ -117,7 +117,7 @@ export default function CarrierPortalsPage() {
           </p>
 
           <Link
-            href="#cta"
+            href="/book-call?source=carrier-portals"
             className="cta-button"
             style={{
               fontSize: '1rem',
@@ -390,61 +390,13 @@ export default function CarrierPortalsPage() {
         </div>
       </section>
 
-      {/* ────────── 5. READY TO SHIP EXAMPLES ────────── */}
-      <section style={{ ...sectionPadding, backgroundColor: 'var(--bg)' }}>
-        <div style={wideCenter}>
-          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <p style={sectionLabel}>Ready-to-Ship Examples</p>
-            <h2 style={sectionH2}>
-              Mini use-cases already in production
-            </h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
-            <MiniUseCase
-              icon={
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="1" y="6" width="22" height="12" rx="2" ry="2" />
-                  <path d="M1 10h22" />
-                </svg>
-              }
-              title="The Container Chaser"
-              description="Auto-scraping ocean carrier portals for gate-out events, vessel departures, and arrival confirmations. Know the moment your box moves."
-            />
-            <MiniUseCase
-              icon={
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                  <polyline points="10 9 9 9 8 9" />
-                </svg>
-              }
-              title="The POD Grabber"
-              description="Automatically downloading PDF delivery receipts from trucking portals and attaching them to invoices. No more chasing carriers for proof."
-            />
-            <MiniUseCase
-              icon={
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="12" y1="1" x2="12" y2="23" />
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-              }
-              title="The Rate Finder"
-              description="Scraping private spot-rate portals to find the cheapest lane in real-time. Get a competitive edge before rates expire."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ────────── 6. FINAL CTA ────────── */}
+      {/* ────────── 5. FINAL CTA ────────── */}
       <section
         id="cta"
         style={{
           ...sectionPadding,
           padding: '4.5rem 1.5rem',
-          backgroundColor: 'var(--bg-alt)',
+          backgroundColor: 'var(--bg)',
         }}
       >
         <div style={{ ...narrowCenter, maxWidth: 560, textAlign: 'center' }}>
@@ -471,7 +423,7 @@ export default function CarrierPortalsPage() {
             We&apos;ll show you exactly how the AI agent replaces it&mdash;live, in 15 minutes.
           </p>
           <Link
-            href="/#contact"
+            href="/book-call?source=carrier-portals"
             className="cta-button"
             style={{
               fontSize: '1rem',
@@ -566,45 +518,3 @@ function StepCard({
   );
 }
 
-function MiniUseCase({
-  icon,
-  title,
-  description,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div
-      style={{
-        backgroundColor: 'var(--bg-alt)',
-        border: '1px solid var(--border)',
-        borderRadius: 12,
-        padding: '1.75rem',
-        transition: 'box-shadow 0.2s, transform 0.15s',
-      }}
-    >
-      <div
-        style={{
-          width: 48,
-          height: 48,
-          borderRadius: 10,
-          backgroundColor: 'rgba(13,148,136,0.08)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '1rem',
-        }}
-      >
-        {icon}
-      </div>
-      <h3 style={{ fontSize: '1.0625rem', fontWeight: 700, color: 'var(--text)', marginBottom: '0.5rem' }}>
-        {title}
-      </h3>
-      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-        {description}
-      </p>
-    </div>
-  );
-}

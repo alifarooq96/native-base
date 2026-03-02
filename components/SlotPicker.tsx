@@ -17,7 +17,7 @@ export function SlotPicker({
 }: {
   prefillName?: string;
   prefillEmail?: string;
-  source?: 'landing' | 'book';
+  source?: string;
 } = {}) {
   const [step, setStep] = useState<BookingStep>('date');
   const [slots, setSlots] = useState<Slot[]>([]);

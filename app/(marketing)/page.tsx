@@ -16,11 +16,11 @@ const baseUrl =
       : 'https://native-base-pink.vercel.app');
 
 export const metadata: Metadata = {
-  title: 'Native Base — AI-Native Workflow Automation',
+  title: 'Transform your business to be AI native',
   description:
     'Transform your business to be AI native. Subscription-based workflow automation delivered in under 2 days. Starting at $2,499/month.',
   openGraph: {
-    title: 'Native Base — AI-Native Workflow Automation',
+    title: 'Transform your business to be AI native',
     description:
       'Transform your business to be AI native. Subscription-based workflow automation delivered in under 2 days. No long-term commitment. Starting at $2,499/month.',
     images: [

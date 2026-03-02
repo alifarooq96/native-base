@@ -37,11 +37,20 @@ export const metadata: Metadata = {
     siteName,
     title: siteName,
     description: tagline,
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Native Base – Transform your business to be AI native. Subscription-based workflow automation.',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteName,
     description: tagline,
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,

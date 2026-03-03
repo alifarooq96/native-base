@@ -18,6 +18,14 @@ const TEXT = '#0f172a';
 const MUTED = '#64748b';
 const BORDER = '#e2e8f0';
 const BG_ALT = '#f8fafc';
+const WARNING_RED = '#dc2626';
+const SUCCESS_GREEN = '#16a34a';
+const NAVY = '#0f172a';
+const NAVY_LIGHT = '#1e293b';
+const NAVY_MID = '#334155';
+
+const IG_CAROUSEL_W = 1080;
+const IG_CAROUSEL_H = 1350;
 
 /* ── LinkedIn intro (1200×1200) ── */
 
@@ -476,6 +484,842 @@ function IGRow3Post({ phrase, tagline, index }: { phrase: string; tagline: strin
   );
 }
 
+/* ── Instagram Carousel: Insurance Agency Campaign (1080×1350) ── */
+
+function CarouselWatermark() {
+  return (
+    <div style={{ position: 'absolute', bottom: 48, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
+      <span style={{ fontSize: 20, fontWeight: 600, color: 'rgba(255,255,255,0.35)', letterSpacing: 1 }}>NativeBase.AI</span>
+    </div>
+  );
+}
+
+function CarouselSlideNumber({ n, total, light }: { n: number; total: number; light?: boolean }) {
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 48,
+      right: 56,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 6,
+    }}>
+      {Array.from({ length: total }).map((_, i) => (
+        <div
+          key={i}
+          style={{
+            width: i === n - 1 ? 24 : 8,
+            height: 8,
+            borderRadius: 4,
+            backgroundColor: i === n - 1
+              ? (light ? '#ffffff' : ACCENT)
+              : (light ? 'rgba(255,255,255,0.3)' : BORDER),
+            display: 'flex',
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function BrowserWindow({ title, color, children, w, h }: { title: string; color: string; children: React.ReactNode; w: number; h: number }) {
+  return (
+    <div style={{
+      width: w,
+      height: h,
+      display: 'flex',
+      flexDirection: 'column',
+      borderRadius: 12,
+      border: `2px solid ${color}33`,
+      overflow: 'hidden',
+      backgroundColor: NAVY_LIGHT,
+    }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        padding: '8px 12px',
+        backgroundColor: NAVY_MID,
+        gap: 6,
+      }}>
+        <div style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: WARNING_RED, display: 'flex' }} />
+        <div style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#f59e0b', display: 'flex' }} />
+        <div style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: SUCCESS_GREEN, display: 'flex' }} />
+        <div style={{
+          marginLeft: 8,
+          fontSize: 11,
+          color: 'rgba(255,255,255,0.5)',
+          display: 'flex',
+        }}>
+          {title}
+        </div>
+      </div>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: 10, gap: 6 }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Slide 1: The Hook — "Stuck in Portal Hell?"
+ * Dark dramatic atmosphere, multiple carrier login screens, warning red accents.
+ */
+function IGCarouselSlide1() {
+  const carriers = ['Progressive', 'Travelers', 'Liberty Mutual', 'Hartford', 'Nationwide'];
+  const inputBar = { height: 14, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.08)', display: 'flex' as const, width: '100%' as const };
+  const btnStyle = { height: 16, borderRadius: 4, backgroundColor: WARNING_RED, opacity: 0.6, display: 'flex' as const, width: 60, marginTop: 2 };
+
+  return (
+    <div style={{
+      width: IG_CAROUSEL_W,
+      height: IG_CAROUSEL_H,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: `linear-gradient(180deg, ${NAVY} 0%, #0c1220 100%)`,
+      fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      {/* Subtle red glow behind screens */}
+      <div style={{
+        position: 'absolute',
+        width: 700,
+        height: 700,
+        borderRadius: 350,
+        background: WARNING_RED,
+        opacity: 0.06,
+        top: 200,
+        display: 'flex',
+      }} />
+
+      <CarouselSlideNumber n={1} total={5} light />
+
+      {/* Portal screens grid */}
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 16,
+        justifyContent: 'center',
+        width: 900,
+        marginBottom: 64,
+      }}>
+        {carriers.map((name) => (
+          <BrowserWindow key={name} title={name} color={WARNING_RED} w={260} h={160}>
+            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginBottom: 4, display: 'flex' }}>Agent Login</div>
+            <div style={inputBar} />
+            <div style={{ ...inputBar, marginTop: 4 }} />
+            <div style={btnStyle} />
+          </BrowserWindow>
+        ))}
+      </div>
+
+      {/* Main text */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12,
+      }}>
+        <div style={{
+          fontSize: 72,
+          fontWeight: 800,
+          color: '#ffffff',
+          lineHeight: 1.1,
+          textAlign: 'center',
+          display: 'flex',
+        }}>
+          Stuck in
+        </div>
+        <div style={{
+          fontSize: 72,
+          fontWeight: 800,
+          color: WARNING_RED,
+          lineHeight: 1.1,
+          textAlign: 'center',
+          display: 'flex',
+        }}>
+          Portal Hell?
+        </div>
+      </div>
+
+      <CarouselWatermark />
+    </div>
+  );
+}
+
+/**
+ * Slide 2: The Agitation — data re-entry pain.
+ * Minimalist split comparison: ACORD form vs. multiple carrier screens.
+ */
+function IGCarouselSlide2() {
+  const fieldRow = (label: string) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+      <div style={{ fontSize: 11, color: MUTED, width: 60, display: 'flex' }}>{label}</div>
+      <div style={{ flex: 1, height: 16, borderRadius: 4, backgroundColor: BG_ALT, border: `1px solid ${BORDER}`, display: 'flex' }} />
+    </div>
+  );
+
+  const miniScreen = (name: string) => (
+    <div key={name} style={{
+      width: 180,
+      height: 110,
+      borderRadius: 8,
+      border: `1px solid ${BORDER}`,
+      backgroundColor: '#ffffff',
+      display: 'flex',
+      flexDirection: 'column',
+      padding: 10,
+      gap: 4,
+    }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: TEXT, display: 'flex' }}>{name}</div>
+      <div style={{ height: 10, borderRadius: 3, backgroundColor: BG_ALT, display: 'flex' }} />
+      <div style={{ height: 10, borderRadius: 3, backgroundColor: BG_ALT, display: 'flex', width: '70%' }} />
+      <div style={{ height: 10, borderRadius: 3, backgroundColor: BG_ALT, display: 'flex', width: '50%' }} />
+    </div>
+  );
+
+  return (
+    <div style={{
+      width: IG_CAROUSEL_W,
+      height: IG_CAROUSEL_H,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#ffffff',
+      fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+      position: 'relative',
+      padding: '0 56px',
+    }}>
+      <CarouselSlideNumber n={2} total={5} />
+
+      {/* VS comparison */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 32, marginBottom: 56 }}>
+        {/* Left: ACORD form */}
+        <div style={{
+          width: 380,
+          display: 'flex',
+          flexDirection: 'column',
+          padding: 28,
+          borderRadius: 16,
+          border: `1px solid ${BORDER}`,
+          backgroundColor: '#ffffff',
+        }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: TEXT, marginBottom: 4, display: 'flex' }}>ACORD 125</div>
+          <div style={{ fontSize: 11, color: MUTED, marginBottom: 16, display: 'flex' }}>Commercial Insurance Application</div>
+          {fieldRow('Name')}
+          {fieldRow('VIN')}
+          {fieldRow('Policy #')}
+          {fieldRow('Address')}
+          {fieldRow('DOB')}
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
+            <div style={{
+              fontSize: 13,
+              fontWeight: 700,
+              color: '#ffffff',
+              backgroundColor: ACCENT,
+              padding: '6px 20px',
+              borderRadius: 6,
+              display: 'flex',
+            }}>1 form, 1 entry</div>
+          </div>
+        </div>
+
+        {/* Arrow and 5x badge */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+          <div style={{
+            width: 56,
+            height: 56,
+            borderRadius: 28,
+            backgroundColor: WARNING_RED,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <span style={{ fontSize: 22, fontWeight: 800, color: '#ffffff' }}>5×</span>
+          </div>
+          <svg width="40" height="24" viewBox="0 0 40 24">
+            <path d="M4 12 H30 M24 4 L32 12 L24 20" stroke={WARNING_RED} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
+        {/* Right: 5 carrier screens */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 10,
+          width: 380,
+          justifyContent: 'center',
+        }}>
+          {['Progressive', 'Travelers', 'Liberty Mutual', 'Hartford', 'Nationwide'].map(miniScreen)}
+        </div>
+      </div>
+
+      {/* Text overlay */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        maxWidth: 880,
+        gap: 16,
+        padding: '0 24px',
+      }}>
+        <div style={{
+          fontSize: 36,
+          fontWeight: 800,
+          color: TEXT,
+          lineHeight: 1.25,
+          display: 'flex',
+          textAlign: 'center',
+        }}>
+          You spend 60% of your day re-typing the same VIN number.
+        </div>
+        <div style={{
+          fontSize: 28,
+          color: MUTED,
+          lineHeight: 1.4,
+          display: 'flex',
+          textAlign: 'center',
+        }}>
+          Your staff is burnt out. Your clients are waiting.
+        </div>
+      </div>
+
+      <div style={{ position: 'absolute', bottom: 48, display: 'flex' }}>
+        <span style={{ fontSize: 20, fontWeight: 600, color: '#cbd5e1', letterSpacing: 1 }}>NativeBase.AI</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Slide 3: The Solution — NativeBase AI dashboard auto-populating carrier portals.
+ * Clean, bright, confident. Teal accents.
+ */
+function IGCarouselSlide3() {
+  const filledField = (label: string, value: string) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+      <div style={{ fontSize: 12, color: MUTED, width: 80, display: 'flex' }}>{label}</div>
+      <div style={{
+        flex: 1,
+        height: 20,
+        borderRadius: 4,
+        backgroundColor: `${ACCENT}15`,
+        border: `1px solid ${ACCENT}40`,
+        display: 'flex',
+        alignItems: 'center',
+        paddingLeft: 8,
+      }}>
+        <span style={{ fontSize: 12, color: ACCENT, fontWeight: 600 }}>{value}</span>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 16 16">
+        <circle cx="8" cy="8" r="7" fill={ACCENT} />
+        <path d="M5 8 L7 10 L11 6" stroke="#fff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </div>
+  );
+
+  return (
+    <div style={{
+      width: IG_CAROUSEL_W,
+      height: IG_CAROUSEL_H,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#ffffff',
+      fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+      position: 'relative',
+    }}>
+      {/* Subtle teal gradient glow */}
+      <div style={{
+        position: 'absolute',
+        top: 100,
+        width: 600,
+        height: 600,
+        borderRadius: 300,
+        background: ACCENT,
+        opacity: 0.04,
+        display: 'flex',
+      }} />
+
+      <CarouselSlideNumber n={3} total={5} />
+
+      {/* Dashboard mockup */}
+      <div style={{
+        width: 860,
+        display: 'flex',
+        flexDirection: 'column',
+        borderRadius: 20,
+        border: `1px solid ${BORDER}`,
+        overflow: 'hidden',
+        marginBottom: 48,
+        backgroundColor: '#ffffff',
+      }}>
+        {/* Dashboard header */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '16px 24px',
+          backgroundColor: NAVY,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 16, fontWeight: 700, color: '#ffffff' }}>NativeBase</span>
+            <span style={{ fontSize: 16, fontWeight: 700, color: ACCENT }}>.AI</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              backgroundColor: SUCCESS_GREEN,
+              display: 'flex',
+            }} />
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)' }}>Agent Active</span>
+          </div>
+        </div>
+
+        {/* Dashboard body */}
+        <div style={{ display: 'flex', padding: 24, gap: 24 }}>
+          {/* Left: form being auto-filled */}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: TEXT }}>Travelers — Auto Quote</span>
+              <div style={{
+                fontSize: 10,
+                color: ACCENT,
+                backgroundColor: `${ACCENT}15`,
+                padding: '3px 10px',
+                borderRadius: 9999,
+                display: 'flex',
+                fontWeight: 600,
+              }}>
+                Auto-populating...
+              </div>
+            </div>
+            {filledField('Insured', 'John M. Davis')}
+            {filledField('VIN', '1HGCM82633A004352')}
+            {filledField('Policy #', 'TRV-2025-88421')}
+            {filledField('Address', '142 Oak Lane, Hartford')}
+            {filledField('Coverage', '$500K / $1M CSL')}
+            {filledField('Eff. Date', '03/15/2025')}
+          </div>
+
+          {/* Right: speed indicator */}
+          <div style={{
+            width: 200,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 12,
+          }}>
+            {/* AI cursor icon */}
+            <div style={{
+              width: 72,
+              height: 72,
+              borderRadius: 36,
+              background: `linear-gradient(135deg, ${ACCENT}, #2dd4bf)`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <svg width="36" height="36" viewBox="0 0 36 36">
+                <path d="M18 4 L20 14 L30 12 L22 18 L32 22 L20 22 L18 32 L16 22 L4 22 L14 18 L6 12 L16 14 Z" fill="#fff" />
+              </svg>
+            </div>
+            <div style={{
+              fontSize: 42,
+              fontWeight: 800,
+              color: ACCENT,
+              display: 'flex',
+            }}>10×</div>
+            <div style={{ fontSize: 14, color: MUTED, display: 'flex' }}>human speed</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Text overlay */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        maxWidth: 880,
+        gap: 12,
+        padding: '0 56px',
+      }}>
+        <div style={{
+          fontSize: 36,
+          fontWeight: 800,
+          color: TEXT,
+          lineHeight: 1.25,
+          display: 'flex',
+          textAlign: 'center',
+        }}>
+          Meet your 24/7 AI-Powered Quoting CSR.
+        </div>
+        <div style={{
+          fontSize: 26,
+          color: MUTED,
+          lineHeight: 1.4,
+          display: 'flex',
+          textAlign: 'center',
+        }}>
+          We build agents that log in, populate, and scrape quotes from every carrier. Instantly.
+        </div>
+      </div>
+
+      <div style={{ position: 'absolute', bottom: 48, display: 'flex' }}>
+        <span style={{ fontSize: 20, fontWeight: 600, color: '#cbd5e1', letterSpacing: 1 }}>NativeBase.AI</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Slide 4: Social Proof / ROI — analog clock vs digital stopwatch.
+ * Success green accents. Split-screen comparison.
+ */
+function IGCarouselSlide4() {
+  return (
+    <div style={{
+      width: IG_CAROUSEL_W,
+      height: IG_CAROUSEL_H,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: '#ffffff',
+      fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+      position: 'relative',
+    }}>
+      <CarouselSlideNumber n={4} total={5} />
+
+      {/* Split comparison */}
+      <div style={{ display: 'flex', width: 920, gap: 32, marginBottom: 56 }}>
+        {/* Left: analog clock showing ~15 min */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 32,
+          borderRadius: 20,
+          backgroundColor: BG_ALT,
+          border: `1px solid ${BORDER}`,
+          gap: 20,
+        }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: MUTED, letterSpacing: 2, display: 'flex' }}>TIME ELAPSED</div>
+          <svg width="200" height="200" viewBox="0 0 200 200">
+            {/* Clock face */}
+            <circle cx="100" cy="100" r="90" fill="none" stroke={BORDER} strokeWidth="4" />
+            <circle cx="100" cy="100" r="4" fill={TEXT} />
+            {/* Hour markers */}
+            {Array.from({ length: 12 }).map((_, i) => {
+              const angle = (i * 30 - 90) * (Math.PI / 180);
+              const x1 = 100 + 78 * Math.cos(angle);
+              const y1 = 100 + 78 * Math.sin(angle);
+              const x2 = 100 + 86 * Math.cos(angle);
+              const y2 = 100 + 86 * Math.sin(angle);
+              return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={TEXT} strokeWidth="3" strokeLinecap="round" />;
+            })}
+            {/* Hour hand (pointing ~12) */}
+            <line x1="100" y1="100" x2="100" y2="46" stroke={TEXT} strokeWidth="5" strokeLinecap="round" />
+            {/* Minute hand (pointing at 3 = 15 min) */}
+            <line x1="100" y1="100" x2="168" y2="100" stroke={TEXT} strokeWidth="3" strokeLinecap="round" />
+          </svg>
+          <div style={{ fontSize: 32, fontWeight: 800, color: TEXT, display: 'flex' }}>15 Minutes</div>
+        </div>
+
+        {/* Right: digital stopwatch / results */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 32,
+          borderRadius: 20,
+          backgroundColor: `${SUCCESS_GREEN}08`,
+          border: `2px solid ${SUCCESS_GREEN}30`,
+          gap: 16,
+        }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: SUCCESS_GREEN, letterSpacing: 2, display: 'flex' }}>QUOTES GENERATED</div>
+
+          {/* Digital display */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: 4,
+          }}>
+            <span style={{ fontSize: 96, fontWeight: 800, color: SUCCESS_GREEN, lineHeight: 1 }}>100</span>
+            <span style={{ fontSize: 48, fontWeight: 800, color: SUCCESS_GREEN }}>+</span>
+          </div>
+
+          {/* Progress bars */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%', padding: '0 24px' }}>
+            {([['Auto', 92], ['Home', 78], ['Commercial', 65], ['Umbrella', 85]] as const).map(([line, pct]) => (
+              <div key={line} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ fontSize: 11, color: MUTED, width: 75, display: 'flex' }}>{line}</div>
+                <div style={{ flex: 1, height: 12, borderRadius: 6, backgroundColor: `${SUCCESS_GREEN}20`, display: 'flex', overflow: 'hidden' }}>
+                  <div style={{
+                    width: `${pct}%`,
+                    height: '100%',
+                    borderRadius: 6,
+                    backgroundColor: SUCCESS_GREEN,
+                    display: 'flex',
+                  }} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bind button */}
+          <div style={{
+            marginTop: 8,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            backgroundColor: SUCCESS_GREEN,
+            padding: '12px 28px',
+            borderRadius: 10,
+          }}>
+            <svg width="18" height="18" viewBox="0 0 18 18">
+              <circle cx="9" cy="9" r="8" fill="none" stroke="#fff" strokeWidth="1.5" />
+              <path d="M6 9 L8 11 L12 7" stroke="#fff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span style={{ fontSize: 16, fontWeight: 700, color: '#ffffff' }}>Bind Policy</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Text overlay */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        maxWidth: 880,
+        gap: 12,
+        padding: '0 56px',
+      }}>
+        <div style={{
+          fontSize: 34,
+          fontWeight: 800,
+          color: TEXT,
+          lineHeight: 1.25,
+          display: 'flex',
+          textAlign: 'center',
+        }}>
+          Double your "Quote-to-Bind" speed.
+        </div>
+        <div style={{
+          fontSize: 24,
+          color: MUTED,
+          lineHeight: 1.5,
+          display: 'flex',
+          textAlign: 'center',
+        }}>
+          100% data accuracy to your AMS. Cancel your renewal backlogs.
+        </div>
+      </div>
+
+      <div style={{ position: 'absolute', bottom: 48, display: 'flex' }}>
+        <span style={{ fontSize: 20, fontWeight: 600, color: '#cbd5e1', letterSpacing: 1 }}>NativeBase.AI</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Slide 5: The CTA — book a workflow audit.
+ * Professional, inviting. Calendar mockup + savings stat.
+ */
+function IGCarouselSlide5() {
+  const days = ['M', 'T', 'W', 'T', 'F'];
+  const slots = [
+    [1, 0, 1, 0, 1],
+    [0, 1, 0, 1, 0],
+    [1, 1, 0, 0, 1],
+    [0, 0, 1, 1, 0],
+  ];
+
+  return (
+    <div style={{
+      width: IG_CAROUSEL_W,
+      height: IG_CAROUSEL_H,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: `linear-gradient(180deg, #ffffff 0%, ${BG_ALT} 100%)`,
+      fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+      position: 'relative',
+    }}>
+      <CarouselSlideNumber n={5} total={5} />
+
+      {/* Savings stat badge */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 40,
+        padding: '14px 32px',
+        borderRadius: 9999,
+        backgroundColor: `${ACCENT}12`,
+        border: `1px solid ${ACCENT}30`,
+      }}>
+        <span style={{ fontSize: 20, fontWeight: 800, color: ACCENT }}>Save $6,000/mo</span>
+        <span style={{ fontSize: 18, color: MUTED }}>on admin payroll</span>
+      </div>
+
+      {/* Calendar mockup */}
+      <div style={{
+        width: 700,
+        display: 'flex',
+        flexDirection: 'column',
+        borderRadius: 20,
+        border: `1px solid ${BORDER}`,
+        overflow: 'hidden',
+        backgroundColor: '#ffffff',
+        marginBottom: 48,
+      }}>
+        {/* Calendar header */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '20px 28px',
+          borderBottom: `1px solid ${BORDER}`,
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <span style={{ fontSize: 18, fontWeight: 700, color: TEXT }}>Book Your Free Workflow Audit</span>
+            <span style={{ fontSize: 14, color: MUTED }}>15 minutes · Video call</span>
+          </div>
+          <div style={{
+            width: 48,
+            height: 48,
+            borderRadius: 24,
+            backgroundColor: ACCENT,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="3" fill="none" stroke="#fff" strokeWidth="1.5" />
+              <line x1="3" y1="10" x2="21" y2="10" stroke="#fff" strokeWidth="1.5" />
+              <line x1="8" y1="2" x2="8" y2="6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="16" y1="2" x2="16" y2="6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Calendar grid */}
+        <div style={{ display: 'flex', flexDirection: 'column', padding: 28, gap: 12 }}>
+          {/* Day headers */}
+          <div style={{ display: 'flex', gap: 12 }}>
+            {days.map((d) => (
+              <div key={d} style={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                fontSize: 14,
+                fontWeight: 700,
+                color: MUTED,
+              }}>
+                {d}
+              </div>
+            ))}
+          </div>
+          {/* Time slots */}
+          {slots.map((row, ri) => (
+            <div key={ri} style={{ display: 'flex', gap: 12 }}>
+              {row.map((avail, ci) => (
+                <div
+                  key={ci}
+                  style={{
+                    flex: 1,
+                    height: 48,
+                    borderRadius: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: avail ? `${ACCENT}12` : BG_ALT,
+                    border: `1px solid ${avail ? `${ACCENT}40` : BORDER}`,
+                    fontSize: 13,
+                    fontWeight: avail ? 600 : 400,
+                    color: avail ? ACCENT : '#cbd5e1',
+                  }}
+                >
+                  {avail ? `${9 + ri}:00` : '—'}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* Selected slot confirmation */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px 28px',
+          borderTop: `1px solid ${BORDER}`,
+          gap: 12,
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '14px 40px',
+            borderRadius: 12,
+            backgroundColor: ACCENT,
+          }}>
+            <span style={{ fontSize: 18, fontWeight: 700, color: '#ffffff' }}>Confirm Booking →</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom text */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        gap: 8,
+      }}>
+        <div style={{
+          fontSize: 32,
+          fontWeight: 800,
+          color: TEXT,
+          lineHeight: 1.25,
+          display: 'flex',
+        }}>
+          Free 15-Minute Workflow Audit
+        </div>
+        <div style={{
+          fontSize: 24,
+          color: ACCENT,
+          fontWeight: 700,
+          display: 'flex',
+        }}>
+          Link in Bio
+        </div>
+      </div>
+
+      <div style={{ position: 'absolute', bottom: 48, display: 'flex' }}>
+        <span style={{ fontSize: 20, fontWeight: 600, color: '#cbd5e1', letterSpacing: 1 }}>NativeBase.AI</span>
+      </div>
+    </div>
+  );
+}
+
 /* ── Generic OG-style post (1200×630) ── */
 
 type GenericPostConfig = {
@@ -606,6 +1450,37 @@ async function main() {
     .toBuffer();
   writeFileSync(join(igDir, 'grid-preview.png'), gridPreview);
   console.log('    wrote grid-preview.png');
+
+  /* ── Instagram Carousel: Insurance Agency Campaign ── */
+  console.log('\n  Instagram carousel (insurance agency):');
+  const carouselDir = join(OUT_DIR, 'ig-carousel-insurance');
+  if (!existsSync(carouselDir)) mkdirSync(carouselDir, { recursive: true });
+
+  const carouselSlides = [
+    { name: 'slide-1-hook', component: <IGCarouselSlide1 /> },
+    { name: 'slide-2-agitation', component: <IGCarouselSlide2 /> },
+    { name: 'slide-3-solution', component: <IGCarouselSlide3 /> },
+    { name: 'slide-4-roi', component: <IGCarouselSlide4 /> },
+    { name: 'slide-5-cta', component: <IGCarouselSlide5 /> },
+  ];
+
+  const carouselBufs: Buffer[] = [];
+  for (const slide of carouselSlides) {
+    const res = new ImageResponse(slide.component, { width: IG_CAROUSEL_W, height: IG_CAROUSEL_H });
+    const buf = Buffer.from(await res.arrayBuffer());
+    writeFileSync(join(carouselDir, `${slide.name}.png`), buf);
+    carouselBufs.push(buf);
+    console.log(`    wrote ${slide.name}.png`);
+  }
+
+  const carouselPreview = await sharp({
+    create: { width: IG_CAROUSEL_W * 5, height: IG_CAROUSEL_H, channels: 4, background: { r: 255, g: 255, b: 255, alpha: 1 } },
+  })
+    .composite(carouselBufs.map((buf, i) => ({ input: buf, left: i * IG_CAROUSEL_W, top: 0 })))
+    .png()
+    .toBuffer();
+  writeFileSync(join(carouselDir, 'carousel-preview.png'), carouselPreview);
+  console.log('    wrote carousel-preview.png');
 
   for (const post of GENERIC_POSTS) {
     const res = new ImageResponse(<GenericPost post={post} />, { width: 1200, height: 630 });

@@ -76,13 +76,23 @@ export function Header() {
         <Link
           href="/"
           style={{
-            fontSize: '1.25rem',
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            color: 'var(--text)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0,
           }}
         >
-          NativeBase.AI
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/icon-72.png"
+            alt=""
+            width={36}
+            height={36}
+            style={{ display: 'block', flexShrink: 0, marginRight: 2 }}
+          />
+          <span style={{ display: 'flex', alignItems: 'baseline', gap: 0, fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
+            <span style={{ color: 'var(--text)' }}>NativeBase</span>
+            <span style={{ color: 'var(--accent)' }}>.AI</span>
+          </span>
         </Link>
 
         {/* Desktop nav */}

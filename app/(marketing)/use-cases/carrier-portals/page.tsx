@@ -212,10 +212,10 @@ export default function CarrierPortalsPage() {
             >
               <span style={{ color: 'var(--accent)' }}>INPUT</span> Single lead form<br />
               <span style={{ color: 'var(--text-muted)' }}>5 portals populated simultaneously</span><br />
-              <span style={{ color: 'var(--text-muted)' }}>Quotes delivered in 60 seconds</span>
+              <span style={{ color: 'var(--text-muted)' }}>Quotes delivered in a few minutes</span>
             </div>
             <p style={{ fontSize: '0.8125rem', color: '#0f766e', lineHeight: 1.5 }}>
-              Enter data once. AI bots populate 5 portals simultaneously. Quotes in 60 seconds.
+              Enter data once. AI bots populate 5 portals simultaneously. Quotes in a few minutes.
             </p>
           </div>
         </div>

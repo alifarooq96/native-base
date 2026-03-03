@@ -159,7 +159,7 @@ export default function FreightAndLogisticsPage() {
               Before
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem', marginBottom: '0.75rem' }}>
-              {Array.from({ length: 12 }).map((_, i) => (
+              {Array.from({ length: 10 }).map((_, i) => (
                 <span
                   key={i}
                   style={{
@@ -210,12 +210,12 @@ export default function FreightAndLogisticsPage() {
                 lineHeight: 1.7,
               }}
             >
-              <span style={{ color: 'var(--accent)' }}>GET</span> /api/shipments<br />
-              <span style={{ color: 'var(--text-muted)' }}>200 OK &middot; 47 containers tracked</span><br />
-              <span style={{ color: 'var(--text-muted)' }}>Last sync: 12s ago</span>
+              <span style={{ color: 'var(--accent)' }}>VIEW</span> One unified dashboard<br />
+              <span style={{ color: 'var(--text-muted)' }}>All carriers &amp; containers in one place</span><br />
+              <span style={{ color: 'var(--text-muted)' }}>Updated every 15 min. Zero copy-paste.</span>
             </div>
             <p style={{ fontSize: '0.8125rem', color: '#0f766e', lineHeight: 1.5 }}>
-              One clean API feed. Zero browser tabs. Updated every 15 minutes.
+              One screen. All shipments. Enter once, sync everywhere—updated every 15 minutes.
             </p>
           </div>
         </div>

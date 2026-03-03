@@ -47,6 +47,7 @@ export async function POST(request: Request) {
     success_url: `${base}/board?subscription=success`,
     cancel_url: `${base}/board`,
     metadata: { userId: user.id, plan },
+    allow_promotion_codes: true,
   });
 
   return NextResponse.json({ url: checkoutSession.url });

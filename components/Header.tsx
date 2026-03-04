@@ -116,9 +116,9 @@ export function Header() {
             fontSize: '0.9375rem',
           }}
         >
-          <Link href="/#how-it-works" style={{ color: 'var(--text-muted)' }}>
+          {/* <Link href="/#how-it-works" style={{ color: 'var(--text-muted)' }}>
             How it works
-          </Link>
+          </Link> */}
 
           {/* Use Cases dropdown (hover on desktop) */}
           <div
@@ -198,7 +198,7 @@ export function Header() {
             )}
           </div>
 
-          <Link href="/#pricing" style={{ color: 'var(--text-muted)' }}>
+          <Link href="/pricing" style={{ color: 'var(--text-muted)' }}>
             Pricing
           </Link>
           {/* <Link href="/login" style={{ color: 'var(--text)', fontWeight: 600 }}>
@@ -272,7 +272,7 @@ export function Header() {
             backgroundColor: 'var(--bg)',
           }}
         >
-          <Link
+          {/* <Link
             href="/#how-it-works"
             onClick={() => setOpen(false)}
             style={{
@@ -283,7 +283,7 @@ export function Header() {
             }}
           >
             How it works
-          </Link>
+          </Link> */}
 
           {/* Mobile Use Cases accordion */}
           <div style={{ borderBottom: '1px solid var(--border)' }}>
@@ -367,7 +367,7 @@ export function Header() {
           </div>
 
           <Link
-            href="/#pricing"
+            href="/pricing"
             onClick={() => setOpen(false)}
             style={{
               padding: '0.875rem 1.5rem',

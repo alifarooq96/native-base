@@ -60,7 +60,7 @@ export default function CreditsPage() {
       }}
     >
       <Link
-        href="/#pricing"
+        href="/pricing"
         style={{
           fontSize: '0.8125rem',
           color: 'var(--accent)',

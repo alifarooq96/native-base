@@ -434,6 +434,19 @@ select {
   }
 }
 
+@media (max-width: 768px) {
+  .pricing-anchor-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .risk-badges-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 400px;
+    margin: 0 auto !important;
+  }
+}
+
 @media (max-width: 640px) {
   .wyg-grid {
     grid-template-columns: 1fr !important;

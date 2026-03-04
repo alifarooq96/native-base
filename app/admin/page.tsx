@@ -1,28 +1,5 @@
-import type { Metadata } from 'next';
-import { AdminClientList } from '@/components/AdminClientList';
-
-export const metadata: Metadata = { title: 'Admin — All Clients' };
+import { redirect } from 'next/navigation';
 
 export default function AdminPage() {
-  return (
-    <div
-      style={{
-        maxWidth: 960,
-        margin: '0 auto',
-        padding: '2rem 1.5rem',
-      }}
-    >
-      <h1
-        style={{
-          fontSize: '1.5rem',
-          fontWeight: 700,
-          color: 'var(--text)',
-          marginBottom: '1.5rem',
-        }}
-      >
-        Clients
-      </h1>
-      <AdminClientList />
-    </div>
-  );
+  redirect('/admin/dashboard');
 }

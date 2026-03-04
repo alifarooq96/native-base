@@ -119,7 +119,7 @@ export function TaskBoard({ initialTaskId, userName, isAdmin, forUserId, clientN
       {isAdmin && clientName && (
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
           <a
-            href="/admin"
+            href="/admin/clients"
             style={{
               fontSize: '0.875rem',
               color: 'var(--text-muted)',

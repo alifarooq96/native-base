@@ -34,7 +34,7 @@ export default async function AdminClientTask({
     select: { name: true, email: true },
   });
 
-  if (!client) redirect('/admin');
+  if (!client) redirect('/admin/clients');
 
   const adminUser = await prisma.user.findUnique({
     where: { id: session.userId },
@@ -46,7 +46,7 @@ export default async function AdminClientTask({
       style={{
         maxWidth: 1200,
         margin: '0 auto',
-        padding: '2rem 1.5rem',
+        padding: '1.25rem 1.5rem',
       }}
     >
       <TaskBoard

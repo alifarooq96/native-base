@@ -20,6 +20,19 @@ model BookingConfig {
   bufferMinutes    Int    @default(0)
 }
 
+model BookingLead {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  company     String?
+  description String?
+  source      String?
+  createdAt   DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}
+
 model Booking {
   id          String   @id @default(uuid())
   name        String

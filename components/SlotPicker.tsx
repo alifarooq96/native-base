@@ -8,7 +8,7 @@ type Slot = {
   endTime: string;
 };
 
-type BookingStep = 'date' | 'time' | 'form' | 'success';
+type BookingStep = 'form' | 'date' | 'time' | 'confirm' | 'success';
 
 export function SlotPicker({
   prefillName,
@@ -19,7 +19,7 @@ export function SlotPicker({
   prefillEmail?: string;
   source?: string;
 } = {}) {
-  const [step, setStep] = useState<BookingStep>('date');
+  const [step, setStep] = useState<BookingStep>('form');
   const [slots, setSlots] = useState<Slot[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +28,11 @@ export function SlotPicker({
   const [name, setName] = useState(prefillName || '');
   const [email, setEmail] = useState(prefillEmail || '');
   const [company, setCompany] = useState('');
+  const [description, setDescription] = useState('');
+  const [savingLead, setSavingLead] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  const stepOrder: BookingStep[] = ['form', 'date', 'time', 'confirm'];
 
   const today = new Date();
   const dates = Array.from({ length: 14 }, (_, i) => {
@@ -78,13 +82,46 @@ export function SlotPicker({
     return slots.some((s) => s.date === dateStr);
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleDetailsContinue(e: React.FormEvent) {
+    e.preventDefault();
+    setSavingLead(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/booking-leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          company: company.trim() || undefined,
+          description: description.trim() || undefined,
+          source,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to save details');
+      }
+      if (typeof window !== 'undefined' && source) {
+        const { mixpanel } = await import('@/lib/mixpanel');
+        mixpanel.track('Booking Details Entered', {
+          source,
+          has_company: !!company?.trim(),
+        });
+      }
+      setStep('date');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to save details');
+    } finally {
+      setSavingLead(false);
+    }
+  }
+
+  async function handleConfirmBooking(e: React.FormEvent) {
     e.preventDefault();
     if (!selectedSlot) return;
-
     setSubmitting(true);
     setError(null);
-
     try {
       const res = await fetch('/api/bookings', {
         method: 'POST',
@@ -98,12 +135,10 @@ export function SlotPicker({
           endTime: selectedSlot.endTime,
         }),
       });
-
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.error || 'Booking failed');
       }
-
       if (typeof window !== 'undefined' && source) {
         const { mixpanel } = await import('@/lib/mixpanel');
         mixpanel.track('Booking Confirmed', {
@@ -113,7 +148,6 @@ export function SlotPicker({
           has_company: !!company?.trim(),
         });
       }
-
       setStep('success');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Booking failed');
@@ -171,7 +205,7 @@ export function SlotPicker({
     <div style={cardStyle}>
       {/* Progress indicator */}
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
-        {(['date', 'time', 'form'] as BookingStep[]).map((s, i) => (
+        {stepOrder.map((s, i) => (
           <div
             key={s}
             style={{
@@ -181,7 +215,7 @@ export function SlotPicker({
               backgroundColor:
                 step === s
                   ? 'var(--accent)'
-                  : i < ['date', 'time', 'form'].indexOf(step)
+                  : i < stepOrder.indexOf(step)
                     ? 'var(--accent)'
                     : 'var(--border)',
               transition: 'background-color 0.2s',
@@ -206,14 +240,14 @@ export function SlotPicker({
         </div>
       )}
 
-      {loading && (
+      {loading && step !== 'form' && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.875rem' }}>
           Loading available times...
         </p>
       )}
 
-      {/* Step 1: Pick a date */}
-      {step === 'date' && !loading && (
+      {/* Step 1: Your details */}
+      {step === 'form' && (
         <div>
           <h3
             style={{
@@ -224,188 +258,9 @@ export function SlotPicker({
               textAlign: 'center',
             }}
           >
-            Pick a date
+            Your details
           </h3>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))',
-              gap: '0.5rem',
-            }}
-          >
-            {dates.map((dateStr) => {
-              const available = hasSlots(dateStr);
-              const selected = selectedDate === dateStr;
-              return (
-                <button
-                  key={dateStr}
-                  onClick={() => {
-                    if (!available) return;
-                    if (typeof window !== 'undefined' && source) {
-                      import('@/lib/mixpanel').then(({ mixpanel }) => {
-                        mixpanel.track('Booking Date Selected', {
-                          date: dateStr,
-                          source,
-                        });
-                      });
-                    }
-                    setSelectedDate(dateStr);
-                    setSelectedSlot(null);
-                    setStep('time');
-                  }}
-                  disabled={!available}
-                  style={{
-                    padding: '0.625rem 0.5rem',
-                    borderRadius: 8,
-                    border: selected
-                      ? '2px solid var(--accent)'
-                      : '1px solid var(--border)',
-                    backgroundColor: !available
-                      ? 'var(--bg-alt)'
-                      : selected
-                        ? 'rgba(13, 148, 136, 0.06)'
-                        : '#fff',
-                    color: !available ? 'var(--text-muted-soft)' : 'var(--text)',
-                    cursor: available ? 'pointer' : 'default',
-                    fontSize: '0.8125rem',
-                    fontWeight: 500,
-                    textAlign: 'center',
-                    opacity: available ? 1 : 0.5,
-                    transition: 'border-color 0.15s, background-color 0.15s',
-                  }}
-                >
-                  {formatDate(dateStr)}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Step 2: Pick a time */}
-      {step === 'time' && selectedDate && (
-        <div>
-          <button
-            onClick={() => {
-              setStep('date');
-              setSelectedSlot(null);
-            }}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--text-muted)',
-              fontSize: '0.8125rem',
-              marginBottom: '0.75rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.25rem',
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-            Back
-          </button>
-          <h3
-            style={{
-              fontSize: '1rem',
-              fontWeight: 600,
-              color: 'var(--text)',
-              marginBottom: '0.25rem',
-              textAlign: 'center',
-            }}
-          >
-            {formatDate(selectedDate)}
-          </h3>
-          <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.8125rem', marginBottom: '1rem' }}>
-            Choose a time
-          </p>
-          {slotsForDate.length === 0 ? (
-            <p style={{ textAlign: 'center', color: 'var(--text-muted-soft)', fontSize: '0.875rem' }}>
-              No slots available for this date.
-            </p>
-          ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
-              {slotsForDate.map((slot) => {
-                const selected = selectedSlot?.startTime === slot.startTime;
-                return (
-                  <button
-                    key={slot.startTime}
-                    onClick={() => {
-                      if (typeof window !== 'undefined' && source) {
-                        import('@/lib/mixpanel').then(({ mixpanel }) => {
-                          mixpanel.track('Booking Time Selected', {
-                            date: selectedDate,
-                            start_time: slot.startTime,
-                            source,
-                          });
-                        });
-                      }
-                      setSelectedSlot(slot);
-                      setStep('form');
-                    }}
-                    style={{
-                      padding: '0.5rem',
-                      borderRadius: 8,
-                      border: selected
-                        ? '2px solid var(--accent)'
-                        : '1px solid var(--border)',
-                      backgroundColor: selected ? 'rgba(13, 148, 136, 0.06)' : '#fff',
-                      color: 'var(--text)',
-                      cursor: 'pointer',
-                      fontSize: '0.8125rem',
-                      fontWeight: 500,
-                      transition: 'border-color 0.15s, background-color 0.15s',
-                    }}
-                  >
-                    {formatTime(slot.startTime)}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Step 3: Booking form */}
-      {step === 'form' && selectedSlot && (
-        <div>
-          <button
-            onClick={() => setStep('time')}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--text-muted)',
-              fontSize: '0.8125rem',
-              marginBottom: '0.75rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.25rem',
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-            Back
-          </button>
-          <div
-            style={{
-              textAlign: 'center',
-              padding: '0.75rem',
-              borderRadius: 8,
-              backgroundColor: 'var(--bg-alt)',
-              border: '1px solid var(--border)',
-              marginBottom: '1.25rem',
-              fontSize: '0.875rem',
-              color: 'var(--text)',
-            }}
-          >
-            <strong>{formatDate(selectedSlot.date)}</strong> at{' '}
-            <strong>{formatTime(selectedSlot.startTime)}</strong>
-          </div>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <form onSubmit={handleDetailsContinue} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <div>
               <label
                 htmlFor="booking-name"
@@ -474,13 +329,269 @@ export function SlotPicker({
                 }}
               />
             </div>
+            <div>
+              <label
+                htmlFor="booking-description"
+                style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 500, color: 'var(--text)', marginBottom: '0.25rem' }}
+              >
+                Workflow / context
+              </label>
+              <textarea
+                id="booking-description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Describe your Workflow (optional)"
+                rows={3}
+                style={{
+                  width: '100%',
+                  padding: '0.625rem 0.75rem',
+                  borderRadius: 8,
+                  border: '1px solid var(--border)',
+                  fontSize: '0.875rem',
+                  outline: 'none',
+                  resize: 'vertical',
+                  minHeight: 72,
+                }}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={savingLead}
+              className="cta-button"
+              style={{
+                width: '100%',
+                marginTop: '0.25rem',
+                opacity: savingLead ? 0.7 : 1,
+              }}
+            >
+              {savingLead ? 'Saving...' : 'Continue'}
+            </button>
+          </form>
+        </div>
+      )}
+
+      {/* Step 2: Pick a date */}
+      {step === 'date' && !loading && (
+        <div>
+          <button
+            onClick={() => setStep('form')}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-muted)',
+              fontSize: '0.8125rem',
+              marginBottom: '0.75rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+            Back
+          </button>
+          <h3
+            style={{
+              fontSize: '1rem',
+              fontWeight: 600,
+              color: 'var(--text)',
+              marginBottom: '1rem',
+              textAlign: 'center',
+            }}
+          >
+            Pick a date
+          </h3>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))',
+              gap: '0.5rem',
+            }}
+          >
+            {dates.map((dateStr) => {
+              const available = hasSlots(dateStr);
+              const selected = selectedDate === dateStr;
+              return (
+                <button
+                  key={dateStr}
+                  onClick={() => {
+                    if (!available) return;
+                    if (typeof window !== 'undefined' && source) {
+                      import('@/lib/mixpanel').then(({ mixpanel }) => {
+                        mixpanel.track('Booking Date Selected', {
+                          date: dateStr,
+                          source,
+                        });
+                      });
+                    }
+                    setSelectedDate(dateStr);
+                    setSelectedSlot(null);
+                    setStep('time');
+                  }}
+                  disabled={!available}
+                  style={{
+                    padding: '0.625rem 0.5rem',
+                    borderRadius: 8,
+                    border: selected
+                      ? '2px solid var(--accent)'
+                      : '1px solid var(--border)',
+                    backgroundColor: !available
+                      ? 'var(--bg-alt)'
+                      : selected
+                        ? 'rgba(13, 148, 136, 0.06)'
+                        : '#fff',
+                    color: !available ? 'var(--text-muted-soft)' : 'var(--text)',
+                    cursor: available ? 'pointer' : 'default',
+                    fontSize: '0.8125rem',
+                    fontWeight: 500,
+                    textAlign: 'center',
+                    opacity: available ? 1 : 0.5,
+                    transition: 'border-color 0.15s, background-color 0.15s',
+                  }}
+                >
+                  {formatDate(dateStr)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Step 3: Pick a time */}
+      {step === 'time' && selectedDate && (
+        <div>
+          <button
+            onClick={() => {
+              setStep('date');
+              setSelectedSlot(null);
+            }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-muted)',
+              fontSize: '0.8125rem',
+              marginBottom: '0.75rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+            Back
+          </button>
+          <h3
+            style={{
+              fontSize: '1rem',
+              fontWeight: 600,
+              color: 'var(--text)',
+              marginBottom: '0.25rem',
+              textAlign: 'center',
+            }}
+          >
+            {formatDate(selectedDate)}
+          </h3>
+          <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.8125rem', marginBottom: '1rem' }}>
+            Choose a time
+          </p>
+          {slotsForDate.length === 0 ? (
+            <p style={{ textAlign: 'center', color: 'var(--text-muted-soft)', fontSize: '0.875rem' }}>
+              No slots available for this date.
+            </p>
+          ) : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
+              {slotsForDate.map((slot) => {
+                const selected = selectedSlot?.startTime === slot.startTime;
+                return (
+                  <button
+                    key={slot.startTime}
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && source) {
+                        import('@/lib/mixpanel').then(({ mixpanel }) => {
+                          mixpanel.track('Booking Time Selected', {
+                            date: selectedDate,
+                            start_time: slot.startTime,
+                            source,
+                          });
+                        });
+                      }
+                      setSelectedSlot(slot);
+                      setStep('confirm');
+                    }}
+                    style={{
+                      padding: '0.5rem',
+                      borderRadius: 8,
+                      border: selected
+                        ? '2px solid var(--accent)'
+                        : '1px solid var(--border)',
+                      backgroundColor: selected ? 'rgba(13, 148, 136, 0.06)' : '#fff',
+                      color: 'var(--text)',
+                      cursor: 'pointer',
+                      fontSize: '0.8125rem',
+                      fontWeight: 500,
+                      transition: 'border-color 0.15s, background-color 0.15s',
+                    }}
+                  >
+                    {formatTime(slot.startTime)}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Step 4: Confirm booking */}
+      {step === 'confirm' && selectedSlot && (
+        <div>
+          <button
+            onClick={() => setStep('time')}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-muted)',
+              fontSize: '0.8125rem',
+              marginBottom: '0.75rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+            Back
+          </button>
+          <div
+            style={{
+              textAlign: 'center',
+              padding: '0.75rem',
+              borderRadius: 8,
+              backgroundColor: 'var(--bg-alt)',
+              border: '1px solid var(--border)',
+              marginBottom: '1.25rem',
+              fontSize: '0.875rem',
+              color: 'var(--text)',
+            }}
+          >
+            <strong>{formatDate(selectedSlot.date)}</strong> at{' '}
+            <strong>{formatTime(selectedSlot.startTime)}</strong>
+          </div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
+            {name}{company?.trim() ? ` · ${company.trim()}` : ''} · {email}
+          </p>
+          <form onSubmit={handleConfirmBooking}>
             <button
               type="submit"
               disabled={submitting}
               className="cta-button"
               style={{
                 width: '100%',
-                marginTop: '0.25rem',
                 opacity: submitting ? 0.7 : 1,
               }}
             >

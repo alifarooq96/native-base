@@ -201,14 +201,32 @@ export function Header() {
           <Link href="/#pricing" style={{ color: 'var(--text-muted)' }}>
             Pricing
           </Link>
-          <Link href="/login" style={{ color: 'var(--text)', fontWeight: 600 }}>
+          {/* <Link href="/login" style={{ color: 'var(--text)', fontWeight: 600 }}>
             Sign in
-          </Link>
+          </Link> */}
           <Link
             href="/#contact"
-            style={{ color: 'var(--accent)', fontWeight: 600 }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: '0.5rem 1rem',
+              borderRadius: 8,
+              backgroundColor: 'var(--accent)',
+              color: 'var(--bg)',
+              fontWeight: 600,
+              fontSize: '0.9375rem',
+              transition: 'opacity 0.15s ease, transform 0.15s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = '0.9';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = '1';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
           >
-            Get in touch
+            Get Started
           </Link>
         </nav>
 
@@ -360,7 +378,7 @@ export function Header() {
           >
             Pricing
           </Link>
-          <Link
+          {/* <Link
             href="/login"
             onClick={() => setOpen(false)}
             style={{
@@ -372,18 +390,24 @@ export function Header() {
             }}
           >
             Sign in
-          </Link>
+          </Link> */}
           <Link
             href="/#contact"
             onClick={() => setOpen(false)}
             style={{
-              padding: '0.875rem 1.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0.5rem 1.5rem',
+              padding: '0.75rem 1.25rem',
+              borderRadius: 8,
+              backgroundColor: 'var(--accent)',
+              color: 'var(--bg)',
               fontSize: '0.9375rem',
-              color: 'var(--accent)',
               fontWeight: 600,
             }}
           >
-            Get in touch
+            Get Started
           </Link>
         </nav>
       )}

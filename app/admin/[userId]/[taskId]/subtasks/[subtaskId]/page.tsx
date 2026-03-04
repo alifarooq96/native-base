@@ -39,19 +39,19 @@ export default async function AdminSubtaskPage({
     where: { id: userId },
     select: { name: true, email: true },
   });
-  if (!client) redirect('/admin');
+  if (!client) redirect('/admin/clients');
 
   const clientName = client.name || client.email;
   const taskHref = `/admin/${userId}/${taskId}`;
 
   return (
-    <div style={{ maxWidth: 720, margin: '0 auto', padding: '2rem 1.5rem' }}>
+    <div style={{ maxWidth: 720, margin: '0 auto', padding: '1.25rem 1.5rem' }}>
       <SubTaskDetailView
         taskId={taskId}
         subtaskId={subtaskId}
         taskTitle=""
         backHref={taskHref}
-        firstBreadcrumb={{ label: 'Clients', href: '/admin' }}
+        firstBreadcrumb={{ label: 'Clients', href: '/admin/clients' }}
         isAdmin
         userName={adminUser.name || 'Admin'}
       />

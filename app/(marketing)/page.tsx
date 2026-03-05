@@ -6,6 +6,7 @@ import { HowItWorksTimeline } from '@/components/HowItWorksTimeline';
 import { WhatYouGet } from '@/components/WhatYouGet';
 import { Pricing } from '@/components/Pricing';
 import { SlotPicker } from '@/components/SlotPicker';
+import { UseCaseCards } from '@/components/UseCaseCards';
 
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
@@ -106,12 +107,49 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Use cases */}
+      <section
+        id="use-cases"
+        style={{
+          padding: '4rem 1.5rem',
+          backgroundColor: 'var(--bg-alt)',
+        }}
+      >
+        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+          <div style={{ maxWidth: 640, margin: '0 auto 2.5rem', textAlign: 'center' }}>
+            <p
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: 'var(--text-muted)',
+                marginBottom: '0.5rem',
+              }}
+            >
+              Use cases
+            </p>
+            <h2
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 700,
+                color: 'var(--text)',
+                lineHeight: 1.3,
+              }}
+            >
+              Built for your industry
+            </h2>
+          </div>
+          <UseCaseCards />
+        </div>
+      </section>
+
       {/* How it works — timeline with scroll animation */}
       <section
         id="how-it-works"
         style={{
           padding: '4rem 1.5rem',
-          backgroundColor: 'var(--bg-alt)',
+          backgroundColor: 'var(--bg)',
         }}
       >
         <div style={{ maxWidth: 640, margin: '0 auto 3rem', textAlign: 'center' }}>
@@ -146,7 +184,7 @@ export default function Home() {
         id="what-you-get"
         style={{
           padding: '4rem 1.5rem',
-          backgroundColor: 'var(--bg)',
+          backgroundColor: 'var(--bg-alt)',
         }}
       >
         <div style={{ maxWidth: 960, margin: '0 auto' }}>
@@ -183,7 +221,7 @@ export default function Home() {
         id="pricing"
         style={{
           padding: '4rem 1.5rem',
-          backgroundColor: 'var(--bg-alt)',
+          backgroundColor: 'var(--bg)',
         }}
       >
         <div style={{ maxWidth: 960, margin: '0 auto' }}>
@@ -220,7 +258,7 @@ export default function Home() {
         id="contact"
         style={{
           padding: '4rem 1.5rem',
-          backgroundColor: 'var(--bg)',
+          backgroundColor: 'var(--bg-alt)',
         }}
       >
         <div

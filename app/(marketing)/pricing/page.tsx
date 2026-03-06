@@ -389,6 +389,121 @@ export default function PricingPage() {
             </h2>
           </div>
           <Pricing />
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1.25rem',
+              maxWidth: 640,
+              margin: '3rem auto 0',
+            }}
+          >
+            <div
+              style={{
+                padding: '1.5rem 1.75rem',
+                borderRadius: 12,
+                border: '1px solid var(--border)',
+                backgroundColor: 'rgba(13,148,136,0.06)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '1rem',
+              }}
+            >
+              <span
+                style={{
+                  flexShrink: 0,
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  backgroundColor: 'rgba(13,148,136,0.12)',
+                  color: 'var(--accent)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </span>
+              <div>
+                <p
+                  style={{
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    color: 'var(--text)',
+                    marginBottom: '0.25rem',
+                    lineHeight: 1.3,
+                  }}
+                >
+                  Try it for a week
+                </p>
+                <p
+                  style={{
+                    fontSize: '0.9375rem',
+                    color: 'var(--text-muted)',
+                    lineHeight: 1.4,
+                    margin: 0,
+                  }}
+                >
+                  Not loving it after a week? Get 75% back, no questions asked.
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                padding: '1.5rem 1.75rem',
+                borderRadius: 12,
+                border: '1px solid var(--border)',
+                backgroundColor: 'rgba(13,148,136,0.06)',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '1rem',
+              }}
+            >
+              <span
+                style={{
+                  flexShrink: 0,
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  backgroundColor: 'rgba(13,148,136,0.12)',
+                  color: 'var(--accent)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="6" y="4" width="4" height="16" />
+                  <rect x="14" y="4" width="4" height="16" />
+                </svg>
+              </span>
+              <div>
+                <p
+                  style={{
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    color: 'var(--text)',
+                    marginBottom: '0.25rem',
+                    lineHeight: 1.3,
+                  }}
+                >
+                  Pause anytime
+                </p>
+                <p
+                  style={{
+                    fontSize: '0.9375rem',
+                    color: 'var(--text-muted)',
+                    lineHeight: 1.4,
+                    margin: 0,
+                  }}
+                >
+                  Temporarily pause your subscription anytime, no sweat.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

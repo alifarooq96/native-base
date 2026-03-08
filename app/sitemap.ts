@@ -21,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: withTrailingSlash('/pricing'),
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: withTrailingSlash('/credits'),
       lastModified: new Date(),
       changeFrequency: 'monthly',

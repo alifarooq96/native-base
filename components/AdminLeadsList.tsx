@@ -4,7 +4,14 @@ import { useEffect, useState } from 'react';
 
 const DESCRIPTION_TRUNCATE = 80;
 
-interface Lead {
+function truncate(str: string | null, max: number): string {
+  if (!str || !str.trim()) return '—';
+  const trimmed = str.trim();
+  if (trimmed.length <= max) return trimmed;
+  return trimmed.slice(0, max).trim() + '…';
+}
+
+export interface Lead {
   id: string;
   name: string;
   email: string;
@@ -15,28 +22,29 @@ interface Lead {
   hasBooked: boolean;
 }
 
-function truncate(str: string | null, max: number): string {
-  if (!str || !str.trim()) return '—';
-  const trimmed = str.trim();
-  if (trimmed.length <= max) return trimmed;
-  return trimmed.slice(0, max).trim() + '…';
+interface AdminLeadsListProps {
+  /** When provided, use these leads instead of fetching (e.g. for tabbed view). */
+  leads?: Lead[];
 }
 
-export function AdminLeadsList() {
-  const [leads, setLeads] = useState<Lead[]>([]);
-  const [loading, setLoading] = useState(true);
+export function AdminLeadsList({ leads: leadsProp }: AdminLeadsListProps = {}) {
+  const [leadsState, setLeadsState] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(!leadsProp);
   const [detailLead, setDetailLead] = useState<Lead | null>(null);
 
+  const leads = leadsProp ?? leadsState;
+
   useEffect(() => {
+    if (leadsProp != null) return;
     fetch('/api/admin/booking-leads')
       .then((r) => {
         if (!r.ok) throw new Error('Failed to load leads');
         return r.json();
       })
-      .then(setLeads)
-      .catch(() => setLeads([]))
+      .then(setLeadsState)
+      .catch(() => setLeadsState([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [leadsProp]);
 
   if (loading) {
     return (

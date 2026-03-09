@@ -1,23 +1,42 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+function inferNameFromEmail(email: string) {
+  const localPart = email.split('@')[0] ?? '';
+  const cleaned = localPart
+    .replace(/[._-]+/g, ' ')
+    .replace(/\d+/g, ' ')
+    .trim();
+
+  if (!cleaned) return 'Automation Audit Lead';
+
+  return cleaned
+    .split(/\s+/)
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(' ');
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, company, description, source } = body;
 
-    if (!name || !email || typeof name !== 'string' || typeof email !== 'string') {
+    if (!email || typeof email !== 'string') {
       return NextResponse.json(
-        { error: 'name and email are required' },
+        { error: 'email is required' },
         { status: 400 }
       );
     }
 
-    const trimmedName = name.trim();
     const trimmedEmail = email.trim().toLowerCase();
-    if (!trimmedName || !trimmedEmail) {
+    const trimmedName =
+      typeof name === 'string' && name.trim()
+        ? name.trim()
+        : inferNameFromEmail(trimmedEmail);
+
+    if (!trimmedEmail) {
       return NextResponse.json(
-        { error: 'name and email are required' },
+        { error: 'email is required' },
         { status: 400 }
       );
     }

@@ -163,6 +163,9 @@ export function Header() {
             )}
           </div>
 
+          <Link href="/automation-audit" style={{ color: 'var(--text-muted)' }}>
+            Audit
+          </Link>
           <Link href="/pricing" style={{ color: 'var(--text-muted)' }}>
             Pricing
           </Link>
@@ -331,6 +334,18 @@ export function Header() {
             )}
           </div>
 
+          <Link
+            href="/automation-audit"
+            onClick={() => setOpen(false)}
+            style={{
+              padding: '0.875rem 1.5rem',
+              fontSize: '0.9375rem',
+              color: 'var(--text-muted)',
+              borderBottom: '1px solid var(--border)',
+            }}
+          >
+            Audit
+          </Link>
           <Link
             href="/pricing"
             onClick={() => setOpen(false)}

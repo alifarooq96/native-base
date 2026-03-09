@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { AdminLeadsList } from '@/components/AdminLeadsList';
+import { AdminLeadsTabs } from '@/components/AdminLeadsTabs';
 
 export const metadata: Metadata = { title: 'Admin — Leads' };
 
@@ -23,9 +23,9 @@ export default function AdminLeadsPage() {
         Leads
       </h1>
       <p style={{ color: 'var(--text-muted)', fontSize: '0.9375rem', marginBottom: '1.5rem' }}>
-        Everyone who filled out the intro call form. Sorted by newest first.
+        Landing page: intro call form. Lead magnet: automation audit breakdown requests. Newest first.
       </p>
-      <AdminLeadsList />
+      <AdminLeadsTabs />
     </div>
   );
 }

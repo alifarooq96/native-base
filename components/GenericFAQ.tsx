@@ -1,47 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, type ReactNode } from 'react';
 
-const faqs = [
-  {
-    q: 'Does this require an API from GEICO?',
-    a: 'No. NativeBase uses AI-driven browser automation—the same way a human CSR logs in and navigates the GEICO agent portal. There is no API dependency, no integration request, and no approval process from GEICO required.',
-  },
-  {
-    q: 'Is my data secure?',
-    a: 'Absolutely. All data at rest is AES-256 bit encrypted, and all data in transit is TLS-secured. Our infrastructure meets the highest safety and encryption standards, and we never store carrier credentials on our servers.',
-  },
-  {
-    q: 'Can I use this for other carriers besides GEICO?',
-    a: (
-      <>
-        Yes. The same AI automation technology works across carrier portals—Progressive, Travelers, Liberty Mutual, and more. GEICO is one of the many we support. See our{' '}
-        <Link href="/resources/insurance/multi-carrier-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
-          multi-carrier automation
-        </Link>
-        {' '}and{' '}
-        <Link href="/resources/insurance/progressive-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
-          Progressive workflow
-        </Link>
-        {' '}pages, or our overview on{' '}
-        <Link href="/resources/insurance/agent-portal-quote-to-bind" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
-          agent portal quote-to-bind
-        </Link>.
-      </>
-    ),
-  },
-  {
-    q: 'How long does it take to get started?',
-    a: 'Each workflow is automated within 48 hours. We work within your existing set of tools and don’t disrupt agent workflow—we handle setup and testing so your team can start quoting with AI on the GEICO portal immediately.',
-  },
-  {
-    q: 'What happens if the GEICO portal changes its layout?',
-    a: 'Our AI reads the portal like a human. Where it can\'t adapt automatically to layout changes, we proactively make updates so your automation keeps running—far more resilient than brittle RPA scripts.',
-  },
-];
+export type FAQItem = {
+  q: string;
+  a: ReactNode;
+};
 
-export function GeicoFAQ() {
+export function GenericFAQ({ faqs }: { faqs: FAQItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -107,13 +73,13 @@ export function GeicoFAQ() {
             </button>
             <div
               style={{
-                maxHeight: isOpen ? 300 : 0,
+                maxHeight: isOpen ? 500 : 0,
                 opacity: isOpen ? 1 : 0,
                 overflow: 'hidden',
                 transition: 'max-height 0.3s ease, opacity 0.25s ease',
               }}
             >
-              <p
+              <div
                 style={{
                   padding: '0 1.25rem 1.125rem',
                   fontSize: '0.875rem',
@@ -122,7 +88,7 @@ export function GeicoFAQ() {
                 }}
               >
                 {faq.a}
-              </p>
+              </div>
             </div>
           </div>
         );

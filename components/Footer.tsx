@@ -1,5 +1,62 @@
 import Link from 'next/link';
 
+const linkStyle = {
+  fontSize: '0.8125rem',
+  color: 'var(--text-muted)',
+} as const;
+
+const categoryStyle = {
+  fontSize: '0.75rem',
+  fontWeight: 600,
+  letterSpacing: '0.05em',
+  textTransform: 'uppercase' as const,
+  color: 'var(--text-muted)',
+  marginBottom: '0.5rem',
+};
+
+// Only link to pages that exist under app/(marketing)/resources/insurance/
+const resourceGroups = [
+  {
+    label: 'Carrier workflows',
+    links: [
+      { href: '/resources/insurance/progressive-workflow-automation/', label: 'Progressive' },
+      { href: '/resources/insurance/multi-carrier-automation/', label: 'Multi-carrier' },
+      { href: '/resources/insurance/geico-workflow-automation/', label: 'GEICO' },
+      { href: '/resources/insurance/agent-portal-quote-to-bind/', label: 'Quote-to-bind' },
+    ],
+  },
+  {
+    label: 'ACORD automation',
+    links: [
+      { href: '/resources/insurance/acord-to-portal/', label: 'ACORD to Portal' },
+      { href: '/resources/insurance/acord-125-commercial-application/', label: 'ACORD 125' },
+      { href: '/resources/insurance/acord-126-general-liability/', label: 'ACORD 126' },
+      { href: '/resources/insurance/acord-130-workers-comp/', label: 'ACORD 130' },
+      { href: '/resources/insurance/acord-140-property-information/', label: 'ACORD 140' },
+    ],
+  },
+  {
+    label: 'Bridge to carrier',
+    links: [
+      { href: '/resources/insurance/acord-to-progressive/', label: 'Progressive' },
+      { href: '/resources/insurance/acord-to-travelers/', label: 'Travelers' },
+      { href: '/resources/insurance/acord-to-hartford/', label: 'The Hartford' },
+      { href: '/resources/insurance/acord-to-liberty-mutual/', label: 'Liberty Mutual' },
+      { href: '/resources/insurance/acord-to-chubb/', label: 'Chubb' },
+      { href: '/resources/insurance/acord-to-berkshire-hathaway/', label: 'Berkshire Hathaway' },
+    ],
+  },
+  {
+    label: 'Integrations & resources',
+    links: [
+      { href: '/resources/insurance/ams360-to-carrier-portal/', label: 'AMS360' },
+      { href: '/resources/insurance/applied-epic-to-carrier-portal/', label: 'Applied Epic' },
+      { href: '/resources/insurance/roi-calculator-manual-data-entry/', label: 'ROI Calculator' },
+      { href: '/resources/insurance/nativebase-vs-rating-engines/', label: 'vs. Rating Engines' },
+    ],
+  },
+];
+
 export function Footer() {
   return (
     <footer
@@ -15,10 +72,7 @@ export function Footer() {
           margin: '0 auto',
           padding: '2rem 1.5rem',
           display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
+          flexDirection: 'column',
           gap: '2rem',
         }}
       >
@@ -26,66 +80,38 @@ export function Footer() {
           aria-label="Resources"
           style={{
             display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '0.5rem',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '2rem 1.5rem',
           }}
         >
-          <span
-            style={{
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
-              color: 'var(--text-muted)',
-              marginBottom: '0.25rem',
-            }}
-          >
-            Resources
-          </span>
-          <Link
-            href="/resources/insurance/progressive-workflow-automation"
-            style={{
-              fontSize: '0.8125rem',
-              color: 'var(--text-muted)',
-            }}
-          >
-            Progressive workflow automation
-          </Link>
-          <Link
-            href="/resources/insurance/multi-carrier-automation"
-            style={{
-              fontSize: '0.8125rem',
-              color: 'var(--text-muted)',
-            }}
-          >
-            Multi-carrier automation
-          </Link>
-          <Link
-            href="/resources/insurance/geico-workflow-automation"
-            style={{
-              fontSize: '0.8125rem',
-              color: 'var(--text-muted)',
-            }}
-          >
-            GEICO workflow automation
-          </Link>
-          <Link
-            href="/resources/insurance/agent-portal-quote-to-bind"
-            style={{
-              fontSize: '0.8125rem',
-              color: 'var(--text-muted)',
-            }}
-          >
-            Agent portal quote-to-bind
-          </Link>
+          {resourceGroups.map((group) => (
+            <div
+              key={group.label}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: '0.375rem',
+                minWidth: 140,
+              }}
+            >
+              <span style={categoryStyle}>{group.label}</span>
+              {group.links.map((link) => (
+                <Link key={link.href} href={link.href} style={linkStyle}>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          ))}
         </nav>
 
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-end',
+            alignItems: 'center',
             gap: '0.75rem',
           }}
         >
@@ -93,6 +119,7 @@ export function Footer() {
             style={{
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '1rem',
             }}
           >
@@ -145,7 +172,7 @@ export function Footer() {
               color: 'var(--text-muted-soft)',
               textTransform: 'lowercase',
               letterSpacing: '0.02em',
-              textAlign: 'right',
+              textAlign: 'center',
             }}
           >
             powered by{' '}
@@ -162,7 +189,7 @@ export function Footer() {
             style={{
               fontSize: '0.8125rem',
               color: 'var(--text-muted-soft)',
-              textAlign: 'right',
+              textAlign: 'center',
             }}
           >
             © {new Date().getFullYear()} Native Base. All rights reserved.

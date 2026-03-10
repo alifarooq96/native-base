@@ -353,7 +353,7 @@ export default function CarrierPortalsPage() {
               ['High burnout from repetitive work', 'No burnout — runs 24/7'],
               ['Limited to ~15 quotes/day', 'Scalable to 500+ quotes/day'],
               ['Coverage: business hours only', '24/7/365 uptime'],
-              ['Training time: 2-4 weeks per hire', 'Live in under 48 hours'],
+              ['Training time: 2-4 weeks per hire', 'Each workflow in 48 hours'],
               ['Scales linearly with headcount', 'Add carriers at no extra cost'],
             ].map(([left, right], i) => (
               <div

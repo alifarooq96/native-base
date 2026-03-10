@@ -639,7 +639,7 @@ export default function AgentPortalQuoteToBindPage() {
               color: '#64748b',
             }}
           >
-            Starting at $2,499/mo &middot; Live in under 48 hours &middot;
+            Starting at $2,499/mo &middot; Each workflow automated in 48 hours &middot;
             Cancel anytime
           </p>
         </div>

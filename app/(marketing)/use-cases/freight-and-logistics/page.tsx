@@ -353,7 +353,7 @@ export default function FreightAndLogisticsPage() {
               ['High turnover risk', 'Cancel or pause anytime'],
               ['Human error rate ~2-5%', '100% data accuracy'],
               ['Coverage: business hours only', '24/7/365 uptime'],
-              ['Training time: 2-4 weeks', 'Live in under 48 hours'],
+              ['Training time: 2-4 weeks', 'Each workflow in 48 hours'],
               ['Scales linearly with headcount', 'Add portals at no extra cost'],
             ].map(([left, right], i) => (
               <div

@@ -33,11 +33,11 @@ const faqs = [
   },
   {
     q: 'How long does it take to get started?',
-    a: 'Most agencies are live within 48 hours. We work within your existing set of tools and don’t disrupt agent workflow—we handle setup, configuration, and testing so your team can start quoting with AI immediately.',
+    a: 'Each workflow is automated within 48 hours. We work within your existing set of tools and don’t disrupt agent workflow—we handle setup, configuration, and testing so your team can start quoting with AI immediately.',
   },
   {
     q: 'What happens if the Progressive portal changes its layout?',
-    a: 'Because our AI reads the portal like a human—understanding labels, context, and structure—it adapts to layout changes automatically. This makes it far more resilient than brittle RPA scripts.',
+    a: 'Our AI reads the portal like a human. Where it can\'t adapt automatically to layout changes, we proactively make updates so your automation keeps running—far more resilient than brittle RPA scripts.',
   },
 ];
 

@@ -28,7 +28,7 @@ const STEPS = [
   {
     number: '03',
     title: 'Receive',
-    body: 'Get your automation delivered in under 48–72 hours. Review, request revisions, or post the next workflow. Repeat.',
+    body: 'Each workflow is delivered in 48–72 hours. Review, request revisions, or post the next workflow. Repeat.',
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />

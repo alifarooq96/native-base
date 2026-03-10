@@ -354,7 +354,7 @@ export default function FintechCompliancePage() {
               ['Capacity capped by human speed', 'Unlimited capacity'],
               ['High churn from repetitive work', 'AI never gets bored or makes typos'],
               ['Coverage: business hours only', '24/7/365 uptime'],
-              ['Training time: 4-6 weeks per hire', 'Live in under 48 hours'],
+              ['Training time: 4-6 weeks per hire', 'Each workflow in 48 hours'],
               ['Scales linearly with headcount', 'Scale to 10k users/day — same price'],
             ].map(([left, right], i) => (
               <div

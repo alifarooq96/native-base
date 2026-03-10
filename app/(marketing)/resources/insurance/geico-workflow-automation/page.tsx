@@ -72,12 +72,12 @@ const geicoFAQStructuredData = [
   {
     question: 'How long does it take to get started?',
     answer:
-      'Most agencies are live within 48 hours. We work within your existing set of tools and don\'t disrupt agent workflow—we handle setup and testing so your team can start quoting with AI on the GEICO portal immediately.',
+      'Each workflow is automated within 48 hours. We work within your existing set of tools and don\'t disrupt agent workflow—we handle setup and testing so your team can start quoting with AI on the GEICO portal immediately.',
   },
   {
     question: 'What happens if the GEICO portal changes its layout?',
     answer:
-      'Because our AI reads the portal like a human—understanding labels, context, and structure—it adapts to layout changes automatically. This makes it far more resilient than brittle RPA scripts.',
+      'Our AI reads the portal like a human. Where it can\'t adapt automatically to layout changes, we proactively make updates so your automation keeps running—far more resilient than brittle RPA scripts.',
   },
 ];
 
@@ -686,7 +686,7 @@ export default function GeicoWorkflowAutomationPage() {
               color: '#64748b',
             }}
           >
-            Starting at $2,499/mo &middot; Live in under 48 hours &middot;
+            Starting at $2,499/mo &middot; Each workflow automated in 48 hours &middot;
             Cancel anytime
           </p>
         </div>

@@ -120,8 +120,8 @@ export default function NativeBaseVsRatingEnginesPage() {
               <>
                 NativeBase automates the browser-based workflow—the same way a human agent
                 navigates carrier portals. AI opens the portal, logs in, fills forms, navigates
-                pages, and retrieves quotes. Since it uses the carrier's own web interface,
-                there's no API to integrate. If a carrier has a web portal, NativeBase works with it.
+                pages, and retrieves quotes. Since it uses the carrier&apos;s own web interface,
+                there&apos;s no API to integrate. If a carrier has a web portal, NativeBase works with it.
               </>
             ),
           },
@@ -156,7 +156,7 @@ export default function NativeBaseVsRatingEnginesPage() {
             a: (
               <>
                 When carriers update their portal UI, we proactively work to make updates
-                where AI can't adapt automatically—so your automation keeps running. With rating
+                where AI can&apos;t adapt automatically—so your automation keeps running. With rating
                 engines, an API change breaks your integration until the vendor patches it.
                 NativeBase keeps portal changes from causing downtime.
               </>
@@ -166,10 +166,10 @@ export default function NativeBaseVsRatingEnginesPage() {
             q: 'Can NativeBase work alongside a rating engine we already have?',
             a: (
               <>
-                Yes. Many agencies use NativeBase to cover carriers their rating engine doesn't
+                Yes. Many agencies use NativeBase to cover carriers their rating engine doesn&apos;t
                 support. Use your rating engine for its API-connected carriers, and NativeBase
                 for everything else—regional carriers, specialty markets, and any portal the
-                rating engine can't reach. Together, you cover every carrier without manual
+                rating engine can&apos;t reach. Together, you cover every carrier without manual
                 data entry. See our{' '}
                 <Link href="/resources/insurance/roi-calculator-manual-data-entry" style={crossRef}>
                   ROI calculator
@@ -183,7 +183,7 @@ export default function NativeBaseVsRatingEnginesPage() {
             a: (
               <>
                 NativeBase integrates within your existing agency management system—AMS360,
-                Applied Epic, or others—without disrupting your agents' workflow. Data flows
+                Applied Epic, or others—without disrupting your agents&apos; workflow. Data flows
                 from your system into carrier portals, and quotes flow back. No rip-and-replace,
                 no new system to learn. See our{' '}
                 <Link href="/resources/insurance/acord-to-portal" style={crossRef}>

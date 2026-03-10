@@ -119,7 +119,7 @@ export default function AppliedEpicToCarrierPortalPage() {
             a: (
               <>
                 NativeBase reads data directly from your Applied Epic environment—client
-                records, policy details, ACORD form data. There's no complex API integration.
+                records, policy details, ACORD form data. There&apos;s no complex API integration.
                 The data already in Epic flows into carrier portals automatically, and quotes
                 sync back. Your agents never rekey a single field.
               </>
@@ -174,7 +174,7 @@ export default function AppliedEpicToCarrierPortalPage() {
               <>
                 NativeBase uses AI to navigate portals—not brittle scripts or hardcoded
                 selectors. When a carrier redesigns their portal, we proactively make updates
-                where AI can't adapt automatically—so your automation keeps running.
+                where AI can&apos;t adapt automatically—so your automation keeps running.
               </>
             ),
           },

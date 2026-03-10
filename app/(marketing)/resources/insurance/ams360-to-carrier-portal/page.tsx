@@ -119,8 +119,8 @@ export default function AMS360ToCarrierPortalPage() {
             a: (
               <>
                 NativeBase reads data directly from your AMS360 environment—client records,
-                policy details, ACORD form data. There's no complex API integration to build.
-                The data that's already in AMS360 flows into carrier portals automatically,
+                policy details, ACORD form data. There&apos;s no complex API integration to build.
+                The data that&apos;s already in AMS360 flows into carrier portals automatically,
                 and quotes sync back. Your agents never rekey a single field.
               </>
             ),
@@ -172,8 +172,8 @@ export default function AMS360ToCarrierPortalPage() {
             a: (
               <>
                 Because NativeBase uses AI to navigate portals—not brittle scripts or static
-                selectors—we proactively make updates when AI can't adapt to portal changes. Our AI
-                continuously learns portal structures, so your automation doesn't break when
+                selectors—we proactively make updates when AI can&apos;t adapt to portal changes. Our AI
+                continuously learns portal structures, so your automation doesn&apos;t break when
                 a carrier redesigns their site.
               </>
             ),
@@ -182,7 +182,7 @@ export default function AMS360ToCarrierPortalPage() {
             q: 'How fast can we get started?',
             a: (
               <>
-                Each workflow is automated within 48 hours. There's no lengthy integration project,
+                Each workflow is automated within 48 hours. There&apos;s no lengthy integration project,
                 no IT involvement needed. NativeBase works within your existing AMS360 setup
                 and starts automating carrier portal workflows immediately. Check the{' '}
                 <Link href="/resources/insurance/multi-carrier-automation" style={crossRef}>

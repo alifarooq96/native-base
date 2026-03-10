@@ -64,7 +64,7 @@ export default function ROICalculatorManualDataEntryPage() {
         ],
         totalLine: (
           <>
-            Most agencies save <strong style={{ color: 'var(--accent)' }}>1,500+ hours per year</strong> by eliminating manual data entry—that's revenue your team earns back
+            Most agencies save <strong style={{ color: 'var(--accent)' }}>1,500+ hours per year</strong> by eliminating manual data entry—that&apos;s revenue your team earns back
           </>
         ),
       }}
@@ -120,7 +120,7 @@ export default function ROICalculatorManualDataEntryPage() {
               <>
                 For a mid-size agency processing 40–60 submissions per week, manual data entry
                 consumes 30–50 hours of agent time weekly. At loaded labor costs of $25–35/hour,
-                that's $39,000–91,000 per year spent on rekeying—before accounting for errors,
+                that&apos;s $39,000–91,000 per year spent on rekeying—before accounting for errors,
                 rework, and lost quotes.
               </>
             ),
@@ -167,7 +167,7 @@ export default function ROICalculatorManualDataEntryPage() {
             a: (
               <>
                 Yes. NativeBase integrates within your existing agency management system—whether
-                that's AMS360, Applied Epic, or another system. There's no rip-and-replace. Your
+                that&apos;s AMS360, Applied Epic, or another system. There&apos;s no rip-and-replace. Your
                 agents keep their workflow; we automate the carrier portal data entry. See the{' '}
                 <Link href="/resources/insurance/multi-carrier-automation" style={crossRef}>
                   multi-carrier automation
@@ -182,7 +182,7 @@ export default function ROICalculatorManualDataEntryPage() {
               <>
                 Traditional rating engines require carrier APIs, expensive integrations, and only
                 work with participating carriers. NativeBase works with any carrier portal—no API
-                needed—and deploys in days, not months. The ROI is faster because there's no
+                needed—and deploys in days, not months. The ROI is faster because there&apos;s no
                 upfront integration cost. See our{' '}
                 <Link href="/resources/insurance/nativebase-vs-rating-engines" style={crossRef}>
                   NativeBase vs. rating engines

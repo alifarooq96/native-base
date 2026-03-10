@@ -4,28 +4,28 @@ import { useState } from 'react';
 
 const faqs = [
   {
-    q: 'Does this require an API from GEICO?',
-    a: 'No. NativeBase uses AI-driven browser automation—the same way a human CSR logs in and navigates the GEICO agent portal. There is no API dependency, no integration request, and no approval process from GEICO required.',
+    q: 'What do you mean by "agent portal with quote-to-bind capabilities"?',
+    a: 'We mean a workflow that gives you the same outcome as logging into carrier agent portals (Progressive, GEICO, Travelers, etc.) and manually quoting and binding—but automated. You get bindable quotes from real carrier portals without rekeying. NativeBase is the layer that connects your data to those portals and delivers quote-to-bind in under 5 minutes.',
   },
   {
-    q: 'Is my data secure?',
-    a: 'Absolutely. All data at rest is AES-256 bit encrypted, and all data in transit is TLS-secured. Our infrastructure meets the highest safety and encryption standards, and we never store carrier credentials on our servers.',
+    q: 'Do I still use my carrier agent portals?',
+    a: 'Yes. Our AI operates within the same carrier portals and existing set of tools you use today. It logs in, navigates, prefills forms, and retrieves bindable quotes—without disrupting agent workflow. You keep your relationships and credentials; we automate the data entry and flow so your team spends time selling, not typing.',
   },
   {
-    q: 'Can I use this for other carriers besides GEICO?',
-    a: 'Yes. The same AI automation technology works across carrier portals—Progressive, Travelers, Liberty Mutual, and more. GEICO is one of the many portals we support.',
+    q: 'Which carriers are supported for quote-to-bind?',
+    a: 'We support major P&C carrier agent portals including Progressive, GEICO, Travelers, Liberty Mutual, Safeco, and others. Because we use AI that reads each portal like a human, we can extend to new carriers without custom APIs. Ask us about your carrier list.',
   },
   {
-    q: 'How long does it take to get started?',
-    a: 'Most agencies are live within 48 hours. We work within your existing set of tools and don’t disrupt agent workflow—we handle setup and testing so your team can start quoting with AI on the GEICO portal immediately.',
+    q: 'Is this secure and compliant?',
+    a: 'Yes. All data at rest is AES-256 encrypted and all data in transit is TLS-secured. We never store your carrier credentials on our servers. The workflow is designed to meet the same standards agencies expect from their agent portals and AMS.',
   },
   {
-    q: 'What happens if the GEICO portal changes its layout?',
-    a: 'Because our AI reads the portal like a human—understanding labels, context, and structure—it adapts to layout changes automatically. This makes it far more resilient than brittle RPA scripts.',
+    q: 'How fast can we go from quote to bind?',
+    a: 'From a single upload (dec page, ACORD, or CSV) to a bindable quote, most workflows complete in under 5 minutes. Your CSR reviews the quote, adjusts if needed, and binds—all without re-typing data into the portal.',
   },
 ];
 
-export function GeicoFAQ() {
+export function QuoteToBindFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -91,7 +91,7 @@ export function GeicoFAQ() {
             </button>
             <div
               style={{
-                maxHeight: isOpen ? 300 : 0,
+                maxHeight: isOpen ? 400 : 0,
                 opacity: isOpen ? 1 : 0,
                 overflow: 'hidden',
                 transition: 'max-height 0.3s ease, opacity 0.25s ease',

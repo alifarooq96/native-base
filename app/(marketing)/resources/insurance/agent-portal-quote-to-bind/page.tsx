@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { MultiCarrierTimeCalculator } from '@/components/MultiCarrierTimeCalculator';
-import { MultiCarrierFAQ } from '@/components/MultiCarrierFAQ';
+import { QuoteToBindCalculator } from '@/components/QuoteToBindCalculator';
+import { QuoteToBindFAQ } from '@/components/QuoteToBindFAQ';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 
 const baseUrl =
@@ -14,26 +14,24 @@ const baseUrl =
 
 export const metadata: Metadata = {
   title:
-    'Multi-Carrier Insurance Automation – One Data Source, Every Portal | NativeBase',
+    'Insurance Agent Portal with Quote-to-Bind Capabilities | NativeBase',
   description:
-    'Stop rekeying into five different carrier portals. Works within your existing tools without disrupting agent workflow—bindable quotes from a single upload in under 5 minutes.',
+    'Get the agent portal experience with full quote-to-bind capabilities—within your existing tools, without disrupting agent workflow. AI automates carrier portals so you quote and bind in under 5 minutes.',
   openGraph: {
     title:
-      'One Source of Data. Every Carrier. Under 5 Minutes. | NativeBase',
+      'Insurance Agent Portal with Quote-to-Bind Capabilities | NativeBase',
     description:
-      'Interoperability across carrier portals: one upload, AI maps to each carrier, auto-prefill everywhere. No more rekeying.',
+      'Quote and bind through your carrier portals in under 5 minutes—within your existing tools, without disrupting agent workflow.',
     images: [
       {
         url: `${baseUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: 'NativeBase – Multi-Carrier Insurance Automation',
+        alt: 'NativeBase – Agent Portal Quote-to-Bind',
       },
     ],
   },
 };
-
-/* ── Shared style helpers ── */
 
 const sectionPadding = { padding: '4rem 1.5rem' } as const;
 const narrowCenter = { maxWidth: 720, margin: '0 auto' } as const;
@@ -54,14 +52,10 @@ const sectionH2: React.CSSProperties = {
   marginBottom: '1rem',
 };
 
-/* ── Page ── */
-
-export default function MultiCarrierAutomationPage() {
+export default function AgentPortalQuoteToBindPage() {
   return (
     <div>
-      {/* ────────────────────────────────────────────────
-          1. HERO
-      ──────────────────────────────────────────────── */}
+      {/* ─── HERO: Intent-led (agent portal + quote-to-bind) ─── */}
       <section
         style={{
           padding: '4rem 1.5rem 5rem',
@@ -81,7 +75,6 @@ export default function MultiCarrierAutomationPage() {
             pointerEvents: 'none',
           }}
         />
-
         <div
           style={{
             ...narrowCenter,
@@ -107,12 +100,11 @@ export default function MultiCarrierAutomationPage() {
               fontWeight: 600,
             }}
           >
-            Multi-Carrier Interoperability &middot; Under 5 Minutes
+            Agent Portal &middot; Quote-to-Bind
           </span>
-
           <h1
             style={{
-              fontSize: 'clamp(1.75rem, 4.5vw, 2.625rem)',
+              fontSize: 'clamp(1.75rem, 4.5vw, 2.5rem)',
               fontWeight: 800,
               lineHeight: 1.15,
               color: '#f1f5f9',
@@ -120,11 +112,9 @@ export default function MultiCarrierAutomationPage() {
               marginBottom: '1.25rem',
             }}
           >
-            One Source of Data.{' '}
-            <span style={{ color: '#5eead4' }}>Every Carrier.</span>{' '}
-            Under 5 Minutes.
+            Insurance Agent Portal with{' '}
+            <span style={{ color: '#5eead4' }}>Quote-to-Bind Capabilities</span>
           </h1>
-
           <p
             style={{
               fontSize: '1.125rem',
@@ -134,10 +124,8 @@ export default function MultiCarrierAutomationPage() {
               marginBottom: '0.75rem',
             }}
           >
-            Stop rekeying into five different portals. AI automation fills
-            Progressive, Travelers, Liberty Mutual, and more from a{' '}
-            <strong style={{ color: '#cbd5e1' }}>single upload</strong>—bindable
-            quotes in under 5 minutes.
+            Get the agent portal experience you need—quote and bind through
+            carrier portals in under 5 minutes, without rekeying.
           </p>
           <p
             style={{
@@ -148,13 +136,12 @@ export default function MultiCarrierAutomationPage() {
             }}
           >
             Works within your existing set of tools—no rip-and-replace. Your
-            agents keep their workflow; we just make multi-carrier quoting
-            faster and error-free.
+            agents keep their workflow; we just make quote-to-bind faster and
+            error-free.
           </p>
-
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Link
-              href="/book-call?source=multi-carrier"
+              href="/book-call?source=agent-portal-quote-to-bind"
               className="cta-button"
               style={{
                 fontSize: '1rem',
@@ -163,30 +150,27 @@ export default function MultiCarrierAutomationPage() {
                 textDecoration: 'none',
               }}
             >
-              Schedule My Multi-Carrier Demo
+              See Quote-to-Bind in Action
             </Link>
           </div>
-
-          <MultiCarrierTimeCalculator />
+          <QuoteToBindCalculator />
         </div>
       </section>
 
-      {/* ────────────────────────────────────────────────
-          2. THE 5-MINUTE WORKFLOW (Multi-Carrier)
-      ──────────────────────────────────────────────── */}
+      {/* ─── THE QUOTE-TO-BIND WORKFLOW ─── */}
       <section style={{ ...sectionPadding, backgroundColor: 'var(--bg)' }}>
         <div style={wideCenter}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <p style={sectionLabel}>The 5-Minute Workflow</p>
+            <p style={sectionLabel}>The Quote-to-Bind Workflow</p>
             <h2 style={{ ...sectionH2, maxWidth: 560, margin: '0 auto' }}>
-              One upload → every carrier portal&mdash;
+              From your data to a bindable quote&mdash;
               <span style={{ color: 'var(--accent)' }}>under 5 minutes</span>
             </h2>
-            <p style={{ color: 'var(--text-muted)', maxWidth: 520, margin: '0.75rem auto 0', lineHeight: 1.6, fontSize: '0.9375rem' }}>
-              Within your existing tools, without disrupting agent workflow.
+            <p style={{ color: 'var(--text-muted)', maxWidth: 520, margin: '0 auto', lineHeight: 1.6 }}>
+              One workflow across your carrier agent portals—within your existing
+              tools, without disrupting agent workflow. No APIs, no rekeying.
             </p>
           </div>
-
           <div
             className="progressive-workflow-grid"
             style={{
@@ -206,9 +190,9 @@ export default function MultiCarrierAutomationPage() {
                   <line x1="9" y1="15" x2="15" y2="15" />
                 </svg>
               }
-              title="Upload Once"
+              title="Upload Source Data"
               duration="30 Sec"
-              description="One dec page, ACORD form, or CSV. The same source you use today—no new formats."
+              description="Dec page, ACORD form, or CSV—one source of truth for the quote-to-bind cycle."
             />
             <WorkflowStep
               number="2"
@@ -219,9 +203,9 @@ export default function MultiCarrierAutomationPage() {
                   <line x1="10" y1="24" x2="14" y2="24" />
                 </svg>
               }
-              title="AI Maps to Each Carrier"
+              title="AI Maps to Portal Forms"
               duration="60 Sec"
-              description="Our AI reads every field and maps it to Progressive, Travelers, Liberty Mutual—each carrier’s schema, automatically."
+              description="AI reads every field and maps to each carrier’s agent portal schema—Progressive, GEICO, Travelers, and more."
             />
             <WorkflowStep
               number="3"
@@ -232,9 +216,9 @@ export default function MultiCarrierAutomationPage() {
                   <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
                 </svg>
               }
-              title="Auto-Prefill All Portals"
+              title="Portal Prefill & Quote"
               duration="2–3 Min"
-              description="AI logs into each portal, navigates forms, and prefills—so you get quotes from every carrier without re-typing."
+              description="AI logs into your carrier portals, prefills forms, and retrieves bindable quotes—no manual entry."
             />
             <WorkflowStep
               number="4"
@@ -244,12 +228,11 @@ export default function MultiCarrierAutomationPage() {
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
               }
-              title="Bindable Quotes, Everywhere"
-              duration="Quote Ready!"
-              description="Compare rates across carriers side by side. Bind the best one—all from a single source of data."
+              title="Review & Bind"
+              duration="Quote Ready"
+              description="Bindable quote in hand. Your team reviews, adjusts if needed, and binds—same agent portal outcome, in minutes."
             />
           </div>
-
           <div
             style={{
               maxWidth: 800,
@@ -257,7 +240,6 @@ export default function MultiCarrierAutomationPage() {
               height: 6,
               borderRadius: 3,
               background: 'var(--border)',
-              position: 'relative',
               overflow: 'hidden',
             }}
           >
@@ -278,28 +260,26 @@ export default function MultiCarrierAutomationPage() {
               marginTop: '0.75rem',
             }}
           >
-            Total time: <strong style={{ color: 'var(--accent)' }}>Under 5 minutes</strong>{' '}
-            across all carriers vs. 20+ min per portal manually
+            Full quote-to-bind cycle: <strong style={{ color: 'var(--accent)' }}>Under 5 minutes</strong>{' '}
+            vs. 20+ minutes per portal manually
           </p>
         </div>
       </section>
 
-      {/* ────────────────────────────────────────────────
-          3. AI UNDER THE HOOD (Split: Multi-Portal)
-      ──────────────────────────────────────────────── */}
+      {/* ─── AGENT PORTAL + QUOTE-TO-BIND: MANUAL VS AUTOMATED ─── */}
       <section style={{ ...sectionPadding, backgroundColor: 'var(--bg-alt)' }}>
         <div style={wideCenter}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <p style={sectionLabel}>AI Under the Hood</p>
+            <p style={sectionLabel}>Agent Portal, Automated</p>
             <h2 style={{ ...sectionH2, maxWidth: 560, margin: '0 auto' }}>
-              Interoperability across every carrier portal
+              Quote-to-bind capabilities—without the rekeying
             </h2>
             <p style={{ color: 'var(--text-muted)', maxWidth: 520, margin: '0 auto', lineHeight: 1.6 }}>
-              One canonical data model. Our AI maps it to each carrier’s forms—so
-              you get true multi-carrier automation without custom integrations.
+              You keep using the same carrier agent portals and existing tools. We
+              automate the data flow so quote-to-bind takes minutes—without
+              disrupting how your agents work.
             </p>
           </div>
-
           <div
             className="progressive-split-grid"
             style={{
@@ -310,7 +290,6 @@ export default function MultiCarrierAutomationPage() {
               margin: '0 auto',
             }}
           >
-            {/* Left — Manual multi-portal */}
             <div
               style={{
                 backgroundColor: '#fef2f2',
@@ -331,9 +310,8 @@ export default function MultiCarrierAutomationPage() {
                   marginBottom: '1.25rem',
                 }}
               >
-                Manual Multi-Portal
+                Manual Agent Portal
               </p>
-
               <div
                 style={{
                   background: '#fde2e2',
@@ -346,16 +324,23 @@ export default function MultiCarrierAutomationPage() {
                   gap: '0.75rem',
                 }}
               >
-                <div style={{ display: 'flex', gap: '0.375rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                  {['Prog', 'Trav', 'LM', 'Saf', 'Other'].map((label, i) => (
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                  <line x1="7" y1="8" x2="10" y2="8" />
+                  <line x1="7" y1="11" x2="13" y2="11" />
+                  <line x1="14" y1="8" x2="17" y2="8" />
+                </svg>
+                <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                  {['Portal A', 'Portal B', 'Portal C'].map((label, i) => (
                     <span
                       key={i}
                       style={{
-                        padding: '0.35rem 0.6rem',
-                        borderRadius: 6,
+                        padding: '0.25rem 0.5rem',
+                        borderRadius: 4,
                         backgroundColor: '#fca5a5',
                         fontSize: '0.6875rem',
-                        fontWeight: 700,
                         color: '#991b1b',
                       }}
                     >
@@ -363,25 +348,17 @@ export default function MultiCarrierAutomationPage() {
                     </span>
                   ))}
                 </div>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="3" width="20" height="14" rx="2" />
-                  <line x1="8" y1="21" x2="16" y2="21" />
-                  <line x1="12" y1="17" x2="12" y2="21" />
-                </svg>
               </div>
-
               <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#991b1b', marginBottom: '0.5rem' }}>
-                Same Data, Typed Again and Again.
+                Slow quote-to-bind. Same data, rekeyed everywhere.
               </h3>
               <ul style={{ fontSize: '0.8125rem', color: '#991b1b', lineHeight: 1.8, paddingLeft: '1.25rem' }}>
-                <li>One quote = 5+ portals, 5+ copy-paste sessions</li>
-                <li>20+ minutes per carrier; over an hour for a full spread</li>
-                <li>Errors multiply when rekeying across systems</li>
-                <li>Carrier-specific fields and labels slow everyone down</li>
+                <li>Log into each agent portal, type the same data again</li>
+                <li>20+ minutes per portal to get to a bindable quote</li>
+                <li>Quote-to-bind cycle stretches to hours across carriers</li>
+                <li>Errors and fatigue when rekeying across portals</li>
               </ul>
             </div>
-
-            {/* Right — One source, every carrier */}
             <div
               style={{
                 backgroundColor: 'rgba(13,148,136,0.04)',
@@ -402,9 +379,8 @@ export default function MultiCarrierAutomationPage() {
                   marginBottom: '1.25rem',
                 }}
               >
-                One Source, Every Carrier
+                Agent Portal + Quote-to-Bind, Automated
               </p>
-
               <div
                 style={{
                   background: '#0F172A',
@@ -420,46 +396,39 @@ export default function MultiCarrierAutomationPage() {
               >
                 <span style={{ color: '#475569' }}>{'// one upload'}</span>
                 <br />
-                <span style={{ color: '#475569' }}>{'{'}</span>
-                <br />
-                <span>&nbsp;&nbsp;</span>
-                <span style={{ color: '#5eead4' }}>&quot;VIN&quot;</span>
-                <span style={{ color: '#64748b' }}>: </span>
-                <span style={{ color: '#fbbf24' }}>&quot;1G1AL...&quot;</span>
+                <span style={{ color: '#475569' }}>{'→ '}</span>
+                <span style={{ color: '#5eead4' }}>Progressive</span>
                 <span style={{ color: '#64748b' }}>, </span>
-                <span style={{ color: '#5eead4' }}>&quot;DriverName&quot;</span>
-                <span style={{ color: '#64748b' }}>: </span>
-                <span style={{ color: '#fbbf24' }}>&quot;Jane Doe&quot;</span>
+                <span style={{ color: '#5eead4' }}>GEICO</span>
+                <span style={{ color: '#64748b' }}>, </span>
+                <span style={{ color: '#5eead4' }}>Travelers</span>
+                <span style={{ color: '#64748b' }}>...</span>
                 <br />
-                <span style={{ color: '#475569' }}>{'}'}</span>
-                <br />
-                <span style={{ color: '#64748b' }}>→ Progressive, Travelers, Liberty Mutual, Safeco...</span>
+                <span style={{ color: '#475569' }}>{'→ bindable quote in under 5 min'}</span>
               </div>
-
               <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--text)', marginBottom: '0.5rem' }}>
-                One Workflow. Every Portal. Under 5 Minutes.
+                One workflow. Full quote-to-bind. Under 5 minutes.
               </h3>
               <ul style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', lineHeight: 1.8, paddingLeft: '1.25rem' }}>
-                <li>Single source maps to each carrier’s schema automatically</li>
-                <li>Under 5 minutes to bindable quotes across all carriers</li>
-                <li>No rekeying—data flows once, fills every portal</li>
-                <li>Add or swap carriers without rebuilding the workflow</li>
+                <li>Same agent portals—AI fills them from one source</li>
+                <li>Quote-to-bind in under 5 minutes per workflow</li>
+                <li>No rekeying; data flows once into every portal</li>
+                <li>Your team reviews and binds; we handle the data entry</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ────────────────────────────────────────────────
-          4. HEAD-TO-HEAD COMPARISON GRID
-      ──────────────────────────────────────────────── */}
+      {/* ─── COMPARISON: QUOTE-TO-BIND FOCUS ─── */}
       <section style={{ ...sectionPadding, backgroundColor: 'var(--bg)' }}>
         <div style={{ ...narrowCenter, maxWidth: 680 }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <p style={sectionLabel}>Head-to-Head</p>
-            <h2 style={sectionH2}>Manual multi-portal vs. AI interoperability</h2>
+            <h2 style={sectionH2}>
+              Manual agent portal vs. quote-to-bind automation
+            </h2>
           </div>
-
           <div
             style={{
               borderRadius: 14,
@@ -489,7 +458,7 @@ export default function MultiCarrierAutomationPage() {
                   textAlign: 'center',
                 }}
               >
-                Manual (5 Portals)
+                Manual Portals
               </div>
               <div
                 style={{
@@ -501,15 +470,14 @@ export default function MultiCarrierAutomationPage() {
                   textAlign: 'center',
                 }}
               >
-                NativeBase AI
+                NativeBase
               </div>
             </div>
-
             {([
-              ['Time for 5 carrier quotes', '100+ minutes', 'Under 5 minutes'],
-              ['Data entry', 'Rekey 5× (same data)', 'Enter once, fill all'],
-              ['Portals per workflow', 'One at a time', 'All in parallel'],
-              ['Adding a new carrier', 'New training, new pain', 'Add to workflow, no rebuild'],
+              ['Quote-to-bind cycle time', '20+ min per portal', 'Under 5 minutes'],
+              ['Agent portal experience', 'Rekey into each portal', 'One source, all portals'],
+              ['Data entry', 'Repeated per carrier', 'Enter once, bind anywhere'],
+              ['Bindable quote delivery', 'Slow, error-prone', 'Fast, accurate'],
             ] as const).map(([feature, manual, native], i) => (
               <div
                 key={i}
@@ -562,7 +530,6 @@ export default function MultiCarrierAutomationPage() {
                 </div>
               </div>
             ))}
-
             <div
               style={{
                 backgroundColor: 'rgba(13,148,136,0.06)',
@@ -572,31 +539,29 @@ export default function MultiCarrierAutomationPage() {
               }}
             >
               <p style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--accent)' }}>
-                True interoperability: one source, every carrier, under 5 minutes.
+                Agent portal with real quote-to-bind capabilities—in under 5
+                minutes, within your existing tools and without disrupting agent
+                workflow.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ────────────────────────────────────────────────
-          5. TECHNICAL FAQ
-      ──────────────────────────────────────────────── */}
+      {/* ─── FAQ ─── */}
       <section style={{ ...sectionPadding, backgroundColor: 'var(--bg-alt)' }}>
         <div style={wideCenter}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <p style={sectionLabel}>Technical FAQ</p>
+            <p style={sectionLabel}>FAQ</p>
             <h2 style={{ ...sectionH2, maxWidth: 480, margin: '0 auto' }}>
-              Multi-carrier questions, straight answers
+              Agent portal & quote-to-bind questions
             </h2>
           </div>
-          <MultiCarrierFAQ />
+          <QuoteToBindFAQ />
         </div>
       </section>
 
-      {/* ────────────────────────────────────────────────
-          6. FINAL CTA
-      ──────────────────────────────────────────────── */}
+      {/* ─── CTA ─── */}
       <section
         style={{
           padding: '5rem 1.5rem',
@@ -627,9 +592,8 @@ export default function MultiCarrierAutomationPage() {
               letterSpacing: '0.04em',
             }}
           >
-            Multi-Carrier &middot; Under 5 Minutes
+            Quote-to-Bind in Under 5 Minutes
           </span>
-
           <h2
             style={{
               fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
@@ -639,7 +603,7 @@ export default function MultiCarrierAutomationPage() {
               marginBottom: '1rem',
             }}
           >
-            Ready to quote every carrier from one source?
+            Ready for an agent portal that quotes and binds?
           </h2>
           <p
             style={{
@@ -649,13 +613,13 @@ export default function MultiCarrierAutomationPage() {
               marginBottom: '2rem',
             }}
           >
-            See a live demo: one upload, AI fills Progressive, Travelers, Liberty
-            Mutual, and more—bindable quotes in under 5 minutes.
+            See how NativeBase delivers full quote-to-bind capabilities across
+            your carrier portals—within your existing tools, without disrupting
+            agent workflow, in under 5 minutes.
           </p>
-
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Link
-              href="/book-call?source=multi-carrier-cta"
+              href="/book-call?source=agent-portal-quote-to-bind-cta"
               className="cta-button"
               style={{
                 fontSize: '1rem',
@@ -664,11 +628,10 @@ export default function MultiCarrierAutomationPage() {
                 textDecoration: 'none',
               }}
             >
-              Schedule My Multi-Carrier Demo
+              See Quote-to-Bind in Action
             </Link>
             <ScrollToTopButton />
           </div>
-
           <p
             style={{
               marginTop: '1.25rem',
@@ -684,8 +647,6 @@ export default function MultiCarrierAutomationPage() {
     </div>
   );
 }
-
-/* ── Sub-components ── */
 
 function WorkflowStep({
   number,
@@ -731,7 +692,6 @@ function WorkflowStep({
       >
         {number}
       </span>
-
       <span
         style={{
           width: 56,
@@ -747,7 +707,6 @@ function WorkflowStep({
       >
         {icon}
       </span>
-
       <h3
         style={{
           fontSize: '0.9375rem',
@@ -758,7 +717,6 @@ function WorkflowStep({
       >
         {title}
       </h3>
-
       <span
         style={{
           display: 'inline-block',
@@ -773,7 +731,6 @@ function WorkflowStep({
       >
         {duration}
       </span>
-
       <p
         style={{
           fontSize: '0.8125rem',

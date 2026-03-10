@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: 'How long does it take to get started?',
-    a: 'Most agencies are live within 48 hours. We handle the full setup, configuration, and testing so your team can start quoting with AI immediately.',
+    a: 'Most agencies are live within 48 hours. We work within your existing set of tools and don’t disrupt agent workflow—we handle setup, configuration, and testing so your team can start quoting with AI immediately.',
   },
   {
     q: 'What happens if the Progressive portal changes its layout?',

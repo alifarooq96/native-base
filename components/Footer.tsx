@@ -18,7 +18,7 @@ export function Footer() {
           flexDirection: 'row',
           flexWrap: 'wrap',
           justifyContent: 'space-between',
-          alignItems: 'flex-start',
+          alignItems: 'flex-end',
           gap: '2rem',
         }}
       >
@@ -69,6 +69,15 @@ export function Footer() {
             }}
           >
             GEICO workflow automation
+          </Link>
+          <Link
+            href="/resources/insurance/agent-portal-quote-to-bind"
+            style={{
+              fontSize: '0.8125rem',
+              color: 'var(--text-muted)',
+            }}
+          >
+            Agent portal quote-to-bind
           </Link>
         </nav>
 

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title:
     'Automate GEICO Portal Data Entry in Under 5 Minutes | NativeBase',
   description:
-    'Stop rekeying data into the GEICO agent portal. NativeBase uses AI browser automation to prefill forms and deliver a bindable quote in under 5 minutes.',
+    'Stop rekeying data into the GEICO agent portal. Works within your existing tools without disrupting agent workflow—bindable quote in under 5 minutes.',
   openGraph: {
     title:
       'How to Use Insurance AI to Automate GEICO Portal Data Entry in Under 5 Minutes',
@@ -120,12 +120,24 @@ export default function GeicoWorkflowAutomationPage() {
               lineHeight: 1.6,
               color: '#94a3b8',
               maxWidth: 560,
-              marginBottom: '2rem',
+              marginBottom: '0.75rem',
             }}
           >
             Stop rekeying data. Start quoting. The bridge between your source
             data and a GEICO rate is now{' '}
             <strong style={{ color: '#cbd5e1' }}>100% automated</strong>.
+          </p>
+          <p
+            style={{
+              fontSize: '0.9375rem',
+              color: '#64748b',
+              maxWidth: 520,
+              marginBottom: '2rem',
+            }}
+          >
+            Works within your existing set of tools—no rip-and-replace. Your
+            agents keep their workflow; we just make the GEICO portal faster
+            and error-free.
           </p>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Link
@@ -153,6 +165,9 @@ export default function GeicoWorkflowAutomationPage() {
               From source data to bindable quote&mdash;
               <span style={{ color: 'var(--accent)' }}>under 5 minutes</span>
             </h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: 520, margin: '0.75rem auto 0', lineHeight: 1.6, fontSize: '0.9375rem' }}>
+              Within your existing tools, without disrupting agent workflow.
+            </p>
           </div>
           <div
             className="progressive-workflow-grid"

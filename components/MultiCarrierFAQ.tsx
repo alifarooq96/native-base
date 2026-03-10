@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: 'Can I add or remove carriers later?',
-    a: 'Yes. Multi-carrier interoperability is built in. We can add new carrier portals to your workflow or pause others as your appetite changes—no lock-in to a fixed set.',
+    a: 'Yes. Multi-carrier interoperability is built in. We work within your existing set of tools and don’t disrupt agent workflow—you can add new carrier portals or pause others as your appetite changes, with no lock-in to a fixed set.',
   },
 ];
 

@@ -1,11 +1,27 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const faqs = [
   {
     q: 'What do you mean by "agent portal with quote-to-bind capabilities"?',
-    a: 'We mean a workflow that gives you the same outcome as logging into carrier agent portals (Progressive, GEICO, Travelers, etc.) and manually quoting and binding—but automated. You get bindable quotes from real carrier portals without rekeying. NativeBase is the layer that connects your data to those portals and delivers quote-to-bind in under 5 minutes.',
+    a: (
+      <>
+        We mean a workflow that gives you the same outcome as logging into carrier agent portals (Progressive, GEICO, Travelers, etc.) and manually quoting and binding—but automated. You get bindable quotes from real carrier portals without rekeying. NativeBase is the layer that connects your data to those portals and delivers quote-to-bind in under 5 minutes. See how it works for{' '}
+        <Link href="/resources/insurance/progressive-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          Progressive
+        </Link>
+        ,{' '}
+        <Link href="/resources/insurance/geico-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          GEICO
+        </Link>
+        , or{' '}
+        <Link href="/resources/insurance/multi-carrier-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          multiple carriers at once
+        </Link>.
+      </>
+    ),
   },
   {
     q: 'Do I still use my carrier agent portals?',
@@ -13,7 +29,23 @@ const faqs = [
   },
   {
     q: 'Which carriers are supported for quote-to-bind?',
-    a: 'We support major P&C carrier agent portals including Progressive, GEICO, Travelers, Liberty Mutual, Safeco, and others. Because we use AI that reads each portal like a human, we can extend to new carriers without custom APIs. Ask us about your carrier list.',
+    a: (
+      <>
+        We support major P&C carrier agent portals including Progressive, GEICO, Travelers, Liberty Mutual, Safeco, and others. For details on specific carriers, see our{' '}
+        <Link href="/resources/insurance/progressive-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          Progressive workflow automation
+        </Link>
+        ,{' '}
+        <Link href="/resources/insurance/geico-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          GEICO workflow automation
+        </Link>
+        , and{' '}
+        <Link href="/resources/insurance/multi-carrier-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          multi-carrier automation
+        </Link>
+        {' '}pages. We can extend to new carriers without custom APIs—ask us about your carrier list.
+      </>
+    ),
   },
   {
     q: 'Is this secure and compliant?',

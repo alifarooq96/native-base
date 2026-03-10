@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { TimeSavedCalculator } from '@/components/TimeSavedCalculator';
 import { ProgressiveFAQ } from '@/components/ProgressiveFAQ';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
+import { buildFAQPageSchema } from '@/lib/faq-schema';
 
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
@@ -54,11 +55,47 @@ const sectionH2: React.CSSProperties = {
   marginBottom: '1rem',
 };
 
+const progressiveFAQStructuredData = [
+  {
+    question: 'Does this require an API from Progressive?',
+    answer:
+      'No. NativeBase uses AI-driven browser automation—the same way a human CSR logs in and navigates the portal. There is no API dependency, no integration request, and no approval process from Progressive required.',
+  },
+  {
+    question: 'Is my data secure?',
+    answer:
+      'Absolutely. All data at rest is AES-256 bit encrypted, and all data in transit is TLS-secured. Our infrastructure meets the highest safety and encryption standards, and we never store carrier credentials on our servers.',
+  },
+  {
+    question: 'Can I use this for other carriers besides Progressive?',
+    answer:
+      'Yes. The same AI automation technology works across carrier portals—Travelers, Liberty Mutual, Safeco, and more. Progressive is just one of the many portals we support. See our multi-carrier automation and GEICO workflow pages, or our overview on agent portal quote-to-bind.',
+  },
+  {
+    question: 'How long does it take to get started?',
+    answer:
+      'Most agencies are live within 48 hours. We work within your existing set of tools and don\'t disrupt agent workflow—we handle setup, configuration, and testing so your team can start quoting with AI immediately.',
+  },
+  {
+    question: 'What happens if the Progressive portal changes its layout?',
+    answer:
+      'Because our AI reads the portal like a human—understanding labels, context, and structure—it adapts to layout changes automatically. This makes it far more resilient than brittle RPA scripts.',
+  },
+];
+
 /* ── Page ── */
 
 export default function ProgressiveWorkflowAutomationPage() {
+  const faqSchema = buildFAQPageSchema(
+    progressiveFAQStructuredData.map(({ question, answer }) => ({ question, answer })),
+  );
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* ────────────────────────────────────────────────
           1. HERO
       ──────────────────────────────────────────────── */}

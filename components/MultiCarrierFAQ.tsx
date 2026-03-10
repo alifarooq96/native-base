@@ -1,15 +1,44 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const faqs = [
   {
     q: 'Do I need a separate integration for each carrier?',
-    a: 'No. One NativeBase automation understands and fills multiple carrier portals. You upload data once; our AI maps it to each carrier’s form schema (Progressive, Travelers, Liberty Mutual, Safeco, etc.) and prefills them. Add or remove carriers without rebuilding the workflow.',
+    a: (
+      <>
+        No. One NativeBase automation understands and fills multiple carrier portals. You upload data once; our AI maps it to each carrier’s form schema (Progressive, Travelers, Liberty Mutual, Safeco, etc.) and prefills them. Add or remove carriers without rebuilding the workflow. The same approach powers our{' '}
+        <Link href="/resources/insurance/progressive-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          Progressive
+        </Link>
+        {' '}and{' '}
+        <Link href="/resources/insurance/geico-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          GEICO
+        </Link>
+        {' '}workflows, and our{' '}
+        <Link href="/resources/insurance/agent-portal-quote-to-bind" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          agent portal quote-to-bind
+        </Link>
+        {' '}overview.
+      </>
+    ),
   },
   {
     q: 'Which carriers are supported?',
-    a: 'We support major P&C carrier agent portals including Progressive, Travelers, Liberty Mutual, Safeco, and others. Our AI reads each portal like a human, so we can extend to new carriers without custom API integrations. Ask us about your specific carrier list.',
+    a: (
+      <>
+        We support major P&C carrier agent portals including Progressive, Travelers, Liberty Mutual, Safeco, and others. For carrier-specific details, see our{' '}
+        <Link href="/resources/insurance/progressive-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          Progressive workflow automation
+        </Link>
+        {' '}and{' '}
+        <Link href="/resources/insurance/geico-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          GEICO workflow automation
+        </Link>
+        {' '}pages. Our AI reads each portal like a human, so we can extend to new carriers without custom API integrations—ask us about your carrier list.
+      </>
+    ),
   },
   {
     q: 'Is my data secure when flowing to multiple portals?',

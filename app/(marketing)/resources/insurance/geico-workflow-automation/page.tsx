@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { GeicoTimeCalculator } from '@/components/GeicoTimeCalculator';
 import { GeicoFAQ } from '@/components/GeicoFAQ';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
+import { buildFAQPageSchema } from '@/lib/faq-schema';
 
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
@@ -52,9 +53,45 @@ const sectionH2: React.CSSProperties = {
   marginBottom: '1rem',
 };
 
+const geicoFAQStructuredData = [
+  {
+    question: 'Does this require an API from GEICO?',
+    answer:
+      'No. NativeBase uses AI-driven browser automation—the same way a human CSR logs in and navigates the GEICO agent portal. There is no API dependency, no integration request, and no approval process from GEICO required.',
+  },
+  {
+    question: 'Is my data secure?',
+    answer:
+      'Absolutely. All data at rest is AES-256 bit encrypted, and all data in transit is TLS-secured. Our infrastructure meets the highest safety and encryption standards, and we never store carrier credentials on our servers.',
+  },
+  {
+    question: 'Can I use this for other carriers besides GEICO?',
+    answer:
+      'Yes. The same AI automation technology works across carrier portals—Progressive, Travelers, Liberty Mutual, and more. GEICO is one of the many we support. See our multi-carrier automation and Progressive workflow pages, or our overview on agent portal quote-to-bind.',
+  },
+  {
+    question: 'How long does it take to get started?',
+    answer:
+      'Most agencies are live within 48 hours. We work within your existing set of tools and don\'t disrupt agent workflow—we handle setup and testing so your team can start quoting with AI on the GEICO portal immediately.',
+  },
+  {
+    question: 'What happens if the GEICO portal changes its layout?',
+    answer:
+      'Because our AI reads the portal like a human—understanding labels, context, and structure—it adapts to layout changes automatically. This makes it far more resilient than brittle RPA scripts.',
+  },
+];
+
 export default function GeicoWorkflowAutomationPage() {
+  const faqSchema = buildFAQPageSchema(
+    geicoFAQStructuredData.map(({ question, answer }) => ({ question, answer })),
+  );
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <section
         style={{
           padding: '4rem 1.5rem 5rem',

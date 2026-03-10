@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { MultiCarrierTimeCalculator } from '@/components/MultiCarrierTimeCalculator';
 import { MultiCarrierFAQ } from '@/components/MultiCarrierFAQ';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
+import { buildFAQPageSchema } from '@/lib/faq-schema';
 
 const baseUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const faqs = [
   {
@@ -13,7 +14,22 @@ const faqs = [
   },
   {
     q: 'Can I use this for other carriers besides GEICO?',
-    a: 'Yes. The same AI automation technology works across carrier portals—Progressive, Travelers, Liberty Mutual, and more. GEICO is one of the many portals we support.',
+    a: (
+      <>
+        Yes. The same AI automation technology works across carrier portals—Progressive, Travelers, Liberty Mutual, and more. GEICO is one of the many we support. See our{' '}
+        <Link href="/resources/insurance/multi-carrier-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          multi-carrier automation
+        </Link>
+        {' '}and{' '}
+        <Link href="/resources/insurance/progressive-workflow-automation" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          Progressive workflow
+        </Link>
+        {' '}pages, or our overview on{' '}
+        <Link href="/resources/insurance/agent-portal-quote-to-bind" style={{ color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 }}>
+          agent portal quote-to-bind
+        </Link>.
+      </>
+    ),
   },
   {
     q: 'How long does it take to get started?',

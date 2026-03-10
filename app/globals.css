@@ -432,6 +432,13 @@ select {
     min-height: auto !important;
     gap: 2rem !important;
   }
+
+  .progressive-workflow-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .progressive-split-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -462,5 +469,9 @@ select {
   .credits-table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .progressive-workflow-grid {
+    grid-template-columns: 1fr !important;
   }
 }

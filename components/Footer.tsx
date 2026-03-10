@@ -17,9 +17,42 @@ export function Footer() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '0.75rem',
+          gap: '1rem',
         }}
       >
+        <nav
+          aria-label="Resources"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.5rem 1.5rem',
+          }}
+        >
+          <span
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              textTransform: 'uppercase',
+              color: 'var(--text-muted)',
+              width: '100%',
+              textAlign: 'center',
+              marginBottom: '0.25rem',
+            }}
+          >
+            Resources
+          </span>
+          <Link
+            href="/resources/insurance/progressive-workflow-automation"
+            style={{
+              fontSize: '0.8125rem',
+              color: 'var(--text-muted)',
+            }}
+          >
+            Progressive workflow automation
+          </Link>
+        </nav>
         <div
           style={{
             display: 'flex',

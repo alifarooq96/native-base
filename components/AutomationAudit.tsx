@@ -469,7 +469,7 @@ export function AutomationAudit() {
                   <p style={stepKickerStyle}>Step 1 of 3</p>
                   <h2 style={stepHeadingStyle}>Which categories are relevant?</h2>
                   <p style={stepBodyStyle}>
-                    Only choose the areas where repetitive work actually shows up for your team.
+                    Choose the areas where repetitive work shows up for your team.
                   </p>
                 </div>
 

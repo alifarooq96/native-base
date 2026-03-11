@@ -23,6 +23,9 @@ const resourceGroups = [
       { href: '/resources/insurance/multi-carrier-automation/', label: 'Multi-carrier' },
       { href: '/resources/insurance/geico-workflow-automation/', label: 'GEICO' },
       { href: '/resources/insurance/agent-portal-quote-to-bind/', label: 'Quote-to-bind' },
+      { href: '/resources/insurance/progressive-commercial-trucking-automation/', label: 'Progressive Trucking' },
+      { href: '/resources/insurance/great-west-casualty-agent-portal-automation/', label: 'Great West Casualty' },
+      { href: '/resources/insurance/northland-travelers-trucking-automation/', label: 'Northland (Travelers) Trucking' },
     ],
   },
   {

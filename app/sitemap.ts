@@ -176,5 +176,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.85,
     },
+    {
+      url: withTrailingSlash('/resources/insurance/progressive-commercial-trucking-automation'),
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: withTrailingSlash('/resources/insurance/great-west-casualty-agent-portal-automation'),
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: withTrailingSlash('/resources/insurance/northland-travelers-trucking-automation'),
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
   ];
 }

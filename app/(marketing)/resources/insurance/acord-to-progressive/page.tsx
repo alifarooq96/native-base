@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildSeoMetadata({
   title: 'Bridge ACORD Data to Progressive Portal | NativeBase',
   description:
     'Eliminate manual data entry into the Progressive agent portal. NativeBase reads your ACORD form data and automatically fills every field—no rekeying, no copy-paste, no toggling between systems.',
-};
+  path: '/resources/insurance/acord-to-progressive/',
+});
 
 const linkStyle = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildSeoMetadata({
   title: 'Bridge ACORD Data to Liberty Mutual Portal | NativeBase',
   description:
     'Eliminate manual data entry into the Liberty Mutual portal. NativeBase reads your ACORD form data and fills personal and commercial lines automatically—every field mapped, no manual entry required.',
-};
+  path: '/resources/insurance/acord-to-liberty-mutual/',
+});
 
 const linkStyle = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

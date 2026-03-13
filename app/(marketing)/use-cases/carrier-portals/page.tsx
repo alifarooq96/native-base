@@ -1,32 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Insurance Carrier Portals – Quote & Bind Automation | NativeBase.AI',
   description:
     'Replace manual Quote & Bind with AI agents that log into carrier portals—Progressive, Travelers, Liberty Mutual—and sync data to your AMS 24/7. Starting at $2,499/month.',
-  openGraph: {
-    title: 'Stop Paying Your Team to "Manually Quote" | NativeBase.AI',
-    description:
-      'Replace repetitive data entry into carrier portals with AI agents. We automate the quote-to-bind process and sync data to your AMS 24/7.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'NativeBase.AI – Insurance: Quote & Bind Automation',
-      },
-    ],
-  },
-};
+  path: '/use-cases/carrier-portals/',
+});
 
 /* ── Shared inline-style helpers ── */
 

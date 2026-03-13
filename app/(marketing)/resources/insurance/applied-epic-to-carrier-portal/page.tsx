@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Applied Epic to Carrier Portal Bridge – Eliminate Rekeying | NativeBase',
   description:
     'Bridge Applied Epic directly to carrier portals. Policies, client data, and ACORD forms flow automatically—your agents never manually rekey data again.',
-};
+  path: '/resources/insurance/applied-epic-to-carrier-portal/',
+});
 
 const crossRef = { color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 } as const;
 

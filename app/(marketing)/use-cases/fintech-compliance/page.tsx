@@ -1,32 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Fintech Compliance – KYC & AML Automation | NativeBase.AI',
   description:
     'Automate the "First Pass" of KYC & AML. AI agents handle document extraction, watchlist screening, and risk triaging so your analysts focus on the cases that matter. Starting at $2,499/month.',
-  openGraph: {
-    title: 'Scale Your Onboarding, Not Your Compliance Team | NativeBase.AI',
-    description:
-      'AI-Augmented Compliance for Fintech. Automate document extraction, sanctions screening, and risk triage—without replacing your analysts.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'NativeBase.AI – Fintech: KYC & AML Automation',
-      },
-    ],
-  },
-};
+  path: '/use-cases/fintech-compliance/',
+});
 
 /* ── Shared inline-style helpers ── */
 

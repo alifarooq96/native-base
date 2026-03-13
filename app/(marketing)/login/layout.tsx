@@ -1,9 +1,12 @@
-import type { Metadata } from 'next';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
-  title: 'Sign In',
-  description:
-    'Sign in to your Native Base account to manage your workflow automations, track credits, and access your task board. Secure sign-in for subscribers.',
+export const metadata = {
+  ...buildSeoMetadata({
+    title: 'Sign In',
+    description:
+      'Sign in to your Native Base account to manage your workflow automations, track credits, and access your task board. Secure sign-in for subscribers.',
+    path: '/login/',
+  }),
   robots: { index: false, follow: true },
 };
 

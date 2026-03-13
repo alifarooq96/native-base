@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildSeoMetadata({
   title: 'Automating ACORD 140: Property Information Automation | NativeBase',
   description:
     'Automate ACORD 140 property information submissions. Building values, construction types, protection classes, occupancy details—mapped from ACORD directly into carrier portals. No rekeying.',
-};
+  path: '/resources/insurance/acord-140-property-information/',
+});
 
 const linkStyle = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { TypewriterHeading } from '@/components/TypewriterHeading';
 import { BookCallButton } from '@/components/BookCallButton';
@@ -8,32 +7,13 @@ import { Pricing } from '@/components/Pricing';
 import { SlotPicker } from '@/components/SlotPicker';
 import { UseCaseCards } from '@/components/UseCaseCards';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Transform your business to be AI native',
   description:
     'Transform your business to be AI native. Subscription-based workflow automation delivered in under 2 days. Starting at $2,499/month.',
-  openGraph: {
-    title: 'Transform your business to be AI native',
-    description:
-      'Transform your business to be AI native. Subscription-based workflow automation delivered in under 2 days. No long-term commitment. Starting at $2,499/month.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'Native Base – Transform your business to be AI native. Subscription-based workflow automation.',
-      },
-    ],
-  },
-};
+  path: '/',
+});
 
 export default function Home() {
   return (

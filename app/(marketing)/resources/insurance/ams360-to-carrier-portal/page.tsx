@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'AMS360/Vertafore to Carrier Portal Bridge – Eliminate Rekeying | NativeBase',
   description:
     'Bridge AMS360 (Vertafore) directly to carrier portals. Client info, policies, and ACORD data flow automatically—your agents never rekey data again.',
-};
+  path: '/resources/insurance/ams360-to-carrier-portal/',
+});
 
 const crossRef = { color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 } as const;
 

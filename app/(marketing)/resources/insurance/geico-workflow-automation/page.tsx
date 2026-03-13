@@ -1,38 +1,16 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { GeicoTimeCalculator } from '@/components/GeicoTimeCalculator';
 import { GeicoFAQ } from '@/components/GeicoFAQ';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { buildFAQPageSchema } from '@/lib/faq-schema';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
-  title:
-    'Automate GEICO Portal Data Entry in Under 5 Minutes | NativeBase',
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
+  title: 'Automate GEICO Portal Data Entry in Under 5 Minutes | NativeBase',
   description:
     'Stop rekeying data into the GEICO agent portal. Works within your existing tools without disrupting agent workflow—bindable quote in under 5 minutes.',
-  openGraph: {
-    title:
-      'How to Use Insurance AI to Automate GEICO Portal Data Entry in Under 5 Minutes',
-    description:
-      'Stop rekeying data. Start quoting. The bridge between your source data and a GEICO rate is now 100% automated.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'NativeBase – Automate GEICO Portal in Under 5 Minutes',
-      },
-    ],
-  },
-};
+  path: '/resources/insurance/geico-workflow-automation/',
+});
 
 const sectionPadding = { padding: '4rem 1.5rem' } as const;
 const narrowCenter = { maxWidth: 720, margin: '0 auto' } as const;

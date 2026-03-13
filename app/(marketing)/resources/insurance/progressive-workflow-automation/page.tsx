@@ -1,38 +1,16 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { TimeSavedCalculator } from '@/components/TimeSavedCalculator';
 import { ProgressiveFAQ } from '@/components/ProgressiveFAQ';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { buildFAQPageSchema } from '@/lib/faq-schema';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
-  title:
-    'Automate Progressive Portal Data Entry in Under 5 Minutes | NativeBase',
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
+  title: 'Automate Progressive Portal Data Entry in Under 5 Minutes | NativeBase',
   description:
     'Stop rekeying data into the Progressive Agent Portal. Works within your existing tools without disrupting agent workflow—bindable quote in under 5 minutes.',
-  openGraph: {
-    title:
-      'How to Use Insurance AI to Automate Progressive Portal Data Entry in Under 5 Minutes',
-    description:
-      'Stop rekeying data. Start quoting. The bridge between your source data and a Progressive rate is now 100% automated.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'NativeBase – Automate Progressive Portal in Under 5 Minutes',
-      },
-    ],
-  },
-};
+  path: '/resources/insurance/progressive-workflow-automation/',
+});
 
 /* ── Shared style helpers ── */
 

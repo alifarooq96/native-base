@@ -1,37 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 import { QuoteToBindCalculator } from '@/components/QuoteToBindCalculator';
 import { QuoteToBindFAQ } from '@/components/QuoteToBindFAQ';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
-  title:
-    'Insurance Agent Portal with Quote-to-Bind Capabilities | NativeBase',
+export const metadata = buildSeoMetadata({
+  title: 'Insurance Agent Portal with Quote-to-Bind Capabilities | NativeBase',
   description:
     'Get the agent portal experience with full quote-to-bind capabilities—within your existing tools, without disrupting agent workflow. AI automates carrier portals so you quote and bind in under 5 minutes.',
-  openGraph: {
-    title:
-      'Insurance Agent Portal with Quote-to-Bind Capabilities | NativeBase',
-    description:
-      'Quote and bind through your carrier portals in under 5 minutes—within your existing tools, without disrupting agent workflow.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'NativeBase – Agent Portal Quote-to-Bind',
-      },
-    ],
-  },
-};
+  path: '/resources/insurance/agent-portal-quote-to-bind/',
+});
 
 const sectionPadding = { padding: '4rem 1.5rem' } as const;
 const narrowCenter = { maxWidth: 720, margin: '0 auto' } as const;

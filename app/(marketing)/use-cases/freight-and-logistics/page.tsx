@@ -1,32 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Freight & Logistics – Track & Trace Automation | NativeBase.AI',
   description:
     'Replace manual Track & Trace with autonomous AI agents. We build custom scrapers that log into carrier portals (Maersk, MSC, FedEx) and update your ERP 24/7. Starting at $2,499/month.',
-  openGraph: {
-    title: 'Stop Paying Your Team to "Check the Status" | NativeBase.AI',
-    description:
-      'Replace manual Track & Trace with autonomous AI agents that log into carrier portals and update your TMS 24/7.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'NativeBase.AI – Freight & Logistics: Track & Trace Automation',
-      },
-    ],
-  },
-};
+  path: '/use-cases/freight-and-logistics/',
+});
 
 /* ── Shared inline-style helpers ── */
 

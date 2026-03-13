@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Great West Casualty Agent Portal Automation | NativeBase',
   description:
     'Automate commercial trucking submissions to Great West Casualty: driver list uploads, vehicle schedules from ACORD 125, MCS-90 and BMC-91X/Form E—no rekeying into the agent portal.',
-};
+  path: '/resources/insurance/great-west-casualty-agent-portal-automation/',
+});
 
 const crossRef = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

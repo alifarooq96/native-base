@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'ROI Calculator: Cost of Manual ACORD Data Entry | NativeBase',
   description:
     'See the real cost of manual data entry—labor, errors, missed quotes, and slower bind times. Calculate how much your agency loses to rekeying and how NativeBase eliminates it.',
-};
+  path: '/resources/insurance/roi-calculator-manual-data-entry/',
+});
 
 const crossRef = { color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 } as const;
 

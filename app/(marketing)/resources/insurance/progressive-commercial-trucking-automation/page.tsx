@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Progressive Commercial Trucking Portal Automation | NativeBase',
   description:
     'Automate commercial trucking submissions to Progressive: driver list uploads, vehicle schedules from ACORD 125, MCS-90 and BMC-91X/Form E data—no rekeying into the Progressive portal.',
-};
+  path: '/resources/insurance/progressive-commercial-trucking-automation/',
+});
 
 const crossRef = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

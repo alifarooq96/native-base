@@ -1,15 +1,11 @@
-import type { Metadata } from 'next';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildSeoMetadata({
   title: 'Sign Up',
   description:
     'Create your Native Base account and start automating workflows with AI. Subscription-based workflow automation in under 2 days. No long-term commitment.',
-  openGraph: {
-    title: 'Get Started with Native Base',
-    description:
-      'Create your account and start automating workflows with AI. Subscription-based workflow automation delivered in under 2 days. No long-term commitment.',
-  },
-};
+  path: '/signup/',
+});
 
 export default function SignUpLayout({ children }: { children: React.ReactNode }) {
   return children;

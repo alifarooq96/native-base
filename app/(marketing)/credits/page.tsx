@@ -1,16 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'How Credits Work',
   description:
     'Learn how Native Base credits work — monthly allowance, rollover rules, and example automation costs. Transparent pricing with no surprises.',
-  openGraph: {
-    title: 'How Credits Work | Native Base',
-    description:
-      'Credits are the unit of work at Native Base. Learn how monthly allowance, rollover rules, and example automation costs work. Transparent pricing.',
-  },
-};
+  path: '/credits/',
+});
 
 const EXAMPLES = [
   { task: 'Send a Slack message when a Typeform submission comes in', credits: 1 },

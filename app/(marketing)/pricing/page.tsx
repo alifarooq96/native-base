@@ -1,34 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Pricing } from '@/components/Pricing';
 import { SlotPicker } from '@/components/SlotPicker';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Pricing',
   description:
     'Predictable pricing for exponential output. Senior AI engineers automating your business at a flat monthly rate. Starting at $2,499/month. Pause or cancel anytime.',
-  openGraph: {
-    title: 'Pricing',
-    description:
-      'No hiring fees. No overhead. Just senior AI engineers automating your business at a flat monthly rate. Starting at $2,499/month.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'NativeBase.AI Pricing — Flat-rate AI engineering subscriptions.',
-      },
-    ],
-  },
-};
+  path: '/pricing/',
+});
 
 const CREDIT_EXAMPLES = [
   { task: 'Send a Slack message when a Typeform submission comes in', credits: 1 },

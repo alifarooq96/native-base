@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'NativeBase vs. Traditional Rating Engines – Any Carrier, No APIs | NativeBase',
   description:
     'Traditional rating engines need carrier APIs, cost a fortune, and only work with participating carriers. NativeBase automates any carrier portal via AI browser automation—no APIs, fast setup, lower cost.',
-};
+  path: '/resources/insurance/nativebase-vs-rating-engines/',
+});
 
 const crossRef = { color: 'var(--accent)', textDecoration: 'underline', fontWeight: 500 } as const;
 

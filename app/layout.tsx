@@ -34,7 +34,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: baseUrl,
     siteName,
     title: siteName,
     description: tagline,
@@ -75,7 +74,6 @@ export const metadata: Metadata = {
     ],
   },
   manifest: '/manifest.json',
-  alternates: { canonical: baseUrl },
 };
 
 export default function RootLayout({

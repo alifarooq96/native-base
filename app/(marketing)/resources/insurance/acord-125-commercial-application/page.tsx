@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildSeoMetadata({
   title: 'Automating ACORD 125: Commercial Insurance Application | NativeBase',
   description:
     'Automate the ACORD 125 commercial insurance application. Every field—named insured, business description, locations, prior coverage—flows directly into carrier portals. No rekeying.',
-};
+  path: '/resources/insurance/acord-125-commercial-application/',
+});
 
 const linkStyle = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

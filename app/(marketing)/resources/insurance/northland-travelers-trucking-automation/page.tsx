@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Northland (Travelers) Trucking Submission Automation | NativeBase',
   description:
     'Automate Northland/Travelers trucking submissions: driver list uploads, vehicle schedules from ACORD 125, MCS-90 and BMC-91X/Form E—no rekeying into the carrier portal.',
-};
+  path: '/resources/insurance/northland-travelers-trucking-automation/',
+});
 
 const crossRef = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

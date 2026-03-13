@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Bridge ACORD Data to Berkshire Hathaway Homestate Portal | NativeBase',
   description:
     'Eliminate manual data entry into Berkshire Hathaway Guard/Homestate portals. NativeBase reads your ACORD form data and fills small commercial, workers\' comp, and BOP submissions automatically.',
-};
+  path: '/resources/insurance/acord-to-berkshire-hathaway/',
+});
 
 const linkStyle = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

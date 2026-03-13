@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
 
-export const metadata: Metadata = {
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
   title: 'Bridge ACORD Data to Travelers Portal | NativeBase',
   description:
     'Eliminate manual data entry into the Travelers portal. NativeBase reads your ACORD form data and automatically fills named insureds, locations, limits, class codes—every field. Zero rekeying.',
-};
+  path: '/resources/insurance/acord-to-travelers/',
+});
 
 const linkStyle = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

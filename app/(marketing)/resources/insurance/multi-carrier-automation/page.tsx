@@ -1,38 +1,16 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { MultiCarrierTimeCalculator } from '@/components/MultiCarrierTimeCalculator';
 import { MultiCarrierFAQ } from '@/components/MultiCarrierFAQ';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { buildFAQPageSchema } from '@/lib/faq-schema';
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://native-base-pink.vercel.app');
-
-export const metadata: Metadata = {
-  title:
-    'Multi-Carrier Insurance Automation – One Data Source, Every Portal | NativeBase',
+import { buildSeoMetadata } from '@/lib/page-metadata';
+export const metadata = buildSeoMetadata({
+  title: 'Multi-Carrier Insurance Automation – One Data Source, Every Portal | NativeBase',
   description:
     'Stop rekeying into five different carrier portals. Works within your existing tools without disrupting agent workflow—bindable quotes from a single upload in under 5 minutes.',
-  openGraph: {
-    title:
-      'One Source of Data. Every Carrier. Under 5 Minutes. | NativeBase',
-    description:
-      'Interoperability across carrier portals: one upload, AI maps to each carrier, auto-prefill everywhere. No more rekeying.',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'NativeBase – Multi-Carrier Insurance Automation',
-      },
-    ],
-  },
-};
+  path: '/resources/insurance/multi-carrier-automation/',
+});
 
 /* ── Shared style helpers ── */
 

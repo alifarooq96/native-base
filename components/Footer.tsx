@@ -19,6 +19,7 @@ const resourceGroups = [
   {
     label: 'Carrier workflows',
     links: [
+      { href: '/resources/insurance/', label: 'Insurance Hub' },
       { href: '/resources/insurance/progressive-workflow-automation/', label: 'Progressive' },
       { href: '/resources/insurance/multi-carrier-automation/', label: 'Multi-carrier' },
       { href: '/resources/insurance/geico-workflow-automation/', label: 'GEICO' },

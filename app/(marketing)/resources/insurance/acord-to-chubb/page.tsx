@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildSeoMetadata({
   title: 'Bridge ACORD Data to Chubb Portal | NativeBase',
   description:
     'Eliminate manual data entry into the Chubb portal. NativeBase reads your ACORD form data and fills high-net-worth personal lines and specialty commercial forms automatically. Zero rekeying.',
-};
+  path: '/resources/insurance/acord-to-chubb/',
+});
 
 const linkStyle = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 

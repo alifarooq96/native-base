@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InsuranceResourcePage } from '@/components/InsuranceResourcePage';
+import { buildSeoMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildSeoMetadata({
   title: 'Automating ACORD 126: General Liability Automation | NativeBase',
   description:
     'Automate ACORD 126 general liability submissions. GL class codes, limits, deductibles, additional insureds—all mapped and pushed to carrier portals. No rekeying.',
-};
+  path: '/resources/insurance/acord-126-general-liability/',
+});
 
 const linkStyle = { color: 'var(--accent)', textDecoration: 'underline' as const, fontWeight: 500 };
 
